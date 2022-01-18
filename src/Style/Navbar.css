@@ -1,0 +1,122 @@
+.logo_pic img{
+    height: 100%;
+}
+.logo_pic{
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 0 25px  25px 0;
+}
+.nav_items{
+    background-color: white;
+    border: 1px solid black;
+    opacity: 1;
+    border-radius: 20px 20px  20px 20px;
+    height: 36px;
+    display: flex;
+    margin-bottom: auto;
+    margin-top: auto;
+    justify-content: center;
+    padding: 0 1px 0 1px;
+}
+
+.nav_Section{
+justify-content: center;
+margin-top: auto;
+margin-bottom: auto;
+width: 60%;
+}
+
+.form-control-search{
+    border-radius: 20px 20px  20px 20px;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid black;
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 40%;
+    padding-left: 2%;
+    margin-right: 1%;
+}
+.chat_btn {
+    margin-left: auto;
+}
+.logo_section{
+    width: 20%;
+    display: flex;
+}
+
+#notification{
+    height: 30px;
+    color: rgb(48, 48, 48);
+}
+#notification:hover{
+    color: rgb(85, 85, 85);
+}
+.notification_option{
+    border: 2px solid rgb(110, 110, 240);
+    border-radius: 25px ;
+    padding:0 5px 0 5px;
+    margin-left: 8px;
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.notification_option a{
+    text-decoration: none;
+    color: black;
+}
+.notification_option a:hover{
+    text-decoration: none;
+    color: black;
+}
+.notification_option:hover{
+    background-color: rgb(197, 197, 197);
+    font-weight: bold;
+}
+
+#bg-nested-dropdown{
+background-color: rgb(231, 231, 231);
+color: black;
+border-radius: 20px 20px  20px 20px;
+height: 30px;
+font-weight: 500;
+Margin-right: 15px;
+margin-top: 2px;
+}
+#bg-nested-dropdown:hover{
+    background-color: rgb(187, 187, 187);
+}
+#chat_button{
+    background-color: rgb(248, 181, 56);
+    border-radius: 25px 0px 0px 25px;
+    border-top:2px solid white; ;
+    border-bottom:2px solid white; ;
+    border-left:2px solid white; ;
+}
+#chat_button:hover{
+    background-color: rgb(255, 213, 134);
+}
+#Nav_option:active{
+background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
+}
+
+@media only screen and (max-width: 1000px) {
+    .nav_items{
+        display: none;
+    }
+    .chat_btn{
+        display: none;
+    }
+  }
+  
+@media only screen and (max-width: 1198px) {
+    #notification{
+       display: none;
+    }
+    #num_notification{
+        left:13px;
+    }
+
+  }
+
