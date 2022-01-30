@@ -1,9 +1,9 @@
 import { API_URL } from "../../data/ApiUrl";
-
-const register = (firstName,lastnName,email,designation, password) => {
+import axios from "axios";
+const register = (firstName,lastName,email,designation, password) => {
   return axios.post(API_URL+"register", {
     firstName,
-    lastnName,
+    lastName,
     email,
     designation,
     password    
@@ -16,14 +16,13 @@ const register = (firstName,lastnName,email,designation, password) => {
 const login = (email, password) => {
     return axios.post(API_URL+"authenticate", {
       email,
-      password,
-    }),{
+      password
+    },{
       headers: {
         'Content-Type': 'application/json'  } 
-    });
+    })
     .then((response) => {
       if (response.data) {
-        console.log(response)
         console.log(response.data)
         localStorage.setItem("user", JSON.stringify(response.data));
       }
