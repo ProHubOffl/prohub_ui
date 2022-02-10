@@ -3,12 +3,15 @@ import "../../Style/Signup.css";
 import logo from "../../images/prohub.jpg";
 import { NavLink } from 'react-router-dom';
 import authService from '../../service/authentication/AuthService';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PasswordStrengthMeter from '../Validators/PasswordStrengthMeter';
+import zxcvbn from 'zxcvbn';
 
 function Signup() {
     const currentUser = authService.getCurrentUser()
     if(currentUser != null){
-        window.location.replace('/loading')
+        window.location.replace('/home')
     }
     const[firstName,setFirstName] = useState('')
     const[lastName,setLastName] = useState('')
@@ -20,14 +23,34 @@ function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(password != confirmPassword) {
+        const testResult = zxcvbn(password);
+        if(password.length<8){
+            setpasswordErrorMsg("Password Length is Very Short");
+        }
+        else if(testResult.score == 0){
+            setpasswordErrorMsg("Your Password is very Weak");
+        }
+        else if(testResult.score == 1){
+            setpasswordErrorMsg("Your Password is Weak");
+        }
+        else if(password != confirmPassword) {
             setpasswordErrorMsg("Passwords Not Matching");
         } else {
             authService.register(firstName,lastName,email,designation,password)
         .then(response => {
             console.log(response)
-            alert("Registered successfully")
-            window.location.replace('/authenticate')
+            
+            toast.success('Your Account is Successfully Registered!', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });        
+            setTimeout(() => { window.location.replace('/authenticate') }, 2500);
+            
         })
         .catch(err =>{ 
             console.log(err)
@@ -46,6 +69,17 @@ function Signup() {
 
     return (
         <div className="container">
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                />
             <div className="row">
                 <div className="col-md-10 mx-md-auto bg-container">
                     <div className="col-md-9 mt-60 mx-md-auto">
@@ -108,6 +142,7 @@ function Signup() {
                                                         onChange = {(e) => setEmail(e.target.value)}
                                                         required
                                                     />
+                                                    
                                                     <input 
                                                         type="password" 
                                                         id="password" 
@@ -116,14 +151,15 @@ function Signup() {
                                                         value={password}
                                                         onChange = {(e) => setPassword(e.target.value)}
                                                         required
-                                                    />
+                                                    />  
+                                                    <PasswordStrengthMeter password={password}/>                     
                                                     <input 
                                                         type="password" 
                                                         className="form-control" 
                                                         placeholder="Confirm Password"
                                                         value={confirmPassword}
                                                         onChange = {(e) => setConfirmPassword(e.target.value)}
-                                                        required
+                                                        required                                               
                                                     />
                                                     <div>
                                                         <h6>{passwordErrorMsg}</h6>

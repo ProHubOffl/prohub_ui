@@ -53,7 +53,7 @@ const Logo=styled(Link)`
     }
     `;
 
-const image_section = styled(Link)`
+const Image_section = styled(Link)`
     ${NavLink}
     `;
 
@@ -117,20 +117,20 @@ function Navbar(props) {
     return (       
         <div>
             <Nav>
-                <div class="logo_section">
-                    <div class="logo_pic" >
-                        <image_section href="#" onClick={()=>{}}>
+                <div className="logo_section">
+                    <div className="logo_pic" >
+                        <Image_section href="#" onClick={()=>{}}>
                             <img src={logo} alt='logo'/>
-                        </image_section>
+                        </Image_section>
                     </div>
-                    <Logo to="/" onClick={()=>{}}>
+                    <Logo to="/home" onClick={()=>{}}>
                         ProHub
                     </Logo>
                 </div>
 
                 <MenuBars onClick={props.toggle}/>
-                <div class="nav_Section">
-                    <div class="nav_items">
+                <div className="nav_Section">
+                    <div className="nav_items">
                         <NavMenu>
                         {    
                             menuData.map((item,index)=>(                          
@@ -152,8 +152,8 @@ function Navbar(props) {
                         }
                         </NavMenu>
 
-                        <input class="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
-                        <div class="notification_option">
+                        <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
+                        <div className="notification_option">
                             <a href='#'>
                                 Notification
                                 <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9} id="num_notification">
@@ -164,10 +164,10 @@ function Navbar(props) {
                     </div>
                 </div>
 
-                <div class="chat_btn">
+                <div className="chat_btn">
                     {['right'].map((anchor) => (
                         <React.Fragment key={anchor}>
-                            <button onClick={toggleDrawer(anchor, true)} class="btn btn-info btn-lg" id="chat_button">
+                            <button onClick={toggleDrawer(anchor, true)} className="btn btn-info btn-lg" id="chat_button">
                                 <TiArrowBack/> <b>Chat</b> <BsChatLeftTextFill/>
                             </button> 
                                 <Drawer

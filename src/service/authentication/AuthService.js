@@ -1,5 +1,6 @@
 import { API_URL } from "../../data/ApiUrl";
 import axios from "axios";
+
 const register = (firstName,lastName,email,designation, password) => {
   return axios.post(API_URL+"register", {
     firstName,
@@ -33,6 +34,7 @@ const login = (email, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  window.location.replace('/authenticate')
 };
 
 const getCurrentUser = () => {
