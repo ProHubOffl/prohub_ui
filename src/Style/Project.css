@@ -1,0 +1,32 @@
+.project-form {
+    color: #003847;
+}
+
+.project-form .row {
+    margin-bottom: 2em;
+}
+
+.project-form input[type="text"],input[type="date"],input[type="number"],textarea {
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+.project-form label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.project-form .modal-header, .modal-footer{
+    background-color: #E2ECEF;
+}
+
+.project-form  #btn-close{
+    background-color: #b5c7cd;
+    color: #000;
+    border-radius: 8px;
+}
+.project-form  #btn-create{
+    background-color: #3c6873;
+    border-radius: 8px;
+}

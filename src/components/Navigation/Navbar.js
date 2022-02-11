@@ -6,6 +6,7 @@ import { dashboardData } from '../../data/Dashboarddata';
 import { projectData } from '../../data/Projectdata';
 import Bars from "../../assets/bars.svg";
 import logo from "../../images/prohub.png"
+import CreateProject from "../Pages/CreateProject";
 
 import "../../Style/Navbar.css"
 import { BsChatLeftTextFill } from "react-icons/bs";
@@ -147,6 +148,9 @@ function Navbar(props) {
                                     <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
                                         ))
                                     }
+                                    <button type="button" className="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Create Project
+                                    </button>
                                 </DropdownButton>                           
                         ))
                         }
@@ -180,7 +184,10 @@ function Navbar(props) {
                         </React.Fragment>   
                     ))}
                 </div>     
-            </Nav>           
+            </Nav>
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <CreateProject />
+            </div>            
         </div>         
     )
 }
