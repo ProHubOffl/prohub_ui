@@ -6,8 +6,10 @@ const PasswordStrengthMeter = ({ password }) => {
   const num = testResult.score * 100/4;
 
   const createPassLabel = () => {
-      if(password.length<8){
-        return 'Password must be contain 8 characters';
+      if(password.length == 0) {
+          return '';
+      } else if(password.length < 8){
+          return 'Password must be contain 8 characters';
       } else {
         switch(testResult.score) {
             case 0:

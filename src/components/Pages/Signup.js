@@ -21,7 +21,7 @@ function Signup() {
     const[passwordErrorMsg,setpasswordErrorMsg] = useState('')
     const[confirmPassword,setConfirmPassword] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const testResult = zxcvbn(password);
         if(password.length<8){
@@ -36,35 +36,33 @@ function Signup() {
         else if(password != confirmPassword) {
             setpasswordErrorMsg("Passwords Not Matching");
         } else {
-            authService.register(firstName,lastName,email,designation,password)
-        .then(response => {
-            console.log(response)
-            
-            toast.success('Your Account is Successfully Registered!', {
-                position: "top-center",
-                autoClose: 2500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+            await authService.register(firstName,lastName,email,designation,password)
+            .then(response => {
+                console.log(response)
+                
+                toast.success('Your Account is Successfully Registered!', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
                 });        
-            setTimeout(() => { window.location.replace('/authenticate') }, 2500);
-            
-        })
-        .catch(err =>{ 
-            console.log(err)
-            setpasswordErrorMsg("Unable to Signup");
-        })
-        setFirstName('')
-        setLastName('')
-        setDesignation('')
-        setEmail('')
-        setPassword('')
-        setConfirmPassword('')
-        setpasswordErrorMsg('')
-        }
-        
+                setTimeout(() => { window.location.replace('/authenticate') }, 2500);
+                setFirstName('')
+                setLastName('')
+                setDesignation('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
+                setpasswordErrorMsg('')
+            })
+            .catch(err =>{ 
+                console.log(err)
+                setpasswordErrorMsg("Unable to Signup");
+            })
+        }       
     }
 
     return (
