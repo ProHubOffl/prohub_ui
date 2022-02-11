@@ -11,6 +11,14 @@ import { MdLogout } from "react-icons/md";
 import logo from "../../images/prohub.png"
 import Badge from '@mui/material/Badge';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import AuthService from '../../service/authentication/AuthService';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
 
 const Dropdowncontainer=styled.div`
@@ -26,6 +34,10 @@ const Dropdowncontainer=styled.div`
     transition: 0.3s ease-in-out;
     display:${({is_open})=>(is_open? 'block':'none')};
     top:${({is_open})=>(is_open? '0':'-100%')};
+`;
+
+const Image_section = styled(Link)`
+    
 `;
 
 const Icon=styled.div`
@@ -71,7 +83,27 @@ const Logo=styled(Link)`
     }
 `;
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
 function DropdownList(props){
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    
+    const handle_logout = () => {
+      AuthService.logout()
+      setOpen(false);
+    };
+
     return(
             <div>
                 <Dropdowncontainer is_open={props.is_open}>
@@ -80,10 +112,10 @@ function DropdownList(props){
                     </Icon>
                 <DropdownMenu>
                 
-                    <div class="logo_pic_sn" >
-                        <image_section to="/" onClick={()=>{}}>
+                    <div className="logo_pic_sn" >
+                        <Image_section to="/" onClick={()=>{}}>
                             <img src={logo} alt='logo'/>
-                        </image_section>
+                        </Image_section>
                     </div>
                     <Logo to="/" onClick={()=>{}}>
                         ProHub
@@ -106,21 +138,39 @@ function DropdownList(props){
                             </DropdownButton>
                     ))
                    }
-                    <div class="section3">
-                        <input class="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
+                    <div className="section3">
+                        <input className="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
                     </div>
-                    <div class="section4">
-                        <div class="notification_option_sn">
+                    <div className="section4">
+                        <div className="notification_option_sn">
                             Notification
                             <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9}>
                                 <NotificationsActiveIcon id="notification_sn" />
                             </Badge>
                         </div>
                     </div>
-                    <div class="section5" >
-                        <a href="/" class="btn btn-info btn-lg" id="">
-                             Logout <MdLogout/>
-                        </a>    
+                    <div className="section5" >
+                            <button className="btn btn-info btn-lg" onClick={handleClickOpen}>
+                                Logout <MdLogout/>
+                            </button>
+                                <Dialog
+                                open={open}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                onClose={handleClose}
+                                aria-describedby="alert-dialog-slide-description"
+                                >
+                                <DialogTitle>{"Use ProHub's service"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-slide-description">
+                                    Are You Sure You Want To Log Out?
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>No</Button>
+                                    <Button onClick={handle_logout}>Yes</Button>
+                                </DialogActions>
+                                </Dialog>
                     </div> 
                 </DropdownMenu>
                 </Dropdowncontainer>                

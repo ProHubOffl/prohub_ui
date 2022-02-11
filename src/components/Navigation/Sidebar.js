@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 //All the svg files
 import Documents from "../../assets/draft.svg";
@@ -8,12 +8,21 @@ import Backlog from "../../assets/Backlog.svg";
 import Board from "../../assets/Board.svg";
 import PowerOff from "../../assets/power-off-solid.svg";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import AuthService from '../../service/authentication/AuthService';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import UserImageService from "../../service/userimage/UserImageService";
+import Unknown_image from "../../images/Unknown.png"
 
 const Container = styled.div`
     position: fixed;
-    margin-top: 4.5rem;
+    margin-top: 22vh;
     .active {
       border-right: 4px solid orange;
 
@@ -24,13 +33,14 @@ const Container = styled.div`
     }
 `;
 
-const Button = styled.button`
+const ButtonExpand = styled.button`
     background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
     border: none;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    margin: 6.5rem 0 0 0.25rem;
+    //margin: 6.5rem 0 0 0.25rem;
+    margin: 0 0 0 0.25rem;
     cursor: pointer;
     transition: border 0.2s;
     :hover{
@@ -142,19 +152,16 @@ const Text = styled.span`
 `;
 
 const Profile = styled.div`
-    width: ${(props) => (props.clicked ? "17rem" : "3rem")};
-    padding-left:${(props) => (props.clicked ? "1.8rem" : "0rem")};
+    width: ${(props) => (props.clicked ? "auto" : "3rem")};
     height: 4rem;
-    margin: 1.5rem 0 0.5rem;
-    //padding: 0.5rem 1rem;
-    //border: 2px solid blue; 
+    margin: 1.5rem 0 0.5rem 0;
     border-radius: 0px 20px 20px 0px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: ${(props) => (props.clicked ? "11rem" : "0")};
-
+    padding-left: ${(props) => (props.clicked ? "0.25rem" : "0")};
+    margin-left: auto;
     background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
     color: white;
     transition: all 0.3s ease;
@@ -180,13 +187,13 @@ const Details = styled.div`
 `;
 
 const Name = styled.div`
-    padding: 0 1.5rem;
-
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    padding: 0 1rem 0 1rem;
   h4 {
     display: inline-block;
   }
@@ -224,34 +231,95 @@ const Logout = styled.button`
   }
 `;
 
-const Sidebar = () => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function Sidebar (){
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const [imageData, setImageData] = useState([]);
+  const [HasUserProfile, SetHasUserProfile] = useState(false);
 
   const [profileClick, setprofileClick] = useState(false);
   const handleProfileClick = () => setprofileClick(!profileClick);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  const handle_logout = () => {
+    AuthService.logout()
+    setOpen(false);
+  };
+
+  const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
+  const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
+
+  useEffect(() => {
+    UserImageService.getImage()
+        .then(result => {
+            console.log(result.data)
+            setImageData(result.data)
+            SetHasUserProfile(true)
+        })
+        .catch(error => console.log(error))
+  },[])
+
   return (
     <Container>
-        <Button clicked={click} onClick={() => handleClick()}></Button>
+        <ButtonExpand clicked={click} onClick={() => handleClick()}></ButtonExpand>
       <SidebarContainer>
           <Profile clicked={profileClick}>
-            <img
-            onClick={() => handleProfileClick()}
-            src="https://picsum.photos/200"
-            alt="Profile"
-            />
+            {
+            (HasUserProfile)
+            ?
+              <img
+              onClick={() => handleProfileClick()}
+              src={imageData}
+              alt="Profile"
+              />
+            :
+              <img
+              onClick={() => handleProfileClick()}
+              src={Unknown_image}
+              alt="Profile"
+              />
+            }
             <Details clicked={profileClick}>
             <Name>
-                <h4>S&nbsp;Sivanujan</h4>
+                <h4>{first_name}&nbsp;{last_name}</h4>
                 <a href="#">View&nbsp;Profile</a>
-            </Name>
+            </Name>  
             <Logout>
-                <img src={PowerOff} alt="logout" />
-            </Logout>
+                    <img src={PowerOff} alt="logout" onClick={handleClickOpen}/>
+                    <Dialog
+                      open={open}
+                      TransitionComponent={Transition}
+                      keepMounted
+                      onClose={handleClose}
+                      aria-describedby="alert-dialog-slide-description"
+                    >
+                      <DialogTitle>{"Use ProHub's service"}</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                          Are You Sure You Want To Log Out?
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>No</Button>
+                        <Button onClick={handle_logout}>Yes</Button>
+                      </DialogActions>
+                    </Dialog>
+            </Logout>           
             </Details>
-          </Profile>
-          
+          </Profile>    
         <SlickBar clicked={click}>
           <Item
             onClick={() => setClick(false)}
