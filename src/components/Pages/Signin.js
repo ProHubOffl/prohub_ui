@@ -22,14 +22,13 @@ function Signin() {
         .then(response => {
             console.log(response)
             window.location.replace('/home')
+            setEmail('')
+            setPassword('')     
         })
         .catch(err =>{ 
             console.log(err)
             setErrorMsg("Invalid credentials");
-        })
-        setEmail('')
-        setPassword('')
-        
+        })   
     }
     return (
         <div className="container">
