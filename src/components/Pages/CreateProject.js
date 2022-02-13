@@ -54,8 +54,8 @@ function CreateProject() {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary fw-bolder" id="btn-close" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-create">Create</button>
+                                <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Create</button>
                             </div>
                         </div>
                     </form>

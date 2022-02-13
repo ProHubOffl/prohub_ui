@@ -1,7 +1,6 @@
 import React from 'react';
 import styled,{css} from 'styled-components';
 import {Link} from "react-router-dom";
-import { menuData } from '../../data/Menudata'
 import { dashboardData } from '../../data/Dashboarddata';
 import { projectData } from '../../data/Projectdata';
 import Bars from "../../assets/bars.svg";
@@ -133,27 +132,23 @@ function Navbar(props) {
                 <div className="nav_Section">
                     <div className="nav_items">
                         <NavMenu>
-                        {    
-                            menuData.map((item,index)=>(                          
-                               
-                                <DropdownButton title={item.title} id="bg-nested-dropdown" key={index}>
-                                    {
-                                    (item.key === 1)
-                                    ?
+                            <DropdownButton title="Active Projects" id="bg-nested-dropdown">
+                                {
                                     projectData.map((item1,index1)=>(           
-                                    <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index1} href="#">{item1.sub1}</Dropdown.Item>
-                                        ))
-                                    :
+                                        <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index1} href="#">{item1.sub1}</Dropdown.Item>
+                                    ))
+                                }
+                                <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Create Project
+                                </button>
+                            </DropdownButton>
+                            <DropdownButton title="Dashboard" id="bg-nested-dropdown">
+                                {
                                     dashboardData.map((item2,index2)=>(           
                                     <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
-                                        ))
-                                    }
-                                    <button type="button" className="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Create Project
-                                    </button>
-                                </DropdownButton>                           
-                        ))
-                        }
+                                    ))
+                                }
+                            </DropdownButton>
                         </NavMenu>
 
                         <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>

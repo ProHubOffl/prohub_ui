@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { menuData } from '../../data/Menudata'
 import { dashboardData } from '../../data/Dashboarddata';
 import { projectData } from '../../data/Projectdata';
 import {Link} from 'react-router-dom'
@@ -121,25 +120,26 @@ function DropdownList(props){
                         ProHub
                     </Logo>
                 
-                   {
-                    menuData.map((item,index)=>(                          
-                            <DropdownButton as={ButtonGroup} title={item.title}  key={index}  id="bg-nested-dropdown-sn">
-                                {
-                                (item.key === 1)
-                                ?
-                                projectData.map((item,index_sub1)=>(           
-                                <Dropdown.Item  id="Nav_option_sn"  eventKey={item.event_key} to={item.link} onClick={()=>{}} key={index_sub1}>{item.sub1}</Dropdown.Item>
-                                    ))
-                                :
-                                dashboardData.map((item,index_sub2)=>(           
-                                <Dropdown.Item  id="Nav_option_sn" eventKey={item.event_key} to={item.link} onClick={()=>{}} key={index_sub2}>{item.sub2}</Dropdown.Item>
-                                    ))
-                                }
-                            </DropdownButton>
-                    ))
-                   }
-                    <div className="section3">
-                        <input className="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
+                    <DropdownButton title="Active Projects" id="bg-nested-dropdown-sn">
+                        {
+                            projectData.map((item1,index1)=>(           
+                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index1} href="#">{item1.sub1}</Dropdown.Item>
+                            ))
+                        }
+                        <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Create Project
+                        </button>
+                    </DropdownButton>
+                    <DropdownButton title="Dashboard" id="bg-nested-dropdown-sn">
+                        {
+                            dashboardData.map((item2,index2)=>(           
+                            <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
+                            ))
+                        }
+                    </DropdownButton>
+
+                    <div class="section3">
+                        <input class="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">

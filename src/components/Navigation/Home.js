@@ -8,6 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader"
 import "../../Style/Home.css"
 import logo from "../../images/prohub.png"
 import { css } from "@emotion/react";
+import UpdateProject from "../Pages/UpdateProject";
 
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -31,7 +32,7 @@ function Home(props) {
     return (
       <Router>
         <div>
-          {
+        {
             loading ?
             (<div className='Home_loading'>              
                 <img src={logo} alt='logo'/>            
@@ -48,11 +49,11 @@ function Home(props) {
             <Navbar toggle={toggle} />
             <DropdownList is_open={is_this_open} toggle={toggle} />
             <Sidebar/> 
+            <UpdateProject />
             <HomeRouting/>
             </>
             )
           }
-
         </div>
       </Router>
     );
