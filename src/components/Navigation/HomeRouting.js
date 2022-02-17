@@ -6,25 +6,19 @@ import Documents from "../Pages/Documents";
 import Tickets from "../Pages/Tickets";
 
 import {
-    BrowserRouter as Router,
-    Link,
-    Navigate,
-    Outlet,
     Route,
-    Routes,
-    useLocation,
     Switch
   } from "react-router-dom";
 
 function Routing() {
-    const location = useLocation();
     return (
-            <Switch location={location} key={location.pathname}>
+            <Switch>
                 <Route exact path="/Announcement" component={Announcement} />
                 <Route exact path="/Backlog" component={Backlog} />
                 <Route exact path="/Tickets" component={Tickets} />
                 <Route exact path="/document" component={Documents} />
-                <Route exact path="/Board" component={Board} />            
+                <Route exact path="/Board" component={Board} />
+                <Route exact path="*" component={Board} />
             </Switch>        
     )
 }

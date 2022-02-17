@@ -9,10 +9,6 @@ import PasswordStrengthMeter from '../Validators/PasswordStrengthMeter';
 import zxcvbn from 'zxcvbn';
 
 function Signup() {
-    const currentUser = authService.getCurrentUser()
-    if(currentUser != null){
-        window.location.replace('/home')
-    }
     const[firstName,setFirstName] = useState('')
     const[lastName,setLastName] = useState('')
     const[designation,setDesignation] = useState('')
