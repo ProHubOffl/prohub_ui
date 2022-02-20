@@ -8,10 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Signin() {
-    const currentUser = authService.getCurrentUser()
-    if(currentUser != null){
-        window.location.replace('/home')
-    }
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const[errorMsg,setErrorMsg] = useState('')
@@ -21,7 +17,7 @@ function Signin() {
         authService.login(email,password)
         .then(response => {
             console.log(response)
-            window.location.replace('/home')
+            window.location.replace('/Board')
             setEmail('')
             setPassword('')     
         })
