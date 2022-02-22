@@ -32,32 +32,37 @@ function Signup() {
         else if(password != confirmPassword) {
             setpasswordErrorMsg("Passwords Not Matching");
         } else {
+            document.getElementById("signup").disabled = true;
             await authService.register(firstName,lastName,email,designation,password)
             .then(response => {
                 console.log(response)
-                
-                toast.success('Your Account is Successfully Registered!', {
-                    position: "top-center",
-                    autoClose: 2500,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });        
-                setTimeout(() => { window.location.replace('/authenticate') }, 2500);
-                setFirstName('')
-                setLastName('')
-                setDesignation('')
-                setEmail('')
-                setPassword('')
-                setConfirmPassword('')
-                setpasswordErrorMsg('')
+                if (response.data == 200) {
+                    toast.success('Your Account is Successfully Registered!', {
+                        position: "top-center",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });        
+                    setTimeout(() => { window.location.replace('/authenticate') }, 2500);
+                    setFirstName('')
+                    setLastName('')
+                    setDesignation('')
+                    setEmail('')
+                    setPassword('')
+                    setConfirmPassword('')
+                    setpasswordErrorMsg('')
+                } else {
+                    setpasswordErrorMsg("Unable to Signup. Please check your email address")
+                }
             })
             .catch(err =>{ 
                 console.log(err)
                 setpasswordErrorMsg("Unable to Signup");
             })
+            document.getElementById("signup").disabled = false;
         }       
     }
 
