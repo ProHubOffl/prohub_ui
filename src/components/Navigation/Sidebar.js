@@ -238,7 +238,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function Sidebar (){
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
-  const [imageData, setImageData] = useState([]);
+  const [imageData, setImageData] = useState('');
   const [HasUserProfile, SetHasUserProfile] = useState(false);
 
   const [profileClick, setprofileClick] = useState(false);
@@ -282,7 +282,7 @@ function Sidebar (){
             ?
               <img
               onClick={() => handleProfileClick()}
-              src={imageData}
+              src={`data:image/jpeg;base64,${imageData}`}
               alt="Profile"
               />
             :
