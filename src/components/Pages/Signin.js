@@ -4,7 +4,6 @@ import "../../Style/Signin.css"
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import authService from '../../service/authentication/AuthService';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Signin() {
@@ -87,7 +86,7 @@ function Signin() {
                                                         </button>
                                                 </div>
                                                 <div>
-                                                    <h6 className="text-center mt-3"><span className="text-muted">Forgot </span><Link to="#" id="h6-forgot">Password</Link></h6>
+                                                    <h6 className="text-center mt-3"><Link to="/forgotPassword" id="h6-forgot">Forgot Password</Link></h6>
                                                 </div>
                                             </div>
                                         </form>
