@@ -1,0 +1,92 @@
+
+.backlog {
+    color: #003847;
+}
+
+.backlog .row {
+    margin-bottom: 2em;
+}
+
+.backlog input[type="text"], input[type="number"], textarea{
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+
+.backlog label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.backlog_left {
+    height: 75vh;
+    background: #eef0f0;
+    padding: 15px;
+    padding-top: 5px;
+    border-radius: 10px;
+}
+
+#backlog-footer {
+    height: 2em;
+    background: #000;
+    position: relative;
+    margin-bottom: 0;
+}
+
+#btn-backlog-create {
+    background-color: #3c6873;
+    border-radius: 8px;
+    margin-top: -15px;
+}
+
+.backlog_right {
+    background: #eef0f0;
+    height: 75vh;
+    border-radius: 10px;
+    margin-top: 0px;
+    padding: 10px;
+    overflow: auto;
+}
+
+.backlog-card {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+
+#backlog-label {
+    background: #78cfbf;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+}
+#backlog-label p {
+    margin: auto;
+}
+
+#backlog-icon{
+    background: #6c757d;
+    display: flex;
+    border-radius: 5px;
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+
+#backlog-icon button {
+    margin-left: -12px;
+    color: #fff;
+}
+
+.backlog_right .row {
+    margin-bottom: 1em;
+}
