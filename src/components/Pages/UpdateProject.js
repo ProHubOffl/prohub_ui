@@ -1,23 +1,36 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import "../../Style/Project.css";
 import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
+import {Animated} from "react-animated-css";
 
 function UpdateProject() {
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        setShow(false);
+    }
+
+    const showpopup =()=>{
+        setShow(true);
+    }
+
     return (
-        <div className="project-form">
-            <button type="button" className="btn btn-primary fw-bolder" id="btn-update-project" data-bs-toggle="modal" data-bs-target="#UpdateProject">
+        <>
+            <button type="button"  id="btn-update-project" onClick={showpopup}>
                 Update Project
             </button>
-
-            <div className="modal fade" id="UpdateProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div className="modal-dialog modal-xl">
-                    
+        {
+        show
+        ?
+        <Animated animationIn="slideInDown" animationOut="slideOutDown" animationInDuration={4000} animationOutDuration={4000} isVisible={show}>
+            <div className="project-form">
+                <div className="modal-xl modal-box">                   
                     <form>
-                        <div className="modal-content">
+                        <div className="modal-content" id="modal-content-box">
                             <div className="modal-header">
                                 <h3 className="modal-title fw-bolder" id="staticBackdropLabel">Update Project</h3>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
                             </div>
                             <div className="modal-body">
                                 <div className="row">
@@ -83,8 +96,8 @@ function UpdateProject() {
                                                     <td>srjey3@gmail.com</td>
                                                     <td>Developer</td>
                                                     <td>
-                                                        <button type="button" className="btn btn-danger mx-1" onclick="" data-bs-toggle="modal" data-bs-target="#DeleteUser" ><i className="bi bi-trash-fill"></i></button>
-                                                        <button type="button" className="btn btn-secondary" onclick="" data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
+                                                        <button type="button" className="btn btn-danger mx-1" ><i className="bi bi-trash-fill"></i></button>
+                                                        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -93,23 +106,26 @@ function UpdateProject() {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" onClick={handleClose}>Cancel</button>
                                 <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Update</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-
             <div className="modal fade" id="CreateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <CreateUser />
             </div>
             
             <div className="modal fade" id="UpdateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <UpdateUser />
-            </div>
-            
-        </div>
+            </div>           
+        
+        </Animated>
+        :
+        ""
+        }
+        </>
     );
 }
 

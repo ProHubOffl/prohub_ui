@@ -72,7 +72,6 @@ width: 60%;
 }
 .notification_option:hover{
     background-color: rgb(197, 197, 197);
-    font-weight: bold;
 }
 
 #bg-nested-dropdown{
@@ -110,7 +109,7 @@ background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
     }
   }
   
-@media only screen and (max-width: 1198px) {
+@media only screen and (max-width: 1202px) {
     #notification{
        display: none;
     }

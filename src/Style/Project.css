@@ -1,5 +1,20 @@
 .project-form {
-    color: #003847;
+    color: #003847;  
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.466);
+    overflow-y: scroll;
+}
+
+.modal-box{
+    margin: 0 auto;
+    padding: 1.75rem 0 0 0;
+}
+
+#modal-content-box{
+    border: 2px solid #003847;   
 }
 
 .project-form .row {
@@ -51,3 +66,4 @@
 #btn-CreateUser {
     background-color: #3c6873;
 }
+
