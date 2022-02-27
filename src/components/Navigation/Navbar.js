@@ -115,7 +115,7 @@ function Navbar(props) {
       );
 
     return (       
-        <div>
+        <div  className="pb-5">
             <Nav>
                 <div className="logo_section">
                     <div className="logo_pic" >
