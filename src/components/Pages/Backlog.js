@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, {useState} from "react";
 import "../../Style/Backlog.css"
 
 const Backlog = () => {
@@ -54,7 +53,7 @@ const Backlog = () => {
                 <div className="row">
                 <div className="col-md-12">
                     <label for="description" className="form-label">Description *</label> <br></br>
-                    <textarea width="100%" rows="10" className="form-control border-secondary" id="description" placeholder="Enter description" required>
+                    <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" required>
                     </textarea>
                 </div>
                 </div>
