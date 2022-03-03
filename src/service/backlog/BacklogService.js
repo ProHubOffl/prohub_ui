@@ -1,30 +1,57 @@
 import { API_URL } from "../../data/ApiUrl";
-import {headers} from "../../data/RequestHeader";
 import axios from "axios";
+import AuthService from "../authentication/AuthService";
+
+const user = AuthService.getCurrentUser();
 
 const getBacklogByProject = (projectName) => {
     const URL = API_URL + projectName + "/backlog";
-    return axios.get(URL, {headers: headers});
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    });
 }
 
 const getBacklogByBacklogId = (backlogId) => {
-    const URL = API_URL + "/backlog/" + backlogId;
-    return axios.get(URL, {headers: headers})
+    const URL = API_URL + "backlog/" + backlogId;
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
 }
 
 const addBacklogItem = (newBacklogItem) => {
-    const URL = API_URL + "/backlog";
-    return axios.post(URL, newBacklogItem, {headers: headers})
+    const URL = API_URL + "backlog";
+    return axios.post(URL, newBacklogItem, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
 }
 
 const updateBacklogItem = (updatedBacklogItem, backlogId) => {
-    const URL = API_URL + "/backlog/" + backlogId;
-    return axios.put(URL, updatedBacklogItem, {headers: headers})
+    const URL = API_URL + "backlog/" + backlogId;
+    return axios.put(URL, updatedBacklogItem, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
 }
 
 const deleteBacklogItem = (backlogId) => {
-    const URL = API_URL + "/backlog/" +  backlogId;
-    return axios.delete(URL, {headers: headers})
+    const URL = API_URL + "backlog/" +  backlogId;
+    return axios.delete(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
 }
 
 export default {
