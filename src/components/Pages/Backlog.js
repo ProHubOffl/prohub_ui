@@ -141,6 +141,9 @@ const Backlog = () => {
             <div className="backlog_right">
               <div className="backlog_right_body">
                   {
+                    backlogError.length > 0 ?
+                    <div id="backlog-error">{backlogError}</div>
+                    :
                     backlogs.map(backlog => {
                       var backlog_state = '';
                       var backlog_color_id = '';

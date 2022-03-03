@@ -15,7 +15,7 @@ const Board = () => {
     })
     .catch(err => {
       console.log(err)
-      setBacklogError('Unable to fetch backlog list at the moment')
+      setBacklogError('Unable to fetch the backlog board at the moment')
     })
   },[])
 
@@ -34,6 +34,9 @@ const Board = () => {
               </div>
               <div className="board-body">
                 {
+                  backlogError.length > 0 ?
+                  <div id="backlog-error">{backlogError}</div>
+                  :
                   backlogs.filter(backlog => backlog.status === 'TO_DO').map(backlog => {
                     return (
                       <div className="board-card" id="todo">
@@ -58,6 +61,9 @@ const Board = () => {
               </div>
               <div className="board-body">
                   {
+                    backlogError.length > 0 ?
+                    <div id="backlog-error">{backlogError}</div>
+                    :
                     backlogs.filter(backlog => backlog.status === 'IN_PROGRESS').map(backlog => {
                       return (
                         <div className="board-card" id="in-progress">
@@ -82,6 +88,9 @@ const Board = () => {
               </div>
               <div className="board-body">
                   {
+                    backlogError.length > 0 ?
+                    <div id="backlog-error">{backlogError}</div>
+                    :
                     backlogs.filter(backlog => backlog.status === 'FINISHED').map(backlog => {
                       return (
                         <div className="board-card" id="done">
@@ -106,6 +115,9 @@ const Board = () => {
               </div>
               <div className="board-body">
                 {
+                  backlogError.length > 0 ?
+                  <div id="backlog-error">{backlogError}</div>
+                  :
                   backlogs.filter(backlog => backlog.status === 'APPROVED').map(backlog => {
                     return (
                       <div className="board-card" id="approved">
