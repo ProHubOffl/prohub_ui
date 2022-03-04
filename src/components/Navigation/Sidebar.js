@@ -19,6 +19,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import UserImageService from "../../service/userimage/UserImageService";
 import Unknown_image from "../../images/Unknown.png"
+import Tooltip from '@mui/material/Tooltip';
 
 const Container = styled.div`
     position: fixed;
@@ -321,47 +322,57 @@ function Sidebar (){
             </Details>
           </Profile>    
         <SlickBar clicked={click}>
-          <Item
-            onClick={() => setClick(false)}
-            exact
-            activeClassName="active"
-            to="/Board"
-          >
-            <img src={Board} alt="Board" />
-            <Text clicked={click}>Board</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/Backlog"
-          >
-            <img src={Backlog} alt="Backlog" />
-            <Text clicked={click}>Backlog</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/Document"
-          >
-            <img src={Documents} alt="Document" />
-            <Text clicked={click}>Document</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/Announcement"
-          >
-            <img src={Announcement} alt="Announcement" />
-            <Text clicked={click}>Announcement</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/Tickets"
-          >
-            <img src={Tickets} alt="Tickets" />
-            <Text clicked={click}>Tickets</Text>
-          </Item>
+          <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
+            <Item
+              onClick={() => setClick(false)}
+              exact
+              activeClassName="active"
+              to="/Board"
+            >
+              <img src={Board} alt="Board" />
+              <Text clicked={click}>Board</Text>
+            </Item>
+          </Tooltip>
+          <Tooltip title={click ? "" : "Backlog"} placement="right" arrow="true">
+            <Item
+              onClick={() => setClick(false)}
+              activeClassName="active"
+              to="/Backlog"
+            >
+              <img src={Backlog} alt="Backlog" />
+              <Text clicked={click}>Backlog</Text>
+            </Item>
+          </Tooltip>
+          <Tooltip title={click ? "" : "Document"} placement="right" arrow="true">
+            <Item
+              onClick={() => setClick(false)}
+              activeClassName="active"
+              to="/Document"
+            >
+              <img src={Documents} alt="Document" />
+              <Text clicked={click}>Document</Text>
+            </Item>
+          </Tooltip>
+          <Tooltip title={click ? "" : "Announcement"} placement="right" arrow="true">
+            <Item
+              onClick={() => setClick(false)}
+              activeClassName="active"
+              to="/Announcement"
+            >
+              <img src={Announcement} alt="Announcement" />
+              <Text clicked={click}>Announcement</Text>
+            </Item>
+          </Tooltip>
+          <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
+            <Item
+              onClick={() => setClick(false)}
+              activeClassName="active"
+              to="/Tickets"
+            >
+              <img src={Tickets} alt="Tickets" />
+              <Text clicked={click}>Tickets</Text>
+            </Item>
+          </Tooltip>
         </SlickBar>
       </SidebarContainer>
     </Container>
