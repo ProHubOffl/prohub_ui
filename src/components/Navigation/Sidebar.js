@@ -20,10 +20,12 @@ import Slide from '@mui/material/Slide';
 import UserImageService from "../../service/userimage/UserImageService";
 import Unknown_image from "../../images/Unknown.png"
 import Tooltip from '@mui/material/Tooltip';
+import $ from 'jquery';
 
 const Container = styled.div`
     position: fixed;
     margin-top: 22vh;
+    z-index: 999;
     .active {
       border-right: 4px solid orange;
 
@@ -264,7 +266,14 @@ function Sidebar (){
   const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
 
   useEffect(() => {
-    UserImageService.getImage()
+        $(document).click((event) => {
+          if (!$(event.target).closest('#element-1').length && !$(event.target).closest('#element-2').length) {
+            setprofileClick(false);
+            setClick(false);
+          }        
+        });
+
+        UserImageService.getImage()
         .then(result => {
             console.log(result.data)
             setImageData(result.data)
@@ -275,106 +284,108 @@ function Sidebar (){
 
   return (
     <Container>
-        <ButtonExpand clicked={click} onClick={() => handleClick()}></ButtonExpand>
-      <SidebarContainer>
-          <Profile clicked={profileClick}>
-            {
-            (HasUserProfile)
-            ?
-              <img
-              onClick={() => handleProfileClick()}
-              src={`data:image/jpeg;base64,${imageData}`}
-              alt="Profile"
-              />
-            :
-              <img
-              onClick={() => handleProfileClick()}
-              src={Unknown_image}
-              alt="Profile"
-              />
-            }
-            <Details clicked={profileClick}>
-            <Name>
-                <h4>{first_name}&nbsp;{last_name}</h4>
-                <a href="#">View&nbsp;Profile</a>
-            </Name>  
-            <Logout>
-                    <img src={PowerOff} alt="logout" onClick={handleClickOpen}/>
-                    <Dialog
-                      open={open}
-                      TransitionComponent={Transition}
-                      keepMounted
-                      onClose={handleClose}
-                      aria-describedby="alert-dialog-slide-description"
-                    >
-                      <DialogTitle>{"Use ProHub's service"}</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                          Are You Sure You Want To Log Out?
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>No</Button>
-                        <Button onClick={handle_logout}>Yes</Button>
-                      </DialogActions>
-                    </Dialog>
-            </Logout>           
-            </Details>
-          </Profile>    
-        <SlickBar clicked={click}>
-          <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
-            <Item
-              onClick={() => setClick(false)}
-              exact
-              activeClassName="active"
-              to="/Board"
-            >
-              <img src={Board} alt="Board" />
-              <Text clicked={click}>Board</Text>
-            </Item>
-          </Tooltip>
-          <Tooltip title={click ? "" : "Backlog"} placement="right" arrow="true">
-            <Item
-              onClick={() => setClick(false)}
-              activeClassName="active"
-              to="/Backlog"
-            >
-              <img src={Backlog} alt="Backlog" />
-              <Text clicked={click}>Backlog</Text>
-            </Item>
-          </Tooltip>
-          <Tooltip title={click ? "" : "Document"} placement="right" arrow="true">
-            <Item
-              onClick={() => setClick(false)}
-              activeClassName="active"
-              to="/Document"
-            >
-              <img src={Documents} alt="Document" />
-              <Text clicked={click}>Document</Text>
-            </Item>
-          </Tooltip>
-          <Tooltip title={click ? "" : "Announcement"} placement="right" arrow="true">
-            <Item
-              onClick={() => setClick(false)}
-              activeClassName="active"
-              to="/Announcement"
-            >
-              <img src={Announcement} alt="Announcement" />
-              <Text clicked={click}>Announcement</Text>
-            </Item>
-          </Tooltip>
-          <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
-            <Item
-              onClick={() => setClick(false)}
-              activeClassName="active"
-              to="/Tickets"
-            >
-              <img src={Tickets} alt="Tickets" />
-              <Text clicked={click}>Tickets</Text>
-            </Item>
-          </Tooltip>
-        </SlickBar>
-      </SidebarContainer>
+      <div id="element-1"><ButtonExpand clicked={click} onClick={() => handleClick()}></ButtonExpand></div>
+      <div id="element-2">
+          <SidebarContainer>
+              <Profile clicked={profileClick}>
+                {
+                (HasUserProfile)
+                ?
+                  <img
+                  onClick={() => handleProfileClick()}
+                  src={`data:image/jpeg;base64,${imageData}`}
+                  alt="Profile"
+                  />
+                :
+                  <img
+                  onClick={() => handleProfileClick()}
+                  src={Unknown_image}
+                  alt="Profile"
+                  />
+                }
+                <Details clicked={profileClick}>
+                <Name>
+                    <h4>{first_name}&nbsp;{last_name}</h4>
+                    <a href="#">View&nbsp;Profile</a>
+                </Name>  
+                <Logout>
+                        <img src={PowerOff} alt="logout" onClick={handleClickOpen}/>
+                        <Dialog
+                          open={open}
+                          TransitionComponent={Transition}
+                          keepMounted
+                          onClose={handleClose}
+                          aria-describedby="alert-dialog-slide-description"
+                        >
+                          <DialogTitle>{"Use ProHub's service"}</DialogTitle>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                              Are You Sure You Want To Log Out?
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>No</Button>
+                            <Button onClick={handle_logout}>Yes</Button>
+                          </DialogActions>
+                        </Dialog>
+                </Logout>           
+                </Details>
+              </Profile>   
+            <SlickBar clicked={click}>
+              <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  exact
+                  activeClassName="active"
+                  to="/Board"
+                >
+                  <img src={Board} alt="Board" />
+                  <Text clicked={click}>Board</Text>
+                </Item>
+              </Tooltip>
+              <Tooltip title={click ? "" : "Backlog"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/Backlog"
+                >
+                  <img src={Backlog} alt="Backlog" />
+                  <Text clicked={click}>Backlog</Text>
+                </Item>
+              </Tooltip>
+              <Tooltip title={click ? "" : "Document"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/Document"
+                >
+                  <img src={Documents} alt="Document" />
+                  <Text clicked={click}>Document</Text>
+                </Item>
+              </Tooltip>
+              <Tooltip title={click ? "" : "Announcement"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/Announcement"
+                >
+                  <img src={Announcement} alt="Announcement" />
+                  <Text clicked={click}>Announcement</Text>
+                </Item>
+              </Tooltip>
+              <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/Tickets"
+                >
+                  <img src={Tickets} alt="Tickets" />
+                  <Text clicked={click}>Tickets</Text>
+                </Item>
+              </Tooltip>
+            </SlickBar>
+          </SidebarContainer>
+      </div>
     </Container>
   );
 };
