@@ -306,7 +306,7 @@ function Sidebar (){
                 <Details clicked={profileClick}>
                 <Name>
                     <h4>{first_name}&nbsp;{last_name}</h4>
-                    <a href="#">View&nbsp;Profile</a>
+                    <Link to="EditProfile"><a onClick={()=>{setprofileClick(false)}}>View&nbsp;Profile</a></Link>
                 </Name>  
                 <Logout>
                         <img src={PowerOff} alt="logout" onClick={handleClickOpen}/>

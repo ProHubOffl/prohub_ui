@@ -12,6 +12,30 @@ const getImage = () => {
     });
 };
 
+const uploadImage = (data)  => {
+    const URL = API_URL+"userImage/"+ currentUser.email+"/update";
+    return axios.put(URL, 
+        data
+    ,{
+        headers: {
+            'Authorization':'Bearer ' + currentUser.jwtToken
+        }
+    });
+
+};
+
+const RemoveImage = ()  => {
+    const URL = API_URL+"userImage/"+ currentUser.email;
+    return axios.delete(URL, {
+        headers: {
+            'Authorization':'Bearer ' + currentUser.jwtToken
+        }
+    });
+
+};
+
 export default {
-    getImage
+    getImage,
+    uploadImage,
+    RemoveImage
 };

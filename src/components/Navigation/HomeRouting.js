@@ -4,6 +4,7 @@ import Board from "../Pages/Board";
 import Backlog from "../Pages/Backlog";
 import Documents from "../Pages/Documents";
 import Tickets from "../Pages/Tickets";
+import EditProfile from '../Pages/EditProfile';
 
 import {
     Route,
@@ -18,6 +19,7 @@ function Routing() {
                 <Route exact path="/Tickets" component={Tickets} />
                 <Route exact path="/document" component={Documents} />
                 <Route exact path="/Board" component={Board} />
+                <Route exact path="/EditProfile" component={EditProfile} />
                 <Route exact path="*" component={Board} />
             </Switch>        
     )

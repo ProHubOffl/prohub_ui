@@ -23,6 +23,7 @@ const Nav = styled.nav`
     height: 50px;
     position:fixed;
     width:100%;
+    z-index: 999;
     background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
     box-shadow: 0px 6px 8px #9EB3B9;
     `;
