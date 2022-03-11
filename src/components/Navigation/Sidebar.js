@@ -275,7 +275,6 @@ function Sidebar (){
 
         UserImageService.getImage()
         .then(result => {
-            console.log(result.data)
             setImageData(result.data)
             SetHasUserProfile(true)
         })
