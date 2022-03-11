@@ -90,39 +90,3 @@
 .backlog_right .row {
     margin-bottom: 1em;
 }
-
-#todo-backlog{
-    background-color: rgb(255,115,115, 0.7);
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-size: 14px;
-}
-#in-progress-backlog{
-    background-color: rgba(3, 168, 244, 0.575);
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-size: 14px;
-}
-#done-backlog{
-    background-color: #ffd100;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-size: 14px;
-}
-#approved-backlog{
-    background-color: #4adf82;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-size: 14px;
-}
-#backlog-error{
-    text-align: center;
-}
