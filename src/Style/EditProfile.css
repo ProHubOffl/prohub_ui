@@ -1,0 +1,66 @@
+.Edit_Center {
+    height: auto;
+    background: #eef0f0;
+    padding: 15px;
+    padding-top: 5px;
+    border-radius: 10px;
+}
+
+#btn-edit-update{
+    background-color: #3c6873;
+    border-radius: 8px;
+}
+
+#btn-edit-close{
+    border-radius: 8px;
+}
+.edit_profile{
+    overflow: auto;
+}
+
+.edit_profile {
+    color: #003847;
+}
+
+.edit_profile .row {
+    margin-bottom: 0.5em;
+}
+
+.edit_profile input[type="text"], input[type="number"], textarea{
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+
+.edit_profile label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.edit_profile_right {
+    background: #eef0f0;
+    height: 73vh;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #406A75;
+}
+.edit_profile-card {
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+    height: 69vh;
+}
+
+.Err_msg{
+    margin: auto auto auto auto;
+}
+.Err_msg_validator{
+    margin-top: 19px;
+}
