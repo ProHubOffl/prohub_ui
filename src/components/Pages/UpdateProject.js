@@ -2,9 +2,15 @@ import React,{useState,useEffect} from 'react';
 import "../../Style/Project.css";
 import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
+import ProjectUserService from "../../service/user/ProjectUserService"
 import {Animated} from "react-animated-css";
 
 function UpdateProject() {
+
+    const projectName = "Project One";
+
+    const[users, setUsers] = useState([]);
+    const[userError, setUserError] = useState('');
 
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -14,6 +20,23 @@ function UpdateProject() {
     const showpopup =()=>{
         setShow(true);
     }
+
+    const deleteUserRole = (email) => {
+        
+    }
+
+    useEffect(() => {
+        ProjectUserService.getProjectUserRoles(projectName)
+        .then(response => {
+            setUsers(response.data)
+            if(response.data.length < 0) {
+                setUserError("No users Have been assigned to this project")
+            }
+        })
+        .catch(err => {
+            setUserError("Unable to fetch the project user roles at the moment")
+        })
+    },[])
 
     return (
         <>
@@ -84,22 +107,30 @@ function UpdateProject() {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                <th scope="col">No</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Role</th>
                                                 <th scope="col">Operation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>srjey3@gmail.com</td>
-                                                    <td>Developer</td>
-                                                    <td>
-                                                        <button type="button" className="btn btn-danger mx-1" ><i className="bi bi-trash-fill"></i></button>
-                                                        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
-                                                    </td>
-                                                </tr>
+                                                {
+                                                    userError.length > 0 ? 
+                                                    <tr>
+                                                        <td>{userError}</td>
+                                                    </tr> :
+                                                    users.map(user => {
+                                                        return(
+                                                            <tr key={user.email}>
+                                                                <td>{user.email}</td>
+                                                                <td>{user.role}</td>
+                                                                <td>
+                                                                    <button type="button" className="btn btn-danger mx-1" onClick={() => deleteUserRole(user.email)} ><i className="bi bi-trash-fill"></i></button>
+                                                                    <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
