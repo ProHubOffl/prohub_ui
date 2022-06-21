@@ -7,7 +7,7 @@ function AddUserRole() {
     const projectName = "Project One";
 
     const[email, setEmail] = useState('')
-    const[role, setRole] = useState('')
+    const[role, setRole] = useState('Product Owner')
 
     const addUserRole = (e) => {
         e.preventDefault();
@@ -18,7 +18,10 @@ function AddUserRole() {
         }
         ProjectUserService.addProjectUserRole(projectUserRole)
         .then(response => {
-            toast.success('Backlog Element Added Successfully', {
+            window.location.replace("/")
+            setEmail('')
+            setRole('')
+            toast.success('User Role Added Successfully', {
                 position: "top-center",
                 autoClose: 2500,
                 hideProgressBar: false,
@@ -27,8 +30,7 @@ function AddUserRole() {
                 draggable: true,
                 progress: undefined,
             });
-            setEmail('')
-            setRole('')
+            alert("User Role Added Successfully")
         })
         .catch(err => {
             console.log(err)

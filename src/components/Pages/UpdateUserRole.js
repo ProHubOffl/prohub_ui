@@ -1,7 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../Style/Project.css";
+import ProjectUserService from "../../service/user/ProjectUserService"
+import { toast } from 'react-toastify';
 
-function UpdateUserRole() {
+function UpdateUserRole(props) {
+
+    const projectName = props.user.projectName;
+    const email = props.user.email;
+    const role = props.user.role;
+
+    const[newRole, setNewRole] = useState('');
+
+    const updateProjectUserRole = (e) => {
+        e.preventDefault();
+        const modifiedProjectUserRole = {
+            projectName,
+            email,
+            role: newRole
+        }
+        ProjectUserService.updateProjectUserRole(projectName, modifiedProjectUserRole)
+        .then(response => {
+            window.location.replace("/")
+            setNewRole('')
+            toast.success('User Role Updated Successfully', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+    }
+
     return (
         <div>
             <div className="project-form">
@@ -16,23 +60,23 @@ function UpdateUserRole() {
                             <div className="row">
                                 <div className="col-md-12">
                                     <label for="mail" className="form-label">Email Address *</label>
-                                    <input type="text" className="form-control" id="mail" placeholder="Enter E-mail Address" required/>
+                                    <input type="email" value={email} className="form-control" id="mail" placeholder="Enter E-mail Address" readOnly/>
                                 </div>
                             </div>
                             <div className="row">
                                 <label for="mail" className="form-label">Role *</label>
                                 <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect01">
-                                        <option selected value="1">Product Owner</option>
-                                        <option value="2">Scrum Master</option>
-                                        <option value="3">Developer</option>
+                                    <select class="form-select" id="inputGroupSelect01" onChange={(e) => setNewRole(e.target.value)}>
+                                        <option value="Product Owner">Product Owner</option>
+                                        <option value="Scrum Master">Scrum Master</option>
+                                        <option value="Developer">Developer</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Update</button>
+                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateProjectUserRole}>Update</button>
                         </div>
                     </div>
                 </form>
