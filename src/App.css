@@ -52,6 +52,15 @@
 
 .sub_header h3 {
   font-weight: bolder;
-  padding-top: 0.8em;
+  padding-top: 0.5em;
   margin-bottom: 5px;
+}
+
+
+/* Input field design */
+input[type="text"], input[type="number"], input[type="date"], textarea, select{
+  /* -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2); */
+  border-color: #406A75;
 }

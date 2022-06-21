@@ -136,7 +136,7 @@ const Backlog = () => {
             </form>
           </div>
           
-          <div className="col-md-5 col-sm-12">
+          <div className="col-lg-5 col-md-12 col-sm-12">
             <div className="backlog_right">
               <div className="backlog_right_body">
                   {

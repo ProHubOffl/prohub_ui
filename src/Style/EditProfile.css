@@ -26,13 +26,6 @@
     margin-bottom: 0.5em;
 }
 
-.edit_profile input[type="text"], input[type="number"], textarea{
-    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    border-color: #406A75;
-}
-
 .edit_profile label {
     font-size: 1.2em;
     font-weight: bold;

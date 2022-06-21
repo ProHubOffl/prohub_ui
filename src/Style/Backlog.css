@@ -4,14 +4,7 @@
 }
 
 .backlog .row {
-    margin-bottom: 2em;
-}
-
-.backlog input[type="text"], input[type="number"], textarea{
-    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    border-color: #406A75;
+    margin-bottom: 1.5em;
 }
 
 .backlog label {
@@ -20,7 +13,6 @@
 }
 
 .backlog_left {
-    height: 75vh;
     background: #eef0f0;
     padding: 15px;
     padding-top: 5px;
@@ -42,7 +34,8 @@
 
 .backlog_right {
     background: #eef0f0;
-    height: 75vh;
+    max-height: 75vh;
+    min-height: 10vh;
     border-radius: 10px;
     margin-top: 0px;
     padding: 10px;
@@ -62,20 +55,22 @@
 
 #backlog-label {
     background: #78cfbf;
-    border-radius: 3px;
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     font-size: 14px;
 }
 #backlog-label p {
     margin: auto;
+    text-align: center;
 }
 
 #backlog-icon{
+    padding: 0;
     background: #6c757d;
     display: flex;
-    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
     -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
@@ -83,13 +78,20 @@
 }
 
 #backlog-icon button {
-    margin-left: -12px;
+    margin: auto;
     color: #fff;
+}
+
+#backlog-icon button:hover {
+    background: rgb(60,104,115);
+    border-radius: 45%;
 }
 
 .backlog_right .row {
     margin-bottom: 1em;
 }
+
+
 #todo-backlog{
     background-color: rgb(255,115,115, 0.7);
     border-radius: 3px;
@@ -124,4 +126,48 @@
 }
 #backlog-error{
     text-align: center;
+}
+@media (min-width: 576px) {
+    .backlog_left {
+        margin-bottom: 2em;
+    }
+    .backlog .container {
+        max-width: 85%;
+    }
+    #backlog-label {
+        border-radius: 0 0 0 5px;
+    }
+    #backlog-icon{
+        border-radius: 0 0 5px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .backlog_left {
+        margin-bottom: 2em;
+    }
+    .backlog .container {
+        max-width: 90%;
+    }
+    #backlog-label {
+        border-radius: 0;
+    }
+    #backlog-icon{
+        border-radius: 0 5px 5px 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .backlog_left {
+        margin-bottom: 0em;
+    }
+    .backlog .container {
+        max-width: 90%;
+    }
+    #backlog-label {
+        border-radius: 0;
+    }
+    #backlog-icon{
+        border-radius: 0 5px 5px 0;
+    }
 }
