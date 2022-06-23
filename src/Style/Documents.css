@@ -93,3 +93,30 @@
     background-color: #3c6873;
 }
 
+#document-error{
+    text-align: center;
+    font-size: 35px;
+}
+
+#time{
+    font-size: 10px;
+}
+
+#del-btn:hover{
+    color: red;
+}
+
+#info-btn:hover{
+    color: rgb(13, 137, 10);
+}
+
+#update-btn{
+    background-color: #11bce760;
+}
+
+#update-btn:hover{
+    background-color: #1a607160;
+}
+
+
+

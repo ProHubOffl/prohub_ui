@@ -11,14 +11,24 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import DownloadForOfflineTwoTone from "@mui/icons-material/DownloadForOfflineTwoTone";
 import "../../Style/Documents.css"
-import Tooltip from '@mui/material/Tooltip';
 import Add_Document from "../../images/adddoc.png"
+import Doc from "../../images/Doc.jpg"
+import { ToastContainer, toast } from 'react-toastify';
+import DocumentService from '../../service/document/DocumentService';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import AuthService from '../../service/authentication/AuthService';
+import ReactTimeAgo from 'react-time-ago';
+import UpdateDocument from './UpdateDocument';
 
 const Documents= () => {
-  const num_of_document = 20;
-  const doc_names = ['James', 'Paul', 'John', 'George', 'Ringo','siva','gam','gg','ff'];
-  const num_doc = doc_names.length;
-  const num = ['1', '2', '3', '4', '5'];
+  const[documents, setDocuments] = useState([]);
+  const[DocumentError, setDocumentError] = useState('');
+  const[currentdocument, setcurrentDocument] = useState({});
+  const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
+  const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
+  const user = first_name+' '+last_name;
+
+
   const [item_position,set_position]=useState(0);
 
   const currentProject = 'Project One';
@@ -29,11 +39,64 @@ const Documents= () => {
     maxWidth: '100%',
     maxHeight: '100%',
   });
+
+  const selectDocument= (document) =>{
+    setcurrentDocument(document)
+  }
+
+  const RemoveDocument_Handler = (id) => {
+    DocumentService.deleteDocumentItem(id)
+    .then(response => {
+      toast.success('Document is Successfully Deleted!', {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });      
+        setTimeout(() => { window.location.replace('/Document')  }, 2500);
+    })
+    .catch(err => {
+      toast.error('Unable to Remove at the moment plz login again', {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });  
+      console.log(err)
+    })
+  }
   
+  useEffect(() => {
+    DocumentService.getDocumentByProject(currentProject)
+    .then(response => {
+      setDocuments(response.data)
+    })
+    .catch(err => {
+      setDocumentError('Unable to fetch Documents list at the moment')
+    })
+  },[])
+
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 500,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid grey',
+    },
+  }));
 
   return (
   <div>
-    <div className="sub_header px-4">
+    <div className="sub_header px-4" id="doc_top">
       <h3>Documents</h3>
       <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
     </div>
@@ -46,7 +109,7 @@ const Documents= () => {
         p: 3,
         margin: 'auto',
         width: 250,
-        height: 170,
+        height: 180,
         flexGrow: 1,
         border: 0.1,
         borderColor: 'grey.500',
@@ -62,7 +125,12 @@ const Documents= () => {
       </Paper> 
     </div>
 
-{(doc_names).map(name => (
+    {
+      
+    DocumentError.length > 0 ?
+      <div id="document-error">{DocumentError}</div>
+    :
+    ([].concat(documents).reverse()).map(document => (
  
     <div class="col-sm">
     <Paper
@@ -70,7 +138,7 @@ const Documents= () => {
         p: 3,
         margin: 'auto',
         width: 250,
-        height: 170,
+        height: 180,
         flexGrow: 1,
         border: 0.1,
         borderColor: 'grey.500',
@@ -80,49 +148,97 @@ const Documents= () => {
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <ButtonBase sx={{ width: 70, height: 100 }}>
-            <Img alt="complex" src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" />
+              <Img alt="complex" src={Doc} /> 
           </ButtonBase>
         </Grid>
         <Grid item xs={7}>
           <Grid item xs container direction="column" spacing={1}>
             <Grid>
               <Typography gutterBottom variant="subtitle1" component="div">
-                Dev Req
+                <b>{document.title.slice(0,10)}{document.title.length>10 ? "..." : "" }</b>
               </Typography>
               <Typography variant="body2" gutterBottom>
-                about function reuirements
+                {document.description.slice(0,16)}{document.description.length>16 ? "..." : "" }
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                by - Siva
+                by :<br/>
+                {document.author}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={6}>
-              <Typography sx={{ cursor: 'pointer',marginTop:'-16px', textAlign:'center' }} variant="body2"><button type="button" class="btn btn-link">Update</button></Typography>
+          {
+          document.author == user
+          ? 
+          <Typography sx={{ cursor: 'pointer',marginTop:'-16px'}} variant="body2"><button type="button" class="btn btn-info" id="update-btn" aria-label="Add" data-bs-toggle="modal" onClick={()=>{selectDocument(document)}} data-bs-target="#staticdocupdatedrop">Update</button></Typography>
+          :
+          " "
+          }
         </Grid>
         <Grid item xs={2}>
-              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="download"><DownloadForOfflineTwoTone /></IconButton></Typography>
+        {
+          document.author == user
+          ? 
+              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton id="del-btn" aria-label="delete" onClick={()=>RemoveDocument_Handler(document.documentId)}><DeleteTwoToneIcon /></IconButton></Typography>
+              :
+              " "
+          }
         </Grid>
         <Grid item xs={2}>
-              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="delete"><DeleteTwoToneIcon /></IconButton></Typography>
+              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="download" href={document.url}><DownloadForOfflineTwoTone /></IconButton></Typography>
         </Grid>
         <Grid item xs={2}>
-              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="information"><InfoTwoToneIcon /></IconButton></Typography>
+              <HtmlTooltip
+                  title={
+                    
+                    <React.Fragment>
+                      <Typography color="inherit">Document's Title : {document.title}</Typography>
+                      Description : {document.description}<br/>
+                      Project Name : {document.projectName}<br/>
+                      Author : {document.author}<br/>
+                      File Name : {document.name}<br/>
+                      File Type : {document.type}<br/>
+                      Created Date : {document.createdDate}<br/>
+                      Last Update : {document.updatedDate == null ? "No update" : document.updatedDate}
+                    </React.Fragment>
+                  }
+                >
+              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton id="info-btn" aria-label="information"><InfoTwoToneIcon /></IconButton></Typography>
+              </HtmlTooltip>
         </Grid>
       </Grid>
+      <div id="time" align="right">
+        {
+        document.updatedDate == null ? 
+        <i><ReactTimeAgo date={document.createdDate} locale="en-US"/></i>
+        :
+        <i><ReactTimeAgo date={document.updatedDate} locale="en-US"/> (Edited)</i>
+         }
+        
+      </div>
     </Paper>
     </div>
   
-  ))}
+  ))
+
+    }
   </div>
-
-
-
-
 </div>
-    
-
+<div className="modal fade" id="staticdocupdatedrop" data-bs-docdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticdocupdatedropLabel" aria-hidden="true">
+    <UpdateDocument document={currentdocument}/>
+</div>
+<ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          />
   </div>
   );
 };
