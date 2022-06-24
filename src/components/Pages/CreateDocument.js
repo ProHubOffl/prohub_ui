@@ -3,7 +3,6 @@ import AuthService from '../../service/authentication/AuthService';
 import DocumentService from '../../service/document/DocumentService';
 import "../../Style/Documents.css";
 import { ToastContainer, toast } from 'react-toastify';
-import $ from 'jquery';
 
 function CreateDocument() {
     const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
