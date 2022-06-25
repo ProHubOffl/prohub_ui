@@ -44,6 +44,16 @@ const deleteProjectUserRole = (email, projectName) => {
     }) 
 }
 
+const getProjectsByUser = (email) => {
+    const URL = API_URL + email + "/projectUserRole"
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    });
+}
+
 export default {
-    getProjectUserRoles, addProjectUserRole, updateProjectUserRole, deleteProjectUserRole
+    getProjectUserRoles, addProjectUserRole, updateProjectUserRole, deleteProjectUserRole, getProjectsByUser
 };
