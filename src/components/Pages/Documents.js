@@ -19,6 +19,12 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import AuthService from '../../service/authentication/AuthService';
 import ReactTimeAgo from 'react-time-ago';
 import UpdateDocument from './UpdateDocument';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Documents= () => {
   const[documents, setDocuments] = useState([]);
@@ -27,11 +33,17 @@ const Documents= () => {
   const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
   const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
   const user = first_name+' '+last_name;
-
-
-  const [item_position,set_position]=useState(0);
-
   const currentProject = 'Project One';
+  const [open, setOpen] = useState(false);
+  
+  const handleClickOpen = (document) => {
+      setOpen(true);
+      setcurrentDocument(document)
+  };
+  
+  const handleClose = () => {
+      setOpen(false);
+  };
   
   const Img = styled('img')({
     margin: 'auto',
@@ -48,7 +60,7 @@ const Documents= () => {
     DocumentService.deleteDocumentItem(id)
     .then(response => {
       toast.success('Document is Successfully Deleted!', {
-        position: "bottom-right",
+        position: "top-center",
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -60,7 +72,7 @@ const Documents= () => {
     })
     .catch(err => {
       toast.error('Unable to Remove at the moment plz login again', {
-        position: "bottom-right",
+        position: "top-center",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -101,9 +113,9 @@ const Documents= () => {
       <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
     </div>
 
-<div class="container" id="Alldocuments">
-<div class="row" id="nextrow">
-<div class="col-sm">
+<div className="container" id="Alldocuments">
+<div className="row" id="nextrow">
+<div className="col-sm">
     <Paper
       sx={{
         p: 3,
@@ -132,7 +144,7 @@ const Documents= () => {
     :
     ([].concat(documents).reverse()).map(document => (
  
-    <div class="col-sm">
+    <div className="col-sm">
     <Paper
       sx={{
         p: 3,
@@ -171,7 +183,7 @@ const Documents= () => {
           {
           document.author == user
           ? 
-          <Typography sx={{ cursor: 'pointer',marginTop:'-16px'}} variant="body2"><button type="button" class="btn btn-info" id="update-btn" aria-label="Add" data-bs-toggle="modal" onClick={()=>{selectDocument(document)}} data-bs-target="#staticdocupdatedrop">Update</button></Typography>
+          <Typography sx={{ cursor: 'pointer',marginTop:'-16px'}} variant="body2"><button type="button" className="btn btn-info" id="update-btn" aria-label="Add" data-bs-toggle="modal" onClick={()=>{selectDocument(document)}} data-bs-target="#staticdocupdatedrop">Update</button></Typography>
           :
           " "
           }
@@ -180,7 +192,7 @@ const Documents= () => {
         {
           document.author == user
           ? 
-              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton id="del-btn" aria-label="delete" onClick={()=>RemoveDocument_Handler(document.documentId)}><DeleteTwoToneIcon /></IconButton></Typography>
+              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton id="del-btn" aria-label="delete" onClick={()=>handleClickOpen(document)}><DeleteTwoToneIcon /></IconButton></Typography>
               :
               " "
           }
@@ -228,7 +240,28 @@ const Documents= () => {
 <div className="modal fade" id="staticdocupdatedrop" data-bs-docdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticdocupdatedropLabel" aria-hidden="true">
     <UpdateDocument document={currentdocument}/>
 </div>
-<ToastContainer
+<Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Use ProHub's service"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          Are you sure you want to delete this <i>{currentdocument.name}</i> file ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={()=>RemoveDocument_Handler(currentdocument.documentId)} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+</Dialog>
+  <ToastContainer
           position="top-center"
           autoClose={5000}
           hideProgressBar={false}
