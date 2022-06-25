@@ -4,7 +4,7 @@ import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
 import ProjectUserService from "../../service/user/ProjectUserService"
 import {Animated} from "react-animated-css";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function UpdateProject() {
 
@@ -33,20 +33,21 @@ function UpdateProject() {
             document.getElementById("update-form").style.visibility = "hidden"
             toast.success('User Role Removed Successfully', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             });
-            window.location.replace("/")
+            window.location.reload()
+            document.getElementById("update-form").style.visibility = "visible"
         })
         .catch(err => {
             console.log(err)
             toast.error('Unable to proceed your request', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -187,6 +188,17 @@ function UpdateProject() {
         :
         ""
         }
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
         </>
     );
 }

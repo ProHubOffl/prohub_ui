@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../../Style/Project.css";
 import ProjectUserService from "../../service/user/ProjectUserService"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function AddUserRole() {
     const projectName = "Project One";
@@ -18,25 +18,24 @@ function AddUserRole() {
         }
         ProjectUserService.addProjectUserRole(projectUserRole)
         .then(response => {
-            window.location.replace("/")
-            setEmail('')
-            setRole('')
             toast.success('User Role Added Successfully', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             });
-            alert("User Role Added Successfully")
+            window.location.reload()
+            setEmail('')
+            setRole('')
         })
         .catch(err => {
             console.log(err)
             toast.error('Unable to proceed your request', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -81,6 +80,17 @@ function AddUserRole() {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../../Style/Project.css";
 import ProjectUserService from "../../service/user/ProjectUserService"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function UpdateUserRole(props) {
 
@@ -20,23 +20,24 @@ function UpdateUserRole(props) {
         }
         ProjectUserService.updateProjectUserRole(projectName, modifiedProjectUserRole)
         .then(response => {
-            window.location.replace("/")
-            setNewRole('')
             toast.success('User Role Updated Successfully', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             });
+            window.location.reload()
+            setNewRole('')
+            document.getElementById("update-form").style.visibility = "visible"
         })
         .catch(err => {
             console.log(err)
             toast.error('Unable to proceed your request', {
                 position: "top-center",
-                autoClose: 2500,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -82,6 +83,17 @@ function UpdateUserRole(props) {
                 </form>
             </div>
         </div>
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
         </div>
     );
 }
