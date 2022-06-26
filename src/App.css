@@ -40,7 +40,7 @@
 
 /* Sub Header */
 .sub_header {
-  height: 12vh;
+  /* height: 12vh; */
   background-color: #fff;
   -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
@@ -52,8 +52,14 @@
 
 .sub_header h3 {
   font-weight: bolder;
-  padding-top: 0.5em;
-  margin-bottom: 5px;
+  padding-top: 0.2em;
+  margin-bottom: 1px;
+}
+
+.sub_header p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 10px;
 }
 
 
