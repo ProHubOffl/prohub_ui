@@ -78,7 +78,7 @@ function UpdateProject() {
                                     </div>
 
                                     <div className="col-xl-6">
-                                    <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateUser" data-bs-toggle="modal" data-bs-target="#CreateUser">
+                                    <button type="button" className="btn btn-primary fw-bolder" id="btn-Create" data-bs-toggle="modal" data-bs-target="#CreateUser">
                                         Add User Role
                                     </button>
                                         <table className="table table-striped">

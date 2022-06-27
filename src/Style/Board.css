@@ -1,5 +1,6 @@
 #canbanboard {
-    /* padding-top: 1em; */
+    /* margin-top: 5em; */
+    max-width: 90%;
 }
 
 .board {

@@ -26,7 +26,7 @@ const Board = () => {
         </div>
       <div className="container" id="canbanboard">
         <div className="row">
-          <div className="col-md-3 col-sm-6">
+          <div className="col-lg-3 col-md-6 col-sm-12">
             <div className="board">
               <div className="board-header">
                 <h4>To Do</h4>

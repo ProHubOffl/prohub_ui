@@ -1,0 +1,61 @@
+.ViewBacklog-left, .ViewBacklog-right {
+    background-color: #e2ecefd3;
+    border-radius: 5px;
+    margin-top: 0.5em;
+    padding: 8px;
+}
+
+#vb-description {
+    background-color: #000;
+    max-height: 10vh;
+}
+
+.backlog-comment {
+    max-height: 48vh;
+    margin-top: 0.5em;
+    overflow: auto;
+}
+.backlog-comment .box{
+    min-height: 10vh;
+    background: #fff;
+    margin-top: 0.4em;
+    border-radius: 8px;
+    width: 98%; 
+    margin-right: 0.5em;
+    box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.603); 
+    border-color: #406A75;
+}
+
+.ViewBacklog_left {
+    color: #003847;
+}
+
+.ViewBacklog_left .row {
+    margin-bottom: 1.5em;
+}
+
+.ViewBacklog_left label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+
+@media (min-width: 576px) {
+    .ViewBacklog .container {
+        max-width: 85%;
+    }
+}
+
+@media (min-width: 768px) {
+    .ViewBacklog .container {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 992px) {
+    .ViewBacklog .container {
+        max-width: 90%;
+    }
+}
+
