@@ -1,0 +1,122 @@
+#Alldocuments{
+    max-width: 93%;
+    margin-left: 5%;
+}
+
+#nextrow .col-sm{
+    padding-top: 25px;
+}
+
+#Adddoc{
+    cursor: pointer;
+    width: 130px;
+}
+#Adddoc:hover{
+    opacity: 0.6;
+    transform: scale(1.1);
+}
+
+.document-form {
+    color: #003847;  
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.466);
+    overflow-y: scroll;
+}
+
+@media only screen and (min-width: 992px) {
+    .document-form {
+        padding-left: 15%;
+    }
+  }
+
+.modal-box{
+    margin: 0 auto;
+    padding: 1.75rem 0 0 0;
+}
+
+#modal-content-box{
+    border: 2px solid #003847;   
+}
+
+.document-form .row {
+    margin-bottom: 2em;
+}
+
+.document-form input[type="text"],input[type="date"],input[type="number"],textarea {
+    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    border-color: #406A75;
+}
+.document-form label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.document-form .modal-header, .modal-footer{
+    background-color: #E2ECEF;
+}
+
+.document-form  #btn-document-close{
+    background-color: #b5c7cd;
+    color: #000;
+    border-radius: 8px;
+}
+.document-form  #btn-document-create{
+    background-color: #3c6873;
+    border-radius: 8px;
+}
+
+#btn-Createdocument {
+    background-color: #3c6873;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+#btn-update-document  {
+    background-color: #3c6873;
+    border-radius: 8px;
+    position: fixed;
+    z-index: 1;
+    float: right;
+    right: -9px;
+    margin-top: 1em;
+    border-radius: 50px 0px 0 50px;
+    border-color: #fff;
+}
+
+#btn-CreateUser {
+    background-color: #3c6873;
+}
+
+#document-error{
+    text-align: center;
+    font-size: 35px;
+}
+
+#time{
+    font-size: 10px;
+}
+
+#del-btn:hover{
+    color: red;
+}
+
+#info-btn:hover{
+    color: rgb(13, 137, 10);
+}
+
+#update-btn{
+    background-color: #11bce760;
+}
+
+#update-btn:hover{
+    background-color: #1a607160;
+}
+
+
+
