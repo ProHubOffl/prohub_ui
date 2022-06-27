@@ -40,7 +40,7 @@ const Board = () => {
                     return (
                       <div className="board-card" id="todo">
                         <div id="card-heading">
-                          <button className="btn"><i className="bi bi-pencil-square"></i></button>
+                          <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">
                           <p>{backlog.title}</p>
@@ -67,7 +67,7 @@ const Board = () => {
                       return (
                         <div className="board-card" id="in-progress">
                           <div id="card-heading">
-                            <button className="btn"><i className="bi bi-pencil-square"></i></button>
+                            <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
                             <p>{backlog.title}</p>
@@ -94,7 +94,7 @@ const Board = () => {
                       return (
                         <div className="board-card" id="done">
                           <div id="card-heading">
-                            <button className="btn"><i className="bi bi-pencil-square"></i></button>
+                            <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
                             <p>{backlog.title}</p>
@@ -121,7 +121,7 @@ const Board = () => {
                     return (
                       <div className="board-card" id="approved">
                         <div id="card-heading">
-                          <button className="btn"><i className="bi bi-pencil-square"></i></button>
+                          <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">
                           <p>{backlog.title}</p>
