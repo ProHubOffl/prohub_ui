@@ -2,9 +2,17 @@ import React,{useState,useEffect} from 'react';
 import "../../Style/Project.css";
 import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
+import ProjectUserService from "../../service/user/ProjectUserService"
 import {Animated} from "react-animated-css";
+import { toast, ToastContainer } from 'react-toastify';
 
 function UpdateProject() {
+
+    const projectName = "Project One";
+
+    const[users, setUsers] = useState([]);
+    const[userError, setUserError] = useState('');
+    const[selectedUser, setSelectedUser] = useState({})
 
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -15,6 +23,53 @@ function UpdateProject() {
         setShow(true);
     }
 
+    const selectUserRole = (user) => {
+        setSelectedUser(user)
+    }
+
+    const deleteUserRole = (email) => {
+        ProjectUserService.deleteProjectUserRole(email, projectName)
+        .then(response => {
+            document.getElementById("update-form").style.visibility = "hidden"
+            toast.success('User Role Removed Successfully', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            window.location.reload()
+            document.getElementById("update-form").style.visibility = "visible"
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+    }
+
+    useEffect(() => {
+        ProjectUserService.getProjectUserRoles(projectName)
+        .then(response => {
+            setUsers(response.data)
+            if(response.data.length < 0) {
+                setUserError("No users Have been assigned to this project")
+            }
+        })
+        .catch(err => {
+            setUserError("Unable to fetch the project user roles at the moment")
+        })
+    },[])
+
     return (
         <>
             <button type="button"  id="btn-update-project" onClick={showpopup}>
@@ -24,7 +79,7 @@ function UpdateProject() {
         show
         ?
         <Animated animationIn="slideInDown" animationOut="slideOutDown" animationInDuration={4000} animationOutDuration={4000} isVisible={show}>
-            <div className="project-form">
+            <div className="project-form" id="update-form">
                 <div className="modal-xl modal-box">                   
                     <form>
                         <div className="modal-content" id="modal-content-box">
@@ -84,22 +139,30 @@ function UpdateProject() {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                <th scope="col">No</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Role</th>
                                                 <th scope="col">Operation</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>srjey3@gmail.com</td>
-                                                    <td>Developer</td>
-                                                    <td>
-                                                        <button type="button" className="btn btn-danger mx-1" ><i className="bi bi-trash-fill"></i></button>
-                                                        <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
-                                                    </td>
-                                                </tr>
+                                                {
+                                                    userError.length > 0 ? 
+                                                    <tr>
+                                                        <td>{userError}</td>
+                                                    </tr> :
+                                                    users.map(user => {
+                                                        return(
+                                                            <tr key={user.email}>
+                                                                <td>{user.email}</td>
+                                                                <td>{user.role}</td>
+                                                                <td>
+                                                                    <button type="button" className="btn btn-danger mx-1" onClick={() => deleteUserRole(user.email)} ><i className="bi bi-trash-fill"></i></button>
+                                                                    <button type="button" className="btn btn-secondary" onClick={() => selectUserRole(user)} data-bs-toggle="modal" data-bs-target="#UpdateUser"><i className="bi bi-pencil-square"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -118,13 +181,24 @@ function UpdateProject() {
             </div>
             
             <div className="modal fade" id="UpdateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <UpdateUser />
+                <UpdateUser user={selectedUser} />
             </div>           
         
         </Animated>
         :
         ""
         }
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
         </>
     );
 }

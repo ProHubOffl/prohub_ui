@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { dashboardData } from '../../data/Dashboarddata';
-import { projectData } from '../../data/Projectdata';
 import {Link} from 'react-router-dom'
 import "../../Style/DropdownList.css"
 import {FaTimes} from 'react-icons/fa'
@@ -18,7 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
+import ProjectUserService from '../../service/user/ProjectUserService';
 
 const Dropdowncontainer=styled.div`
     position: fixed;
@@ -88,7 +87,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function DropdownList(props){
 
-    const [open, setOpen] = React.useState(false);
+    const currentUser = AuthService.getCurrentUser();
+
+    const [open, setOpen] = useState(false);
+    const [projectData, setProjectData] = useState([])
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -102,6 +104,14 @@ function DropdownList(props){
       AuthService.logout()
       setOpen(false);
     };
+
+    useEffect(() => {
+        ProjectUserService.getProjectsByUser(currentUser.email)
+        .then(response => {
+            setProjectData(response.data)
+        })
+        .catch(err => {console.log(err)})
+    },[])
 
     return(
             <div>
@@ -122,8 +132,8 @@ function DropdownList(props){
                 
                     <DropdownButton title="Active Projects" id="bg-nested-dropdown-sn">
                         {
-                            projectData.map((item1,index1)=>(           
-                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index1} href="#">{item1.sub1}</Dropdown.Item>
+                            projectData.map(project=>(           
+                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}}>{project.projectName}</Dropdown.Item>
                             ))
                         }
                         <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

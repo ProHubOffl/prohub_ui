@@ -1,7 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../../Style/Project.css";
+import ProjectUserService from "../../service/user/ProjectUserService"
+import { toast, ToastContainer } from 'react-toastify';
 
 function AddUserRole() {
+    const projectName = "Project One";
+
+    const[email, setEmail] = useState('')
+    const[role, setRole] = useState('Product Owner')
+
+    const addUserRole = (e) => {
+        e.preventDefault();
+        const projectUserRole = {
+            projectName,
+            email,
+            role
+        }
+        ProjectUserService.addProjectUserRole(projectUserRole)
+        .then(response => {
+            toast.success('User Role Added Successfully', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            window.location.reload()
+            setEmail('')
+            setRole('')
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+    }
+
     return (
         <div className="project-form">
             <div className="modal-dialog modal-dialog">
@@ -15,28 +58,39 @@ function AddUserRole() {
                             <div className="row">
                                 <div className="col-md-12">
                                     <label for="mail" className="form-label">Email Address *</label>
-                                    <input type="text" className="form-control" id="mail" placeholder="Enter E-mail Address" required/>
+                                    <input type="text" className="form-control" id="mail" placeholder="Enter E-mail Address" onChange={(e) => setEmail(e.target.value)} required/>
                                 </div>
                             </div>
                             
                             <div className="row">
                                 <label for="mail" className="form-label">Role *</label>
                                 <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect01">
-                                        <option selected value="1">Product Owner</option>
-                                        <option value="2">Scrum Master</option>
-                                        <option value="3">Developer</option>
+                                    <select class="form-select" id="inputGroupSelect01" onChange={(e) => setRole(e.target.value)}>
+                                        <option selected value="Product Owner">Product Owner</option>
+                                        <option value="Scrum Master">Scrum Master</option>
+                                        <option value="Developer">Developer</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Create</button>
+                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={addUserRole}>Create</button>
                         </div>
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }
