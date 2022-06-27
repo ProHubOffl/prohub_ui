@@ -255,9 +255,9 @@ const Documents= () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>No</Button>
           <Button onClick={()=>RemoveDocument_Handler(currentdocument.documentId)} autoFocus>
-            Agree
+            Yes
           </Button>
         </DialogActions>
 </Dialog>
