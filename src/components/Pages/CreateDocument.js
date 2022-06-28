@@ -72,7 +72,7 @@ function CreateDocument() {
                                 <div className="row">
                                     <div className="col-md-7">
                                         <label for="title" className="form-label">Title of the Document *</label>
-                                        <input type="text" className="form-control" id="title" placeholder="Enter your team name" onChange={(e) => setTitle(e.target.value)} value={title} required/>
+                                        <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} value={title} required/>
                                     </div>
                                     <div className="col-md-5">
                                         <label for="projectName" className="form-label">Project Name</label>
@@ -98,7 +98,7 @@ function CreateDocument() {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary fw-bolder" id="btn-document-close" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-document-create">Create</button>
+                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-document-create">Add</button>
                             </div>
                         </div>
                     </form>

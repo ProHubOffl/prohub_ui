@@ -83,7 +83,7 @@ const Backlog = () => {
 
       <div className="container pt-2">
         <div className="row">
-          <div className="col-md-7 col-sm-12">
+          <div className="col-lg-7 col-md-12 col-sm-12">
             <form className="backlog_left" onSubmit={addBacklogItem}>
               <div >
                 {/* 1st row */}

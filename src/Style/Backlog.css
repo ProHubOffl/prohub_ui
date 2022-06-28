@@ -77,6 +77,10 @@
     border-color: #406A75;
 }
 
+#backlog-icon i{
+    color: #fff;
+}
+
 #backlog-icon button {
     margin: auto;
     color: #fff;
