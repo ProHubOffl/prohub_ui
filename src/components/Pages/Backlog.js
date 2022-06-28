@@ -14,6 +14,7 @@ const Backlog = () => {
   const[sprint, setSprint] = useState('');
   const[storyPoints, setStoryPoints] = useState('');
   const[description, setDescription] = useState('');
+  const[type, setType] = useState('');
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
 
@@ -38,7 +39,8 @@ const Backlog = () => {
       assignee,
       status: 'TO_DO',
       createdAt: new Date().toISOString().slice(0, 10),
-      storyPoints: parseInt(storyPoints)
+      storyPoints: parseInt(storyPoints),
+      type
     }
     console.log(newBacklogItem)
     BacklogService.addBacklogItem(newBacklogItem)
@@ -59,6 +61,7 @@ const Backlog = () => {
       setSprint('')
       setStoryPoints('')
       setDescription('')
+      setType('')
     })
     .catch(err => {
       console.log(err)
@@ -108,11 +111,11 @@ const Backlog = () => {
                   <div className="col-md-4">
                     <label for="mail" className="form-label">Project Type *</label>
                     <div className="input-group">
-                        <select className="form-select border-secondary" id="inputGroupSelect02" required>
+                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} required>
                             <option value="" selected hidden>Select Type</option>
-                            <option value="Type One">Bug</option>
-                            <option value="Type Two">Story</option>
-                            <option value="Type Three">Improvement</option>
+                            <option value="BUG">Bug</option>
+                            <option value="STORY">Story</option>
+                            <option value="IMPROVEMENT">Improvement</option>
                         </select>
                     </div>
                   </div>

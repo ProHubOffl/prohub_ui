@@ -1,7 +1,77 @@
 import React, { useState } from 'react';
 import "../../Style/Backlog.css";
+import AuthService from '../../service/authentication/AuthService'
+import BacklogService from "../../service/backlog/BacklogService";
+import { toast, ToastContainer } from 'react-toastify';
 
-function EditBacklog() {
+function EditBacklog(props) {
+
+    const currentUser = AuthService.getCurrentUser();
+    const currentProject = 'Project One';
+
+    const oldTitle = props.backlog.title;
+    const oldAssignee = props.backlog.assignee;
+    const oldSprint = props.backlog.sprint;
+    const oldStoryPoints = props.backlog.storyPoints;
+    const oldDescription = props.backlog.description;
+    const oldType = props.backlog.type;
+  
+    const[title, setTitle] = useState('');
+    const[assignee, setAssignee] = useState('');
+    const[sprint, setSprint] = useState('');
+    const[storyPoints, setStoryPoints] = useState('');
+    const[description, setDescription] = useState('');
+    const[type, setType] = useState('');
+
+    const updateBacklogItem = (e) => {
+        e.preventDefault()
+        const modifiedBacklog = {
+            title: title === '' ? oldTitle : title,
+            description: description === '' ? oldDescription : description,
+            projectName: props.backlog.projectName,
+            sprint: sprint === '' ? parseInt(oldSprint) : parseInt(sprint),
+            createdBy: props.backlog.createdBy,
+            assignee: assignee === '' ? oldAssignee : assignee,
+            status: 'TO_DO',
+            createdAt: props.backlog.createdAt,
+            storyPoints: storyPoints === '' ? parseInt(oldStoryPoints) : parseInt(storyPoints),
+            lastUpdated: new Date().toISOString().slice(0,10),
+            lastUpdatedUser: currentUser.email,
+            type: type === '' ? oldType : type
+        }
+        console.log(modifiedBacklog)
+        BacklogService.updateBacklogItem(modifiedBacklog, props.backlog.backlogId)
+        .then(response => {
+            toast.success('Backlog Element Updated Successfully', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            window.location.reload()
+            setTitle('')
+            setAssignee('')
+            setSprint('')
+            setStoryPoints('')
+            setDescription('')
+            setType('')
+        })
+        .catch(err => {
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+    }
+
     return (
         <div className="project-form">
             <div className="modal-dialog modal-dialog modal-lg">
@@ -18,28 +88,23 @@ function EditBacklog() {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" required/>
+                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)} required/>
                                   </div>
                               </div>
                               <div className="col-md-4">
                                 <label for="mail" className="form-label">Project *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect01" required>
-                                        <option value="" selected hidden>Select Project</option>
-                                        <option value="Project One">Project 1</option>
-                                        <option value="Project Two">Project 2</option>
-                                        <option value="Project Three">Project 3</option>
-                                    </select>
+                                    <input type="text" className="form-control" id="project" placeholder="Enter project name" defaultValue={currentProject} readOnly/>
                                 </div>
                               </div>
                               <div className="col-md-4">
-                                <label for="mail" className="form-label">Project Type *</label>
+                                <label for="mail" className="form-label">Type *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" required>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" value={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
                                         <option value="" selected hidden>Select Type</option>
-                                        <option value="Type One">Bug</option>
-                                        <option value="Type Two">Story</option>
-                                        <option value="Type Three">Improvement</option>
+                                        <option value="BUG">Bug</option>
+                                        <option value="STORY">Story</option>
+                                        <option value="IMPROVEMENT">Improvement</option>
                                     </select>
                                 </div>
                               </div>
@@ -48,22 +113,22 @@ function EditBacklog() {
                             <div className="row"> 
                               <div className="col-md-4">
                                   <label for="assignee" className="form-label">Assignee </label>
-                                  <input type="text" className="form-control" id="assignee" placeholder="Enter assignee name"/>
+                                  <input type="text" className="form-control" id="assignee" placeholder="Enter assignee name" defaultValue={props.backlog.assignee} onChange={(e) => setAssignee(e.target.value)}/>
                               </div>
                               <div className="col-md-4">
                                   <label for="sprint" className="form-label">Sprint *</label>
-                                  <input type="text" className="form-control" id="sprint" placeholder="Enter sprint" required/>
+                                  <input type="text" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} required/>
                               </div>
                               <div className="col-md-4">
                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" required/>
+                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} required/>
                               </div>
                             </div>
                             {/* 3rd row */}
                             <div className="row">
                             <div className="col-md-12">
                                 <label for="description" className="form-label">Description *</label> <br></br>
-                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" required>
+                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" defaultValue={props.backlog.description} onChange={(e) => setDescription(e.target.value)} required>
                                 </textarea>
                             </div>
                             </div>
@@ -71,11 +136,22 @@ function EditBacklog() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Update</button>
+                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateBacklogItem}>Update</button>
                         </div>
                     </div>
                 </form>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }
