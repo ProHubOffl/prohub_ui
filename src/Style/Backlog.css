@@ -127,6 +127,11 @@
 #backlog-error{
     text-align: center;
 }
+
+.modal-footer {
+    margin-top: -1em;
+}
+
 @media (min-width: 576px) {
     .backlog_left {
         margin-bottom: 2em;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "../../Style/ViewBacklog.css"
+import EditBacklog from "./EditBacklog";
 import BacklogService from '../../service/backlog/BacklogService';
 import BacklogCommentService from '../../service/backlog/BacklogCommentService';
 import AuthService from '../../service/authentication/AuthService';
@@ -100,13 +101,12 @@ function ViewBacklog(props) {
                     <div className="col-lg-8 col-md-7 col-sm-12">
                         <div className="ViewBacklog-left">
                             <h4></h4>
-                            <form className="ViewBacklog_left">
+                            <form className="ViewBacklog_left" action='#'>
                                 <div >
                                     <div className="row">
                                     <div className="col-md-12">
                                         <label for="comment" className="form-label">Comments</label> <br></br>
-                                        <textarea width="100%" rows="2" className="form-control border-secondary" id="comment" placeholder="Enter Your Comment" onChange={(e) => setNewComment(e.target.value)} required>
-                                        </textarea>
+                                        <textarea width="100%" rows="2" className="form-control border-secondary" id="comment" placeholder="Enter Your Comment" onChange={(e) => setNewComment(e.target.value)} required></textarea>
                                     </div>
                                     </div>
                                 </div>
@@ -141,8 +141,10 @@ function ViewBacklog(props) {
 
                     <div className="col-lg-4 col-md-5 col-sm-12">
                         <div className="ViewBacklog-right">
-                            <h3>{backlog.status}</h3>
-                            <hr></hr>
+                            <div className='header'>
+                                <h4>{backlog.status}</h4>
+                                <button type='button' className="btn btn-primary fw-bolder" id="btn-viewBacklog-edit"  data-bs-toggle="modal" data-bs-target="#EditBacklog">Edit</button>
+                            </div>
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
@@ -152,6 +154,10 @@ function ViewBacklog(props) {
                                     <tr>
                                         <th>Project</th>
                                         <td>{backlog.projectName}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Project Type</th>
+                                        <td>[-Get data-]</td>
                                     </tr>
                                     <tr>
                                         <th>Created By</th>
@@ -195,6 +201,11 @@ function ViewBacklog(props) {
                     </div>
                 </div>
             </div>
+
+            <div className="modal fade" id="EditBacklog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <EditBacklog />
+            </div>
+
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -207,6 +218,7 @@ function ViewBacklog(props) {
                 pauseOnHover
             />
         </div>
+        
     );
 }
 
