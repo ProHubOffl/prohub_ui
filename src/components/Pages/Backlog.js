@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import AuthService from '../../service/authentication/AuthService'
 import BacklogService from "../../service/backlog/BacklogService";
 import "../../Style/Backlog.css";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -37,7 +37,7 @@ const Backlog = () => {
       createdBy: currentUser.email,
       assignee,
       status: 'TO_DO',
-      createdAt: new Date(),
+      createdAt: new Date().toISOString().slice(0, 10),
       storyPoints: parseInt(storyPoints)
     }
     console.log(newBacklogItem)
@@ -169,7 +169,7 @@ const Backlog = () => {
                               <p>{backlog_state}</p>
                             </div>
                             <div className="col-md-1" id="backlog-icon">
-                              <button className="btn"><i className="bi bi-pencil-square"></i></button>
+                              <button className="btn" ><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                             </div>
                           </div>
                         </div>
@@ -181,6 +181,17 @@ const Backlog = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+    />
     </div>
   );
 };
