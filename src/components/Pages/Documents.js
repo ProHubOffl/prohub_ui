@@ -1,4 +1,3 @@
-
 import React,{useState,useEffect} from 'react';
 import CreateDocument from "./CreateDocument";
 import { styled } from '@mui/material/styles';
@@ -15,7 +14,7 @@ import Add_Document from "../../images/adddoc.png"
 import Doc from "../../images/Doc.jpg"
 import { ToastContainer, toast } from 'react-toastify';
 import DocumentService from '../../service/document/DocumentService';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import AuthService from '../../service/authentication/AuthService';
 import ReactTimeAgo from 'react-time-ago';
 import UpdateDocument from './UpdateDocument';
@@ -35,6 +34,29 @@ const Documents= () => {
   const user = first_name+' '+last_name;
   const currentProject = 'Project One';
   const [open, setOpen] = useState(false);
+
+  const handleDownload = (documentId, fileName) => {
+    DocumentService.downloadFile(documentId)
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+    })
+    .catch(err => {
+      toast.error('Unable to Download the File at the Moment', {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });  
+    })
+  }
   
   const handleClickOpen = (document) => {
       setOpen(true);
@@ -121,7 +143,7 @@ const Documents= () => {
         p: 3,
         margin: 'auto',
         width: 250,
-        height: 180,
+        height: 215,
         flexGrow: 1,
         border: 0.1,
         borderColor: 'grey.500',
@@ -150,7 +172,7 @@ const Documents= () => {
         p: 3,
         margin: 'auto',
         width: 250,
-        height: 180,
+        height: 215,
         flexGrow: 1,
         border: 0.1,
         borderColor: 'grey.500',
@@ -198,7 +220,7 @@ const Documents= () => {
           }
         </Grid>
         <Grid item xs={2}>
-              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="download" href={document.url}><DownloadForOfflineTwoTone /></IconButton></Typography>
+              <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton aria-label="download" onClick={() => handleDownload(document.documentId, document.name)}><DownloadForOfflineTwoTone /></IconButton></Typography>
         </Grid>
         <Grid item xs={2}>
               <HtmlTooltip
