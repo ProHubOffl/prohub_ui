@@ -88,7 +88,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function DropdownList(props){
 
     const currentUser = AuthService.getCurrentUser();
-
     const [open, setOpen] = useState(false);
     const [projectData, setProjectData] = useState([])
 
@@ -132,8 +131,8 @@ function DropdownList(props){
                 
                     <DropdownButton title="Active Projects" id="bg-nested-dropdown-sn">
                         {
-                            projectData.map(project=>(           
-                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}}>{project.projectName}</Dropdown.Item>
+                            projectData.map((project,index1)=>(           
+                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index1}>{project.projectName}</Dropdown.Item>
                             ))
                         }
                         <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
