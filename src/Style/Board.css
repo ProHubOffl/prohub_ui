@@ -40,6 +40,9 @@
     right: 0;
     padding: 0 5px;
 }
+.board-body .board-card #card-heading button i{
+    color: #fff;
+}
 
 .board-body .board-card #card-heading button:active {
 	padding: 2px;
