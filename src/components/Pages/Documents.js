@@ -32,7 +32,7 @@ const Documents= () => {
   const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
   const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
   const user = first_name+' '+last_name;
-  const currentProject = 'Project One';
+  const currentProject = AuthService.getCurrentProject().projectName
   const [open, setOpen] = useState(false);
 
   const handleDownload = (documentId, fileName) => {
@@ -110,6 +110,9 @@ const Documents= () => {
     DocumentService.getDocumentByProject(currentProject)
     .then(response => {
       setDocuments(response.data)
+      if(response.data.length==0){
+        setDocumentError('Document List is Empty')
+      }
     })
     .catch(err => {
       setDocumentError('Unable to fetch Documents list at the moment')

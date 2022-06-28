@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
-  const currentProject = 'Project One';
+  const currentProject = AuthService.getCurrentProject().projectName
 
   const[title, setTitle] = useState('');
   const[projectName, setProjectName] = useState('');

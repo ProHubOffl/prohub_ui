@@ -112,6 +112,11 @@ function DropdownList(props){
         .catch(err => {console.log(err)})
     },[])
 
+    const setcurrentProject = (project) => {
+        localStorage.setItem("project", JSON.stringify(project));
+        window.location.reload()
+    }
+
     return(
             <div>
                 <Dropdowncontainer is_open={props.is_open}>
@@ -132,7 +137,7 @@ function DropdownList(props){
                     <DropdownButton title="Active Projects" id="bg-nested-dropdown-sn">
                         {
                             projectData.map((project,index1)=>(           
-                                <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index1}>{project.projectName}</Dropdown.Item>
+                                <Dropdown.Item id="Nav_option_sn"  href="#" key={index1} onClick={()=>{setcurrentProject(project)}}>{project.projectName}</Dropdown.Item>
                             ))
                         }
                         <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

@@ -26,7 +26,7 @@ function Home(props) {
       Set_loading(true)
       setTimeout(()=>{
         Set_loading(false)
-      },3000)
+      },400)
     },[])
 
     return (

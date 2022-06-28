@@ -127,7 +127,12 @@ function Navbar(props) {
         .catch(err => {console.log(err)})
     },[])
 
-    return (       
+    const setcurrentProject = (project) => {
+        localStorage.setItem("project", JSON.stringify(project));
+        window.location.reload()
+    }
+    
+    return (      
         <div  className="pb-5">
             <Nav>
                 <div className="logo_section">
@@ -148,7 +153,7 @@ function Navbar(props) {
                             <DropdownButton title="Active Projects" id="bg-nested-dropdown">
                                 {
                                     projectData.map((project,index1)=>(           
-                                        <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index1} href="#">{project.projectName}</Dropdown.Item>
+                                        <Dropdown.Item id="Nav_option" key={index1} href="#" onClick={()=>{setcurrentProject(project)}}>{project.projectName}</Dropdown.Item>
                                     ))
                                 }
                                 <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

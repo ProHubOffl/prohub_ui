@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
+import AuthService from "../../service/authentication/AuthService";
 
 const Board = () => {
-  const currentProject = 'Project One';
-
+  const currentProject = AuthService.getCurrentProject().projectName
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
 
