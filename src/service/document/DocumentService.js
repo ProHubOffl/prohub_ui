@@ -47,6 +47,16 @@ const deleteDocumentItem = (documentId) => {
     })
 }
 
+const downloadFile = (documentId) => {
+    const URL = API_URL + "documents/" +  documentId;
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
+}
+
 export default {
-    deleteDocumentItem,getDocumentByProject,addDocumentItem,updateDocumentItem
+    deleteDocumentItem,getDocumentByProject,addDocumentItem,updateDocumentItem,downloadFile
 };
