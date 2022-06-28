@@ -2,6 +2,7 @@
     background-color: #e2ecefd3;
     border-radius: 5px;
     margin-top: 0.5em;
+    margin-bottom: 0.5em;
     padding: 8px;
 }
 
@@ -11,7 +12,7 @@
 }
 
 .backlog-comment {
-    max-height: 48vh;
+    max-height: 55vh;
     margin-top: 0.5em;
     overflow: auto;
 }
@@ -39,6 +40,22 @@
     font-weight: bold;
 }
 
+.ViewBacklog-right .header {
+    display: flex;
+    margin-bottom: 0.5em;
+}
+.ViewBacklog-right .header h4 {
+    flex: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#btn-viewBacklog-edit {
+    background-color: #3c6873;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
 
 
 @media (min-width: 576px) {

@@ -83,18 +83,18 @@ const Backlog = () => {
 
       <div className="container pt-2">
         <div className="row">
-          <div className="col-md-7 col-sm-12">
+          <div className="col-lg-7 col-md-12 col-sm-12">
             <form className="backlog_left" onSubmit={addBacklogItem}>
               <div >
                 {/* 1st row */}
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                       <label for="mail" className="form-label">Title *</label>
                       <div className="input-group">
                       <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} required/>
                       </div>
-                    </div>
-                    <div className="col-md-6">
+                  </div>
+                  <div className="col-md-4">
                     <label for="mail" className="form-label">Project *</label>
                     <div className="input-group">
                         <select className="form-select border-secondary" id="inputGroupSelect01" onChange={(e) => setProjectName(e.target.value)} required>
@@ -102,6 +102,17 @@ const Backlog = () => {
                             <option value="Project One">Project 1</option>
                             <option value="Project Two">Project 2</option>
                             <option value="Project Three">Project 3</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <label for="mail" className="form-label">Project Type *</label>
+                    <div className="input-group">
+                        <select className="form-select border-secondary" id="inputGroupSelect02" required>
+                            <option value="" selected hidden>Select Type</option>
+                            <option value="Type One">Bug</option>
+                            <option value="Type Two">Story</option>
+                            <option value="Type Three">Improvement</option>
                         </select>
                     </div>
                   </div>
