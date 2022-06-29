@@ -15,6 +15,7 @@ function EditBacklog(props) {
     const oldStoryPoints = props.backlog.storyPoints;
     const oldDescription = props.backlog.description;
     const oldType = props.backlog.type;
+    const oldStatus = props.backlog.status;
   
     const[title, setTitle] = useState('');
     const[assignee, setAssignee] = useState('');
@@ -22,6 +23,7 @@ function EditBacklog(props) {
     const[storyPoints, setStoryPoints] = useState('');
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
+    const[status, setStatus] = useState('');
 
     const updateBacklogItem = (e) => {
         e.preventDefault()
@@ -32,10 +34,10 @@ function EditBacklog(props) {
             sprint: sprint === '' ? parseInt(oldSprint) : parseInt(sprint),
             createdBy: props.backlog.createdBy,
             assignee: assignee === '' ? oldAssignee : assignee,
-            status: 'TO_DO',
+            status: status === '' ? oldStatus :  status,
             createdAt: props.backlog.createdAt,
             storyPoints: storyPoints === '' ? parseInt(oldStoryPoints) : parseInt(storyPoints),
-            lastUpdated: new Date().toISOString().slice(0,10),
+            lastUpdated: new Date().toUTCString(),
             lastUpdatedUser: currentUser.email,
             type: type === '' ? oldType : type
         }
@@ -58,6 +60,7 @@ function EditBacklog(props) {
             setStoryPoints('')
             setDescription('')
             setType('')
+            setStatus('')
         })
         .catch(err => {
             toast.error('Unable to proceed your request', {
@@ -92,16 +95,22 @@ function EditBacklog(props) {
                                   </div>
                               </div>
                               <div className="col-md-4">
-                                <label for="mail" className="form-label">Project *</label>
+                                <label for="status" className="form-label">Status *</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" id="project" placeholder="Enter project name" defaultValue={currentProject} readOnly/>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.status} onChange={(e) => setStatus(e.target.value)} required>
+                                        <option value="" selected hidden>{props.backlog.status}</option>
+                                        <option value="TO_DO">TO DO</option>
+                                        <option value="IN_PROGRESS">IN PROGRESS</option>
+                                        <option value="FINISHED">FINSIHED</option>
+                                        <option value="APPROVED">APPROVED</option>
+                                    </select>
                                 </div>
                               </div>
                               <div className="col-md-4">
                                 <label for="mail" className="form-label">Type *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" value={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
-                                        <option value="" selected hidden>Select Type</option>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
+                                        <option value="" selected hidden>{props.backlog.type}</option>
                                         <option value="BUG">Bug</option>
                                         <option value="STORY">Story</option>
                                         <option value="IMPROVEMENT">Improvement</option>
