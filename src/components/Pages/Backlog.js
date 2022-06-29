@@ -14,6 +14,7 @@ const Backlog = () => {
   const[sprint, setSprint] = useState('');
   const[storyPoints, setStoryPoints] = useState('');
   const[description, setDescription] = useState('');
+  const[type, setType] = useState('');
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
 
@@ -24,7 +25,9 @@ const Backlog = () => {
     })
     .catch(err => {
       setBacklogError('Unable to fetch backlog list at the moment')
-    })
+    });
+
+
   },[])
 
   const addBacklogItem = e => {
@@ -32,13 +35,14 @@ const Backlog = () => {
     const newBacklogItem = {
       title,
       description,
-      projectName,
+      projectName: currentProject,
       sprint: parseInt(sprint),
       createdBy: currentUser.email,
       assignee,
       status: 'TO_DO',
-      createdAt: new Date().toISOString().slice(0, 10),
-      storyPoints: parseInt(storyPoints)
+      createdAt: new Date().toUTCString(),
+      storyPoints: parseInt(storyPoints),
+      type
     }
     console.log(newBacklogItem)
     BacklogService.addBacklogItem(newBacklogItem)
@@ -54,11 +58,11 @@ const Backlog = () => {
       });
       window.location.replace("/board")
       setTitle('')
-      setProjectName('')
       setAssignee('')
       setSprint('')
       setStoryPoints('')
       setDescription('')
+      setType('')
     })
     .catch(err => {
       console.log(err)
@@ -97,22 +101,17 @@ const Backlog = () => {
                   <div className="col-md-4">
                     <label for="mail" className="form-label">Project *</label>
                     <div className="input-group">
-                        <select className="form-select border-secondary" id="inputGroupSelect01" onChange={(e) => setProjectName(e.target.value)} required>
-                            <option value="" selected hidden>Select Project</option>
-                            <option value="Project One">Project 1</option>
-                            <option value="Project Two">Project 2</option>
-                            <option value="Project Three">Project 3</option>
-                        </select>
+                      <input type="text" className="form-control" id="projectName" placeholder="Enter Project Name" value={currentProject} readOnly required/>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <label for="mail" className="form-label">Project Type *</label>
                     <div className="input-group">
-                        <select className="form-select border-secondary" id="inputGroupSelect02" required>
+                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} required>
                             <option value="" selected hidden>Select Type</option>
-                            <option value="Type One">Bug</option>
-                            <option value="Type Two">Story</option>
-                            <option value="Type Three">Improvement</option>
+                            <option value="BUG">Bug</option>
+                            <option value="STORY">Story</option>
+                            <option value="IMPROVEMENT">Improvement</option>
                         </select>
                     </div>
                   </div>

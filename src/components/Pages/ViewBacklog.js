@@ -152,12 +152,12 @@ function ViewBacklog(props) {
                                         <td>{backlog.title}</td>
                                     </tr>
                                     <tr>
-                                        <th>Project</th>
-                                        <td>{backlog.projectName}</td>
+                                        <th>Type</th>
+                                        <td>{backlog.type}</td>
                                     </tr>
                                     <tr>
-                                        <th>Project Type</th>
-                                        <td>[-Get data-]</td>
+                                        <th>Project</th>
+                                        <td>{backlog.projectName}</td>
                                     </tr>
                                     <tr>
                                         <th>Created By</th>
@@ -203,7 +203,7 @@ function ViewBacklog(props) {
             </div>
 
             <div className="modal fade" id="EditBacklog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <EditBacklog />
+                <EditBacklog backlog={backlog}/>
             </div>
 
             <ToastContainer
