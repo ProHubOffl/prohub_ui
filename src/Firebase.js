@@ -1,7 +1,7 @@
 import firebase from "firebase"
 
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyBvj8ySO9O_OrXEjdQi8SJ1os1iK2iU9qE",
+    apiKey: "",
     authDomain: "react-chat-demo-3d8bd.firebaseapp.com",
     projectId: "react-chat-demo-3d8bd",
     storageBucket: "react-chat-demo-3d8bd.appspot.com",
