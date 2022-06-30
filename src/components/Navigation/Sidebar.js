@@ -78,7 +78,7 @@ const ButtonExpand = styled.button`
 `;
 
 const SidebarContainer = styled.div`
-    background: linear-gradient(150deg, #003847 40%, rgba(0, 90, 71, 0.75) 10%);
+    // background: linear-gradient(150deg, #003847 40%, rgba(0, 90, 71, 0.75) 10%);
     width: 3.0rem;
     height: 23.25rem;
     margin-top: 1rem;
@@ -372,7 +372,7 @@ function Sidebar (){
                   <Text clicked={click}>Announcement</Text>
                 </Item>
               </Tooltip>
-              <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
+              {/* <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
                 <Item
                   onClick={() => setClick(false)}
                   activeClassName="active"
@@ -381,7 +381,7 @@ function Sidebar (){
                   <img src={Tickets} alt="Tickets" />
                   <Text clicked={click}>Tickets</Text>
                 </Item>
-              </Tooltip>
+              </Tooltip> */}
             </SlickBar>
           </SidebarContainer>
       </div>
