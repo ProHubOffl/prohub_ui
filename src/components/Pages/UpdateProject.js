@@ -2,13 +2,14 @@ import React,{useState,useEffect} from 'react';
 import "../../Style/Project.css";
 import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
+import AuthService from '../../service/authentication/AuthService';
 import ProjectUserService from "../../service/user/ProjectUserService"
 import {Animated} from "react-animated-css";
 import { toast, ToastContainer } from 'react-toastify';
 
 function UpdateProject() {
 
-    const projectName = "Project One";
+    const projectName =  AuthService.getCurrentProject().projectName;
 
     const[users, setUsers] = useState([]);
     const[userError, setUserError] = useState('');

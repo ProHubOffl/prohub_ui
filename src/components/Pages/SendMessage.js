@@ -8,7 +8,7 @@ import UserImageService from '../../service/userimage/UserImageService'
 import { ToastContainer, toast } from 'react-toastify';
 
 function SendMessage({ scroll }) {
-    const currentProject = "Project One";
+    const currentProject = AuthService.getCurrentProject().projectName;
 
     const [msg, setMsg] = useState('')
 
@@ -16,7 +16,6 @@ function SendMessage({ scroll }) {
 
     async function uploadImage (e) {
         const image = e.target.files[0];
-        console.log(image)
         if(image.type === 'image/jpeg' || image.type === 'image/png' || image.type === 'image/jpg') {
             const uploadTask = storage.ref(`images/${image.name}`).put(image);
             uploadTask.on(
@@ -31,33 +30,7 @@ function SendMessage({ scroll }) {
                 .child(image.name)
                 .getDownloadURL()
                 .then((url) => {
-                    //setUrl(url);
                     sendMessage('',url)
-                    /*await UserImageService.getImageByEmail(currentUser.email)
-                    .then(response => {
-                        db.collection(currentProject).add({
-                            text: '',
-                            imageMessage:url,
-                            displayName: currentUser.firstName.slice(0,10),
-                            email: currentUser.email,
-                            photoUrl:`data:image/jpeg;base64,${response.data}`,
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        })
-                        setMsg('')
-                        scroll.current.scrollIntoView({ behavior: 'smooth' })
-                    })
-                    .catch(err => {
-                        db.collection(currentProject).add({
-                            text: '',
-                            imageMessage:url,
-                            displayName: currentUser.firstName.slice(0,10),
-                            email: currentUser.email,
-                            photoUrl:'',
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        })
-                        setMsg('')
-                        scroll.current.scrollIntoView({ behavior: 'smooth' })
-                    })*/
                 });
             });
         } else {
@@ -119,7 +92,6 @@ function SendMessage({ scroll }) {
                         </label>
                         <input id="image-chat-input" type="file" onChange={uploadImage} />
                     </div>
-                    {/*<Input style={{ width: '18%', fontSize: '15px', fontWeight: '550', margin: '4px 5% -13px 5%', maxWidth: '200px'}} type="file" onChange={uploadImage}>File Upload</Input>*/}
                     <Button style={{ width: '18%', fontSize: '15px', fontWeight: '550', margin: '5px 0 -13px 0', maxWidth: '70px'}} type="submit">Send</Button>
                 </div>
             </form>

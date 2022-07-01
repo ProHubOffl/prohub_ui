@@ -6,7 +6,7 @@ import AuthService from "../../service/authentication/AuthService";
 import Unknown_image from "../../images/Unknown.png"
 
 function Chat() {
-    const currentProject = "Project One";
+    const currentProject = AuthService.getCurrentProject().projectName
 
     const scroll = useRef()
     const [messages, setMessages] = useState([])
