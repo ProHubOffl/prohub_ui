@@ -20,15 +20,29 @@ function Chat() {
     return (
         <div>
             <div className="msgs">
-                {messages.map(({ id, text, displayName, email, photoUrl }) => (
-                    <div>
-                        <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
-                            <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
-                            <p className='chat'>{displayName}</p><br/><br/>
-                            <p className='chat'>{text}</p>
-                        </div>
-                    </div>
-                ))}
+                {messages.map(({ id, text, imageMessage, displayName, email, photoUrl }) => {
+                    if(imageMessage === '') {
+                        return (
+                            <div>
+                                <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
+                                    <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                    <p className='chat'>{displayName}</p><br/><br/>
+                                    <p className='chat'>{text}</p>
+                                </div>
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div>
+                                <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
+                                    <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                    <p className='chat'>{displayName}</p><br/><br/>
+                                    <img className='msg_img' src={imageMessage} alt="Image Message" />
+                                </div>
+                            </div>
+                        )
+                    }
+                })}
             </div>
             <SendMessage scroll={scroll} />
             <div ref={scroll}></div>
