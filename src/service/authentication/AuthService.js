@@ -34,11 +34,16 @@ const login = (email, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("project");
   window.location.replace('/authenticate')
 };
 
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
+};
+
+const getCurrentProject = () => {
+  return JSON.parse(localStorage.getItem("project"));
 };
 
 const forgotPassword = (email) => {
@@ -55,5 +60,6 @@ export default {
   login,
   logout,
   getCurrentUser,
-  forgotPassword
+  forgotPassword,
+  getCurrentProject
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import styled,{css} from 'styled-components';
 import {Link} from "react-router-dom";
 import { dashboardData } from '../../data/Dashboarddata';
@@ -17,6 +17,8 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
+import AuthService from '../../service/authentication/AuthService';
+import ProjectUserService from '../../service/user/ProjectUserService';
 
 const Nav = styled.nav`
     display:flex;
@@ -87,12 +89,14 @@ const NavMenu=styled.div`
 `;
 
 function Navbar(props) {
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         top: false,
         left: false,
         bottom: false,
         right: false,
       });
+      const currentUser = AuthService.getCurrentUser();
+      const [projectData, setProjectData] = useState([]);
     
       const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -115,7 +119,20 @@ function Navbar(props) {
         </Box>
       );
 
-    return (       
+      useEffect(() => {
+        ProjectUserService.getProjectsByUser(currentUser.email)
+        .then(response => {
+            setProjectData(response.data)
+        })
+        .catch(err => {console.log(err)})
+    },[])
+
+    const setcurrentProject = (project) => {
+        localStorage.setItem("project", JSON.stringify(project));
+        window.location.reload()
+    }
+    
+    return (      
         <div  className="pb-5">
             <Nav>
                 <div className="logo_section">
@@ -135,8 +152,8 @@ function Navbar(props) {
                         <NavMenu>
                             <DropdownButton title="Active Projects" id="bg-nested-dropdown">
                                 {
-                                    projectData.map((item1,index1)=>(           
-                                        <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index1} href="#">{item1.sub1}</Dropdown.Item>
+                                    projectData.map((project,index1)=>(           
+                                        <Dropdown.Item id="Nav_option" key={index1} href="#" onClick={()=>{setcurrentProject(project)}}>{project.projectName}</Dropdown.Item>
                                     ))
                                 }
                                 <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

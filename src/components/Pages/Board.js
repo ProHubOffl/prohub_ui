@@ -1,21 +1,42 @@
 import React, {useState, useEffect} from "react";
 import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
+import AuthService from "../../service/authentication/AuthService";
+import ProjectUserService from "../../service/user/ProjectUserService";
 
 const Board = () => {
-  const currentProject = 'Project One';
-
+  const currentProject = localStorage.getItem("project") === null ? "" : AuthService.getCurrentProject().projectName
+  // console.log(AuthService.getCurrentProject().projectName)
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
+  const email = AuthService.getCurrentUser().email
 
   useEffect(() => {
-    BacklogService.getBacklogByProject(currentProject)
-    .then(response => {
-      setBacklogs(response.data)
-    })
-    .catch(err => {
-      setBacklogError('Unable to fetch the backlog board at the moment')
-    })
+    if(localStorage.getItem("project") === null)
+      {    
+        ProjectUserService.getProjectsByUser(email)
+        .then(res => {
+            console.log(res.data[0])
+            localStorage.setItem("project", JSON.stringify(res.data[0]));
+            // setCurrentProject(res.data[0].projectName)
+            BacklogService.getBacklogByProject(res.data[0].projectName)
+            .then(response => {
+              setBacklogs(response.data)
+            })
+            .catch(err => {
+              setBacklogError('Unable to fetch the backlog board at the moment')
+            })
+        })
+        .catch(err => {console.log(err)})
+       } else {
+        BacklogService.getBacklogByProject(currentProject)
+        .then(response => {
+          setBacklogs(response.data)
+        })
+        .catch(err => {
+          setBacklogError('Unable to fetch the backlog board at the moment')
+        })
+       }
   },[])
 
   return (

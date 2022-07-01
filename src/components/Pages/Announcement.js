@@ -1,14 +1,16 @@
 
 import React from "react";
+import AuthService from "../../service/authentication/AuthService";
 import "../../Style/Announcement.css"
 import AddAnnouncement from "./AddAnnouncement";
 import UpdateAnnouncement from "./UpdateAnnouncement";
 
 const Announcement = () => {
+  const currentProject = AuthService.getCurrentProject().projectName
   return (<div>
       <div className="sub_header px-4">
           <h3>Announcements</h3>
-          <p className="fw-bold">Project / <span className="fw-bolder">[Project Name]</span></p>
+          <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
       </div>
 
       <div className="announcement">

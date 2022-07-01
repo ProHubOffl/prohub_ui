@@ -32,5 +32,3 @@ const updatePassword = (newPassword,currentPassword) => {
 export default {
     updateUser,updatePassword
 };
-
-// https://github.com/lahiruhashan/React-Image-Uploader-And-Previewer/blob/master/src/components/ImageUploader.js

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function CreateDocument() {
     const first_name=AuthService.getCurrentUser().firstName.slice(0,10)
     const last_name=AuthService.getCurrentUser().lastName.slice(0,10)
-    const currentProject = 'Project One';
+    const currentProject = AuthService.getCurrentProject().projectName;
     const[selectedFile,setSelectedFile] = useState(undefined)
     const[title, setTitle] = useState('');
     const[project_name, setproject_name] = useState(currentProject);
