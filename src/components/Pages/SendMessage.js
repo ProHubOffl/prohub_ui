@@ -30,7 +30,7 @@ function SendMessage({ scroll }) {
                 .child(image.name)
                 .getDownloadURL()
                 .then((url) => {
-                    sendMessage('',url)
+                    sendMessage('',url,'','')
                 });
             });
         } else {
@@ -46,19 +46,39 @@ function SendMessage({ scroll }) {
         }
     }
 
-    function sendTextMessage(e) {
-        e.preventDefault();
-        sendMessage(msg,'')
+    function uploadDocument (e) {
+        const document = e.target.files[0]
+        const uploadTask = storage.ref(`documents/${document.name}`).put(document);
+        uploadTask.on(
+            "state_changed",
+            snapshot => {},
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                .ref("documents")
+                .child(document.name)
+                .getDownloadURL()
+                .then((url) => {
+                    sendMessage('','',url,document.name)
+                });
+        });
     }
 
-    function sendMessage(text, imageMessage) {
-        console.log(text)
-        console.log(imageMessage)
+    function sendTextMessage(e) {
+        e.preventDefault();
+        sendMessage(msg,'','','')
+    }
+
+    function sendMessage(text, imageMessage, document, documentName) {
         UserImageService.getImageByEmail(currentUser.email)
         .then(response => {
             db.collection(currentProject).add({
                 text: text,
                 imageMessage:imageMessage,
+                document:document,
+                documentName: documentName,
                 displayName: currentUser.firstName.slice(0,10),
                 email: currentUser.email,
                 photoUrl:`data:image/jpeg;base64,${response.data}`,
@@ -71,6 +91,8 @@ function SendMessage({ scroll }) {
             db.collection(currentProject).add({
                 text: text,
                 imageMessage:imageMessage,
+                document:document,
+                documentName: documentName,
                 displayName: currentUser.firstName.slice(0,10),
                 email: currentUser.email,
                 photoUrl:'',
@@ -91,6 +113,12 @@ function SendMessage({ scroll }) {
                             <i class="fa fa-camera" aria-hidden="true"></i>
                         </label>
                         <input id="image-chat-input" type="file" onChange={uploadImage} />
+                    </div>
+                    <div class="document-upload" style={{marginLeft:'40px', marginRight:'40px'}}>
+                        <label for="document-chat-input">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        </label>
+                        <input id="document-chat-input" type="file" onChange={uploadDocument} />
                     </div>
                     <Button style={{ width: '18%', fontSize: '15px', fontWeight: '550', margin: '5px 0 -13px 0', maxWidth: '70px'}} type="submit">Send</Button>
                 </div>

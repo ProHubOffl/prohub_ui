@@ -20,17 +20,30 @@ function Chat() {
     return (
         <div>
             <div className="msgs">
-                {messages.map(({ id, text, imageMessage, displayName, email, photoUrl }) => {
+                {messages.map(({ id, text, imageMessage, document, documentName, displayName, email, photoUrl }) => {
                     if(imageMessage === '') {
-                        return (
-                            <div>
-                                <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
-                                    <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
-                                    <p className='chat'>{displayName}</p><br/><br/>
-                                    <p className='chat'>{text}</p>
+                        if(document === '') {
+                            return (
+                                <div>
+                                    <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
+                                        <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                        <p className='chat'>{displayName}</p><br/><br/>
+                                        <p className='chat'>{text}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        )
+                            )
+                        } else {
+                            return (
+                                <div>
+                                    <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
+                                        <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                        <p className='chat'>{displayName}</p><br/><br/>
+                                        <a style={{color:'black'}} className='chat_document' href={document} target="_blank">{documentName}</a>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        
                     } else {
                         return (
                             <div>
