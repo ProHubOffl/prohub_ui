@@ -6,6 +6,7 @@ import { projectData } from '../../data/Projectdata';
 import Bars from "../../assets/bars.svg";
 import logo from "../../images/prohub.png"
 import CreateProject from "../Pages/CreateProject";
+import Chat from '../Pages/Chat';
 
 import "../../Style/Navbar.css"
 import { BsChatLeftTextFill } from "react-icons/bs";
@@ -114,7 +115,7 @@ function Navbar(props) {
           //onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                Siva
+                <Chat />
             </List>
         </Box>
       );

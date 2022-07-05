@@ -12,6 +12,15 @@ const getImage = () => {
     });
 };
 
+const getImageByEmail = (email) => {
+    const URL = API_URL+"userImage/"+ email +"/download";
+    return axios.get(URL, {
+        headers: {
+            'Authorization':'Bearer ' + currentUser.jwtToken
+        }
+    });
+}
+
 const uploadImage = (data)  => {
     const URL = API_URL+"userImage/"+ currentUser.email+"/update";
     return axios.put(URL, 
@@ -37,5 +46,6 @@ const RemoveImage = ()  => {
 export default {
     getImage,
     uploadImage,
-    RemoveImage
+    RemoveImage,
+    getImageByEmail
 };
