@@ -2,26 +2,72 @@ import React,{useState,useEffect} from 'react';
 import "../../Style/Project.css";
 import CreateUser from "./AddUserRole";
 import UpdateUser from "./UpdateUserRole";
-import AuthService from '../../service/authentication/AuthService';
 import ProjectUserService from "../../service/user/ProjectUserService"
-import {Animated} from "react-animated-css";
+import ProjectService from '../../service/project/ProjectService';
 import { toast, ToastContainer } from 'react-toastify';
 
-function UpdateProject() {
+function UpdateProject({location}) {
 
-    const projectName =  AuthService.getCurrentProject().projectName;
+    const projectName =  location.state.project.projectName;
 
     const[users, setUsers] = useState([]);
+    const[project, setProject] = useState({})
     const[userError, setUserError] = useState('');
     const[selectedUser, setSelectedUser] = useState({})
+    const[teamName, setTeamName] = useState('');
+    const[description, setDescription] = useState('');
+    const[endDate, setEndDate] = useState('');
+    const[projectType, SetProjectType] = useState('');
+    const[storyPoints, setStoryPoints] = useState('');
+    const[sprints, setSprints] = useState('');
 
-    const [show, setShow] = useState(false);
     const handleClose = () => {
-        setShow(false);
+        window.location.replace("/Board")
     }
 
-    const showpopup =()=>{
-        setShow(true);
+    const updateProject = (e) => {
+        e.preventDefault();
+        const modifiedProject = {
+            teamName: teamName === '' ? project.teamName : teamName,
+            projectName:project.projectName,
+            projectDescription: description === '' ? project.projectDescription : description,
+            startDate:project.startDate,
+            endDate: endDate === '' ? project.endDate : endDate,
+            projectType: projectType === '' ? project.projectType: projectType,
+            storyPoints: storyPoints === '' ? project.storyPoints : storyPoints,
+            totalSprints: sprints === '' ? project.totalSprints : sprints
+        }
+        ProjectService.updateProject(modifiedProject, projectName)
+        .then(response => {
+            toast.success('Project Updated Successfully', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            window.location.reload()
+            setTeamName('')
+            setDescription('')
+            setEndDate('')
+            setSprints('')
+            setStoryPoints('')
+            SetProjectType('')
+        })
+        .catch(err => {
+            console.log(err)
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
     }
 
     const selectUserRole = (user) => {
@@ -69,17 +115,18 @@ function UpdateProject() {
         .catch(err => {
             setUserError("Unable to fetch the project user roles at the moment")
         })
+
+        ProjectService.getProjectByProjectName(projectName)
+        .then(response => {
+            setProject(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     },[])
 
     return (
         <>
-            <button type="button"  id="btn-update-project" onClick={showpopup}>
-                Update Project
-            </button>
-        {
-        show
-        ?
-        <Animated animationIn="slideInDown" animationOut="slideOutDown" animationInDuration={4000} animationOutDuration={4000} isVisible={show}>
             <div className="project-form" id="update-form">
                 <div className="modal-xl modal-box">                   
                     <form>
@@ -94,41 +141,41 @@ function UpdateProject() {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <label for="teamName" className="form-label">Team Name *</label>
-                                                <input type="text" className="form-control" id="teamName" placeholder="Enter your team name" required/>
+                                                <input type="text" className="form-control" id="teamName" placeholder="Enter your team name" defaultValue={project.teamName} onChange={(e) => setTeamName(e.target.value)} required/>
                                             </div>
                                             <div className="col-md-6">
                                                 <label for="projectName" className="form-label">Project Name *</label>
-                                                <input type="text" className="form-control" id="projectName" placeholder="Enter the project name" required/>
+                                                <input type="text" className="form-control" id="projectName" placeholder="Enter the project name" value={project.projectName} readOnly/>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <label for="description" className="form-label">Description *</label>
-                                                <textarea className="form-control border-secondary" id="description" placeholder="Enter the Description" required></textarea>
+                                                <textarea className="form-control border-secondary" id="description" placeholder="Enter the Description" defaultValue={project.projectDescription} onChange={(e) => setDescription(e.target.value)} required></textarea>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <label for="startDate" className="form-label">Start Date *</label>
-                                                <input type="date" className="form-control" id="teamName" required/>
+                                                <input type="text" className="form-control" id="teamName" value={project.startDate} readOnly/>
                                             </div>
                                             <div className="col-md-6">
                                                 <label for="endDate" className="form-label">End Date *</label>
-                                                <input type="date" className="form-control" id="endDate" required/>
+                                                <input type="date" className="form-control" id="endDate" defaultValue={project.endDate} onChange={(e) => setEndDate(e.target.value)} required/>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-4">
                                                 <label for="projectType" className="form-label">Project Type *</label>
-                                                <input type="text" className="form-control" id="projectType" placeholder="Enter project type" required/>
+                                                <input type="text" className="form-control" id="projectType" placeholder="Enter project type" defaultValue={project.projectType} onChange={(e)=>SetProjectType(e.target.value)} required/>
                                             </div>
                                             <div className="col-md-4">
                                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" />
+                                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={project.storyPoints} onChange={(e) => setStoryPoints(e.target.value)}/>
                                             </div>
                                             <div className="col-md-4">
                                                 <label for="totalSprint" className="form-label">Total Sprint</label>
-                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" />
+                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" defaultValue={project.totalSprints} onChange={(e) => setSprints(e.target.value)}/>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +218,7 @@ function UpdateProject() {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" onClick={handleClose}>Cancel</button>
-                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create">Update</button>
+                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateProject}>Update</button>
                             </div>
                         </div>
                     </form>
@@ -185,10 +232,6 @@ function UpdateProject() {
                 <UpdateUser user={selectedUser} />
             </div>           
         
-        </Animated>
-        :
-        ""
-        }
         <ToastContainer
             position="top-center"
             autoClose={5000}
