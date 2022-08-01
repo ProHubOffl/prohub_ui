@@ -7,11 +7,14 @@ import EditProfile from '../Pages/EditProfile';
 import ViewBacklog from '../Pages/ViewBacklog';
 import Chat from '../Pages/Chat';
 import UpdateProject from '../Pages/UpdateProject';
+import PersonalDashboard from '../Pages/PersonalDashboard';
+import ProjectDashboard from '../Pages/ProjectDashboard';
 
 import {
     Route,
     Switch
   } from "react-router-dom";
+
 
 function Routing() {
     return (
@@ -24,6 +27,8 @@ function Routing() {
                 <Route exact path="/Backlog/:backlogId" component={ViewBacklog} />
                 <Route exact path="/Chat" component={Chat} />
                 <Route exact path="/project" component={UpdateProject} />
+                <Route exact path="/dashboard" component={ProjectDashboard} />
+                <Route exact path="/personaldashboard" component={PersonalDashboard} />
                 <Route exact path="*" component={Board} />
             </Switch>        
     )

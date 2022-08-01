@@ -21,10 +21,11 @@ import UserImageService from "../../service/userimage/UserImageService";
 import Unknown_image from "../../images/Unknown.png"
 import Tooltip from '@mui/material/Tooltip';
 import $ from 'jquery';
+import ProjectDashboard from "../Pages/ProjectDashboard";
 
 const Container = styled.div`
     position: fixed;
-    margin-top: 22vh;
+    margin-top: 18vh;
     z-index: 999;
     .active {
       border-right: 4px solid orange;
@@ -103,7 +104,7 @@ const SlickBar = styled.ul`
     padding: 1.3rem 0 1.1rem 0;
 
     position: absolute;
-    top: 6rem;
+    top: 5rem;
     left: 0;
 
     width: ${(props) => (props.clicked ? "12rem" : "3rem")};
@@ -157,7 +158,7 @@ const Text = styled.span`
 const Profile = styled.div`
     width: ${(props) => (props.clicked ? "auto" : "3rem")};
     height: 4rem;
-    margin: 1.5rem 0 0.5rem 0;
+    // margin: 1.5rem 0 0.5rem 0;
     border-radius: 0px 20px 20px 0px;
 
     display: flex;
@@ -175,6 +176,7 @@ const Profile = styled.div`
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
+    margin-top: 0.01rem;
     
     &:hover {
       border: 2px solid orange;
@@ -372,16 +374,16 @@ function Sidebar (){
                   <Text clicked={click}>Announcement</Text>
                 </Item>
               </Tooltip>
-              {/* <Tooltip title={click ? "" : "Tickets"} placement="right" arrow="true">
+              <Tooltip title={click ? "" : "Dashboard"} placement="right" arrow="true">
                 <Item
                   onClick={() => setClick(false)}
                   activeClassName="active"
-                  to="/Tickets"
+                  to="/dashboard"
                 >
-                  <img src={Tickets} alt="Tickets" />
-                  <Text clicked={click}>Tickets</Text>
+                  <img src={Tickets} alt="dashboard" />
+                  <Text clicked={click}>Dashboard</Text>
                 </Item>
-              </Tooltip> */}
+              </Tooltip>
             </SlickBar>
           </SidebarContainer>
       </div>

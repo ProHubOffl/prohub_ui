@@ -130,7 +130,7 @@ function Navbar(props) {
 
     const setcurrentProject = (project) => {
         localStorage.setItem("project", JSON.stringify(project));
-        window.location.reload()
+        window.location.replace('/Board')
     }
     
     return (      
@@ -163,13 +163,9 @@ function Navbar(props) {
                                     Create Project
                                 </button>
                             </DropdownButton>
-                            <DropdownButton title="Dashboard" id="bg-nested-dropdown">
-                                {
-                                    dashboardData.map((item2,index2)=>(           
-                                    <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
-                                    ))
-                                }
-                            </DropdownButton>
+                            <button id="bg-nested-dropdown"  onClick={()=>{}} href="#">
+                                <Link to="personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
+                            </button>
                         </NavMenu>
 
                         <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
