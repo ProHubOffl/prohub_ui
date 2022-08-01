@@ -14,6 +14,26 @@ const createProject = (project) => {
     })
 }
 
+const getProjectByProjectName = (projectName) => {
+    const URL = API_URL + "project/" + projectName;
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
+}
+
+const updateProject = (project, projectName) => {
+    const URL = API_URL + "project/" + projectName;
+    return axios.put(URL, project, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    })
+}
+
 export default {
-createProject
+    createProject, getProjectByProjectName, updateProject
 };

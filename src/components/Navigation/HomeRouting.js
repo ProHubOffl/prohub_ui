@@ -6,6 +6,7 @@ import Documents from "../Pages/Documents";
 import EditProfile from '../Pages/EditProfile';
 import ViewBacklog from '../Pages/ViewBacklog';
 import Chat from '../Pages/Chat';
+import UpdateProject from '../Pages/UpdateProject';
 
 import {
     Route,
@@ -22,6 +23,7 @@ function Routing() {
                 <Route exact path="/EditProfile" component={EditProfile} />
                 <Route exact path="/Backlog/:backlogId" component={ViewBacklog} />
                 <Route exact path="/Chat" component={Chat} />
+                <Route exact path="/project" component={UpdateProject} />
                 <Route exact path="*" component={Board} />
             </Switch>        
     )

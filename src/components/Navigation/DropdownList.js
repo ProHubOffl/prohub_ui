@@ -137,7 +137,9 @@ function DropdownList(props){
                     <DropdownButton title="Active Projects" id="bg-nested-dropdown-sn">
                         {
                             projectData.map((project,index1)=>(           
-                                <Dropdown.Item id="Nav_option_sn"  href="#" key={index1} onClick={()=>{setcurrentProject(project)}}>{project.projectName}</Dropdown.Item>
+                                <Dropdown.Item id="Nav_option_sn"  href="#" key={index1} onClick={()=>{setcurrentProject(project)}}>
+                                    {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}>Edit</Link>
+                                </Dropdown.Item>
                             ))
                         }
                         <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

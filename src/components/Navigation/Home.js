@@ -49,7 +49,6 @@ function Home(props) {
             <Navbar toggle={toggle} />
             <DropdownList is_open={is_this_open} toggle={toggle} />
             <Sidebar/> 
-            <UpdateProject />
             <HomeRouting/>
             </>
             )

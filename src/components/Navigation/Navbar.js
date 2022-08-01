@@ -154,7 +154,9 @@ function Navbar(props) {
                             <DropdownButton title="Active Projects" id="bg-nested-dropdown">
                                 {
                                     projectData.map((project,index1)=>(           
-                                        <Dropdown.Item id="Nav_option" key={index1} href="#" onClick={()=>{setcurrentProject(project)}}>{project.projectName}</Dropdown.Item>
+                                        <Dropdown.Item id="Nav_option" key={index1} href="#" onClick={()=>{setcurrentProject(project)}}>
+                                            {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}>Edit</Link>
+                                        </Dropdown.Item>
                                     ))
                                 }
                                 <button type="button" className="btn btn-primary fw-bolder" id="btn-CreateProject" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
