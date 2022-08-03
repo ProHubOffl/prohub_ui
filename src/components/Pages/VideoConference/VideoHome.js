@@ -93,8 +93,9 @@ const JoinButton = styled.button`
   outline: none;
   border: none;
   border-radius: 15px;
-  color: #d8e9ef;
-  background-color: #4ea1d3;
+  color: white;
+  background-color: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
+  background: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
   font-size: 25px;
   font-weight: 500;
   width:300px;

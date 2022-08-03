@@ -90,7 +90,9 @@ const Bar = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: 500;
-  background-color: #4ea1d3;
+  background-color: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
+  background:linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
+  color:white;
 `;
 const Left = styled.div`
   display: flex;
