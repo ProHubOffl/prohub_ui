@@ -114,7 +114,7 @@ function DropdownList(props){
 
     const setcurrentProject = (project) => {
         localStorage.setItem("project", JSON.stringify(project));
-        window.location.replace('/Board')
+        window.location.reload()
     }
 
     return(
