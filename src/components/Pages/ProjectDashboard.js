@@ -43,6 +43,9 @@ const ProjectDashboard = () => {
         for(var i=1; i<sprints ; i=i+1){
             dates[i] = new Date(lastdate.setDate(lastdate.getDate() + days));
         }
+        if(today > dates[sprints] || today < dates[0]){
+            return "-,"+"Project Expired"
+        }
         for(var i=1 ; i<=sprints; i=i+1){
             currentsprint = currentsprint + 1
             if(today < dates[i] && today > dates[i-1]){
@@ -70,70 +73,46 @@ const ProjectDashboard = () => {
         return days;
     }
 
-    const CalculatecompletedImprovementStorypoints = (tasks) => {
+    const CalculateImprovementProgress = (tasks) => {
         var improve = 0;
+        var improvetotal = 0;
         for(let b in tasks){
             if(tasks[b].type == 'IMPROVEMENT'){
+                improvetotal =improvetotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     improve =improve+tasks[b].storyPoints
                 }
             }
         }
-        return improve;
+        return improve+"/"+improvetotal;
     }
 
-    const CalculateTotalImprovementStorypoints = (tasks) => {
-        var improvetotal = 0;
-        for(let b in tasks){
-            if(tasks[b].type == 'IMPROVEMENT'){
-                improvetotal =improvetotal+tasks[b].storyPoints
-            }
-        }
-        return improvetotal;
-    }
-
-    const CalculatecompletedStoryStorypoints = (tasks) => {
+    const CalculateStoryProgress = (tasks) => {
         var story = 0;
+        var storytotal = 0;
         for(let b in tasks){
             if(tasks[b].type == 'STORY'){
+                storytotal =storytotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     story =story+tasks[b].storyPoints
                 }
             }
         }
-        return story;
+        return story+"/"+storytotal;
     }
 
-    const CalculateTotalStoryStorypoints = (tasks) => {
-        var storytotal = 0;
-        for(let b in tasks){
-            if(tasks[b].type == 'STORY'){
-                storytotal =storytotal+tasks[b].storyPoints
-            }
-        }
-        return storytotal;
-    }
-
-    const CalculatecompletedBugStorypoints = (tasks) => {
+    const CalculateBugProgress = (tasks) => {
         var bug = 0;
+        var bugtotal = 0;
         for(let b in tasks){
             if(tasks[b].type == 'BUG'){
+                bugtotal =bugtotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     bug =bug+tasks[b].storyPoints
                 }
             }
         }
-        return bug;
-    }
-
-    const CalculateTotalBugStorypoints = (tasks) => {
-        var bugtotal = 0;
-        for(let b in tasks){
-            if(tasks[b].type == 'BUG'){
-                bugtotal =bugtotal+tasks[b].storyPoints
-            }
-        }
-        return bugtotal;
+        return bug+"/"+bugtotal;
     }
 
     const CalculateProjectProgress = (tasks) => {
@@ -204,18 +183,18 @@ const ProjectDashboard = () => {
                 </div>
                 <div className="col-6 col-md-3 cell6">
                     <span className="boxtitle">Bug Tasks Progress</span>
-                    <ProgressBar className='progressbar' variant="danger" now={CalculatecompletedBugStorypoints(backlogs)/CalculateTotalBugStorypoints(backlogs)*100} label={`${(CalculatecompletedBugStorypoints(backlogs)/CalculateTotalBugStorypoints(backlogs)*100).toFixed(1)}%`} />
-                    <span className="data">{CalculatecompletedBugStorypoints(backlogs)}/{CalculateTotalBugStorypoints(backlogs)}</span>
+                    <ProgressBar className='progressbar' variant="danger" now={CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100} label={`${(CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <span className="data">{CalculateBugProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell7">
                     <span className="boxtitle">Improve Tasks Progress</span>
-                    <ProgressBar className='progressbar' variant="warning" now={CalculatecompletedImprovementStorypoints(backlogs)/CalculateTotalImprovementStorypoints(backlogs)*100} label={`${(CalculatecompletedImprovementStorypoints(backlogs)/CalculateTotalImprovementStorypoints(backlogs)*100).toFixed(1)}%`} />
-                    <span className="data">{CalculatecompletedImprovementStorypoints(backlogs)}/{CalculateTotalImprovementStorypoints(backlogs)}</span>
+                    <ProgressBar className='progressbar' variant="warning" now={CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100} label={`${(CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <span className="data">{CalculateImprovementProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell8">
                     <span className="boxtitle">Story Tasks Progress</span>
-                    <ProgressBar className='progressbar' variant="info" now={CalculatecompletedStoryStorypoints(backlogs)/CalculateTotalStoryStorypoints(backlogs)*100} label={`${(CalculatecompletedStoryStorypoints(backlogs)/CalculateTotalStoryStorypoints(backlogs)*100).toFixed(1)}%`} />
-                    <span className="data">{CalculatecompletedStoryStorypoints(backlogs)}/{CalculateTotalStoryStorypoints(backlogs)}</span>
+                    <ProgressBar className='progressbar' variant="info" now={CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100} label={`${(CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <span className="data">{CalculateStoryProgress(backlogs)}</span>
                 </div>
             </div>
 
