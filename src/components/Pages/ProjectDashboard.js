@@ -5,6 +5,7 @@ import ProjectService from '../../service/project/ProjectService';
 import ProjectUserService from '../../service/user/ProjectUserService';
 import "../../Style/ProjectDashboard.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import BurnDownChart from './BurnDownChart';
 
 const ProjectDashboard = () => {
     const selectedproject = AuthService.getCurrentProject()
@@ -76,51 +77,59 @@ const ProjectDashboard = () => {
     const CalculateImprovementProgress = (tasks) => {
         var improve = 0;
         var improvetotal = 0;
+        var count=0
         for(let b in tasks){
             if(tasks[b].type == 'IMPROVEMENT'){
                 improvetotal =improvetotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     improve =improve+tasks[b].storyPoints
                 }
+                count=count+1
             }
         }
-        return improve+"/"+improvetotal;
+        return count?(improve+"/"+improvetotal):"No Improve Ticket";
     }
 
     const CalculateStoryProgress = (tasks) => {
         var story = 0;
         var storytotal = 0;
+        var count=0
         for(let b in tasks){
             if(tasks[b].type == 'STORY'){
                 storytotal =storytotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     story =story+tasks[b].storyPoints
                 }
+                count=count+1
             }
         }
-        return story+"/"+storytotal;
+        return count?(story+"/"+storytotal):"No Story Tickets";
     }
 
     const CalculateBugProgress = (tasks) => {
         var bug = 0;
         var bugtotal = 0;
+        var count=0
         for(let b in tasks){
             if(tasks[b].type == 'BUG'){
                 bugtotal =bugtotal+tasks[b].storyPoints
                 if(tasks[b].status == 'APPROVED'){
                     bug =bug+tasks[b].storyPoints
                 }
+                count=count+1
             }
         }
-        return bug+"/"+bugtotal;
+        return count?(bug+"/"+bugtotal):"No Bug Tickets";
     }
 
     const CalculateProjectProgress = (tasks) => {
         var approved = 0;
+        var count=0
         for(let b in tasks){
             if(tasks[b].status == 'APPROVED'){
                 approved =approved+tasks[b].storyPoints
             }
+            count=count+1
         }
         return approved;
     }
@@ -197,7 +206,7 @@ const ProjectDashboard = () => {
                     <span className="data">{CalculateStoryProgress(backlogs)}</span>
                 </div>
             </div>
-
+            <BurnDownChart project={project} backlogs={backlogs} days={calculateSprintCapacity(project.startDate,project.endDate,project.totalSprints)}/>
         </div>
     );
 };
