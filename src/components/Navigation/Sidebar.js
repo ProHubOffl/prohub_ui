@@ -333,6 +333,16 @@ function Sidebar (){
                 </Details>
               </Profile>   
             <SlickBar clicked={click}>
+            <Tooltip title={click ? "" : "Dashboard"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/dashboard"
+                >
+                  <img src={Board} alt="dashboard" />
+                  <Text clicked={click}>Dashboard</Text>
+                </Item>
+              </Tooltip>
               <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
                 <Item
                   onClick={() => setClick(false)}
@@ -340,7 +350,7 @@ function Sidebar (){
                   activeClassName="active"
                   to="/Board"
                 >
-                  <img src={Board} alt="Board" />
+                  <img src={Backlog} alt="Board" />
                   <Text clicked={click}>Board</Text>
                 </Item>
               </Tooltip>
@@ -350,7 +360,7 @@ function Sidebar (){
                   activeClassName="active"
                   to="/Backlog"
                 >
-                  <img src={Backlog} alt="Backlog" />
+                  <img src={Tickets} alt="Backlog" />
                   <Text clicked={click}>Backlog</Text>
                 </Item>
               </Tooltip>
@@ -372,16 +382,6 @@ function Sidebar (){
                 >
                   <img src={Announcement} alt="Announcement" />
                   <Text clicked={click}>Announcement</Text>
-                </Item>
-              </Tooltip>
-              <Tooltip title={click ? "" : "Dashboard"} placement="right" arrow="true">
-                <Item
-                  onClick={() => setClick(false)}
-                  activeClassName="active"
-                  to="/dashboard"
-                >
-                  <img src={Tickets} alt="dashboard" />
-                  <Text clicked={click}>Dashboard</Text>
                 </Item>
               </Tooltip>
             </SlickBar>
