@@ -26,7 +26,7 @@ const ProjectDashboard = () => {
         const minutes = Math.floor(hoursms / (60*1000));
         const minutesms = ms % (60*1000);
         const sec = Math.floor(minutesms / 1000);
-        if(days || hours || minutes || sec)
+        if(days>0 || hours>0 || minutes>0 || sec>0)
             return days + "Days " + hours + "Hours " + minutes + "Min " + sec + "Sec ";
         else
             return "Project Allocation Time Finished"
@@ -41,11 +41,11 @@ const ProjectDashboard = () => {
         var currentsprint=0;
         dates[0]=start;
         dates[sprints]=end;
+        if(today > new Date(end)){
+            return "-,"+"Project Expired"
+        }
         for(var i=1; i<sprints ; i=i+1){
             dates[i] = new Date(lastdate.setDate(lastdate.getDate() + days));
-        }
-        if(today > dates[sprints] || today < dates[0]){
-            return "-,"+"Project Expired"
         }
         for(var i=1 ; i<=sprints; i=i+1){
             currentsprint = currentsprint + 1
@@ -53,6 +53,8 @@ const ProjectDashboard = () => {
                 var firstdate=dates[i-1]
                 var lastdate=dates[i]
                 break;
+            }else{
+                return "-,"+"Your Project is behind the Schedule"
             }
         }
         return currentsprint+","+new Date(firstdate).getDate()+"/"+(new Date(firstdate).getMonth()+1)+"/"+new Date(firstdate).getFullYear()+" - "+new Date(lastdate).getDate()+"/"+(new Date(lastdate).getMonth()+1)+"/"+new Date(lastdate).getFullYear();
@@ -212,5 +214,3 @@ const ProjectDashboard = () => {
 };
 
 export default ProjectDashboard;
-
-// https://technext.github.io/purple-react/dashboard

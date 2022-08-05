@@ -70,8 +70,9 @@ const BurnDownChart = (props) => {
           },
           y1: {
             type: 'linear',
-            display: true,
-            position: 'right',      title: {
+            display: false,
+            position: 'right',      
+            title: {
               display: true,
               text: 'Story points',
               color: 'rgba(3, 34, 46, 0.918)',
@@ -126,14 +127,65 @@ const BurnDownChart = (props) => {
         return expectedpoints;
     }
     
-    const CalculateActualPointsBurn = (total,tasks,sprints) =>{
+    const CurrentSprint = (date1, date2, sprints, days) => {
+      var start = new Date(date1);
+      var end = new Date(date2);
+      var today= new Date();
+      var lastdate = new Date(date1);
+      var dates=[]
+      var currentsprint=0;
+      dates[0]=start;
+      dates[sprints]=end;
+      if(today > new Date(end)){
+        return sprints
+      }
+      if(today < new Date(start)){
+        return 0;
+      }
+      for(var i=1; i<sprints ; i=i+1){
+          dates[i] = new Date(lastdate.setDate(lastdate.getDate() + days));
+      }
+      for(var i=1 ; i<=sprints; i=i+1){
+          currentsprint = currentsprint + 1
+          if(today < dates[i] && today > dates[i-1]){
+              var lastdate=dates[i]
+              break;
+          }
+      }
+      return currentsprint
+    }
+
+    const CalculateActualPointsBurn = (date1,date2,total,tasks,sprints,days) =>{
         var actualpoints=[]
+        var totalpoints=total
+        actualpoints[0]=totalpoints;
+        var currentsprint=CurrentSprint(date1, date2, sprints, days);
+
+        var start = new Date(date1);
+        var end = new Date(date2);
+        var today= new Date();
+        var lastdate = new Date(date1);
+        var dates=[]
+        dates[0]=start
+        dates[sprints]=end
+        for(var i=1; i<sprints ; i=i+1){
+            dates[i] = new Date(lastdate.setDate(lastdate.getDate() + days));
+        }
+
+        for(var j=0; j<currentsprint; j=j+1){
+          for(var i=0; i<tasks.length ; i=i+1){
+              if(tasks[i].status == 'APPROVED' && new Date(tasks[i].lastUpdated) < dates[j+1] && new Date(tasks[i].lastUpdated) > dates[j]){
+                  totalpoints=totalpoints-tasks[i].storyPoints
+              }
+          }
+          actualpoints[j+1]=totalpoints;
+      }
         return actualpoints;
     }
 
       const labels = XAxiselements(props.project.startDate,props.project.endDate,props.project.totalSprints,props.days);
       const Expectedpoints = CalculateExpectedPointsBurn(props.project.storyPoints,props.backlogs,props.project.totalSprints)
-      const ActualPoints= CalculateActualPointsBurn(props.project.storyPoints,props.backlogs,props.project.totalSprints)
+      const ActualPoints= CalculateActualPointsBurn(props.project.startDate,props.project.endDate,props.project.storyPoints,props.backlogs,props.project.totalSprints,props.days)
       const data = {
         labels,
         datasets: [
@@ -149,7 +201,7 @@ const BurnDownChart = (props) => {
             data: ActualPoints,
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'blue',
-            yAxisID: 'y1',
+            yAxisID: 'y',
           },
         ],
       };
