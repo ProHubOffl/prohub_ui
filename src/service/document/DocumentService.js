@@ -57,6 +57,16 @@ const downloadFile = (documentId) => {
     })
 }
 
+const getDocumentCountByProject = (currentProject) => {
+    const URL = API_URL + "documents/count/" + currentProject ;
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    });
+}
+
 export default {
-    deleteDocumentItem,getDocumentByProject,addDocumentItem,updateDocumentItem,downloadFile
+    deleteDocumentItem,getDocumentByProject,addDocumentItem,updateDocumentItem,downloadFile,getDocumentCountByProject
 };

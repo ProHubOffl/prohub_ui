@@ -100,7 +100,7 @@
     .received {
       padding: 10px 10px 0 10px;
     }
-    img {
+    .chat_img {
       height: 35px;
       margin-top: -10px;
     }
@@ -116,7 +116,7 @@
     .received {
       padding: 7px 7px 0 7px;
     }
-    img {
+    .chat_img {
       height: 30px;
       margin-top: -7px;
     }

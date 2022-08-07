@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 function EditBacklog(props) {
 
     const currentUser = AuthService.getCurrentUser();
-    const currentProject = 'Project One';
+    const currentProject = AuthService.getCurrentProject().projectName
 
     const oldTitle = props.backlog.title;
     const oldAssignee = props.backlog.assignee;
