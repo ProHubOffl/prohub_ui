@@ -8,7 +8,7 @@ import { DropdownButton,Dropdown,ButtonGroup} from 'react-bootstrap';
 import { MdLogout } from "react-icons/md";
 import logo from "../../images/prohub.png"
 import Badge from '@mui/material/Badge';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import AuthService from '../../service/authentication/AuthService';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -146,23 +146,21 @@ function DropdownList(props){
                             Create Project
                         </button>
                     </DropdownButton>
-                    <DropdownButton title="Dashboard" id="bg-nested-dropdown-sn">
-                        {
-                            dashboardData.map((item2,index2)=>(           
-                            <Dropdown.Item id="Nav_option_sn"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
-                            ))
-                        }
-                    </DropdownButton>
+                    <button id="bg-nested-dropdown-sn"  onClick={props.toggle} href="#">
+                        <Link to="personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
+                    </button>
 
                     <div class="section3">
                         <input class="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">
-                            Notification
-                            <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9}>
-                                <NotificationsActiveIcon id="notification_sn" />
-                            </Badge>
+                            <a href="/videoChat" style={{color:'black', textDecoration:'none'}}>
+                                Meet
+                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} style={{marginLeft:5}}>
+                                    <VideocamIcon />
+                                </Badge>
+                            </a>
                         </div>
                     </div>
                     <div className="section5" >

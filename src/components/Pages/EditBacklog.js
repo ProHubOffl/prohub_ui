@@ -7,7 +7,11 @@ import { toast, ToastContainer } from 'react-toastify';
 function EditBacklog(props) {
 
     const currentUser = AuthService.getCurrentUser();
-    const currentProject = 'Project One';
+<<<<<<< HEAD
+    const currentProject = AuthService.getCurrentProject().projectName
+=======
+    const currentProject = AuthService.getCurrentProject().projectName;
+>>>>>>> 25daa99 (Added Navbar options for Video chat)
 
     const oldTitle = props.backlog.title;
     const oldAssignee = props.backlog.assignee;

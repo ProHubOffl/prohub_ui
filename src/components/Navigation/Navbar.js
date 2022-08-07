@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled,{css} from 'styled-components';
 import {Link} from "react-router-dom";
 import { dashboardData } from '../../data/Dashboarddata';
-import { projectData } from '../../data/Projectdata';
 import Bars from "../../assets/bars.svg";
 import logo from "../../images/prohub.png"
 import CreateProject from "../Pages/CreateProject";
@@ -13,7 +12,7 @@ import { BsChatLeftTextFill } from "react-icons/bs";
 import { TiArrowBack } from "react-icons/ti";
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -163,21 +162,17 @@ function Navbar(props) {
                                     Create Project
                                 </button>
                             </DropdownButton>
-                            <DropdownButton title="Dashboard" id="bg-nested-dropdown">
-                                {
-                                    dashboardData.map((item2,index2)=>(           
-                                    <Dropdown.Item id="Nav_option"  onClick={()=>{}} key={index2} href="#">{item2.sub2}</Dropdown.Item>
-                                    ))
-                                }
-                            </DropdownButton>
+                            <button id="bg-nested-dropdown"  onClick={()=>{}} href="#">
+                                <Link to="personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
+                            </button>
                         </NavMenu>
 
                         <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
                         <div className="notification_option">
-                            <a href='#'>
-                                Notification
-                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9} id="num_notification">
-                                    <NotificationsActiveIcon id="notification" />
+                            <a href='/videoChat'>
+                                Meet
+                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} style={{marginLeft:5}}>
+                                    <VideocamIcon />
                                 </Badge>
                             </a>
                         </div>
