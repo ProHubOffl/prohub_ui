@@ -13,7 +13,7 @@ import { BsChatLeftTextFill } from "react-icons/bs";
 import { TiArrowBack } from "react-icons/ti";
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -155,7 +155,7 @@ function Navbar(props) {
                                 {
                                     projectData.map((project,index1)=>(           
                                         <Dropdown.Item id="Nav_option" key={index1} href="#" onClick={()=>{setcurrentProject(project)}}>
-                                            {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}>Edit</Link>
+                                            {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}><span style={{textAlign:'right',alignItems:'right',alignContent:'right'}}><i className="bi bi-pencil-square"></i></span></Link>
                                         </Dropdown.Item>
                                     ))
                                 }
@@ -171,9 +171,9 @@ function Navbar(props) {
                         <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
                         <div className="notification_option">
                             <a href='#'>
-                                Notification
+                                Meet
                                 <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9} id="num_notification">
-                                    <NotificationsActiveIcon id="notification" />
+                                    <VideocamIcon />
                                 </Badge>
                             </a>
                         </div>

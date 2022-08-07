@@ -8,7 +8,7 @@ import { DropdownButton,Dropdown,ButtonGroup} from 'react-bootstrap';
 import { MdLogout } from "react-icons/md";
 import logo from "../../images/prohub.png"
 import Badge from '@mui/material/Badge';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import AuthService from '../../service/authentication/AuthService';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -138,7 +138,7 @@ function DropdownList(props){
                         {
                             projectData.map((project,index1)=>(           
                                 <Dropdown.Item id="Nav_option_sn"  href="#" key={index1} onClick={()=>{setcurrentProject(project)}}>
-                                    {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}>Edit</Link>
+                                    {project.projectName} <Link to={{pathname:"/project", state:{project:project}}}><span style={{textAlign:'right',alignItems:'right',alignContent:'right'}}><i className="bi bi-pencil-square"></i></span></Link>
                                 </Dropdown.Item>
                             ))
                         }
@@ -155,9 +155,9 @@ function DropdownList(props){
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">
-                            Notification
+                            Meet
                             <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9}>
-                                <NotificationsActiveIcon id="notification_sn" />
+                                <VideocamIcon />
                             </Badge>
                         </div>
                     </div>
