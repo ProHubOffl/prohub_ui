@@ -13,7 +13,11 @@ function ViewBacklog(props) {
     const[newComment, setNewComment] = useState('')
 
     const user = AuthService.getCurrentUser();
+<<<<<<< HEAD
     const currentProject = AuthService.getCurrentProject().projectName
+=======
+    const currentProject = AuthService.getCurrentProject().projectName;
+>>>>>>> 25daa99 (Added Navbar options for Video chat)
 
     const addNewComment = (e) => {
         e.preventDefault()

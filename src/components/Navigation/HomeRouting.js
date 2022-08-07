@@ -7,8 +7,13 @@ import EditProfile from '../Pages/EditProfile';
 import ViewBacklog from '../Pages/ViewBacklog';
 import Chat from '../Pages/Chat';
 import UpdateProject from '../Pages/UpdateProject';
+<<<<<<< HEAD
 import PersonalDashboard from '../Pages/PersonalDashboard';
 import ProjectDashboard from '../Pages/ProjectDashboard';
+=======
+import VideoHome from '../Pages/VideoConference/VideoHome';
+import Room from '../Pages/VideoConference/Room';
+>>>>>>> b7559fb (Added Video Conference Components)
 
 import {
     Route,
@@ -27,8 +32,13 @@ function Routing() {
                 <Route exact path="/Backlog/:backlogId" component={ViewBacklog} />
                 <Route exact path="/Chat" component={Chat} />
                 <Route exact path="/project" component={UpdateProject} />
+<<<<<<< HEAD
                 <Route exact path="/dashboard" component={ProjectDashboard} />
                 <Route exact path="/personaldashboard" component={PersonalDashboard} />
+=======
+                <Route exact path="/videoChat" component={VideoHome} />
+                <Route exact path="/room/:roomId" component={Room} />
+>>>>>>> b7559fb (Added Video Conference Components)
                 <Route exact path="*" component={Board} />
             </Switch>        
     )
