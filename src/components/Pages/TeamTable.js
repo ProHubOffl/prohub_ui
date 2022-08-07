@@ -41,7 +41,6 @@ function TeamTable(props) {
     }
 
     useEffect(() => {
-        debugger;
         ProjectUserService.getProjectUserRoles(selectedproject.projectName)
         .then(response => {
             setUsers(response.data)
