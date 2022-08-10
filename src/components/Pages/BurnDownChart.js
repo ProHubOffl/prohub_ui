@@ -94,7 +94,6 @@ const BurnDownChart = (props) => {
       const XAxiselements = (date1, date2, sprints, days) => {
         var start = new Date(date1);
         var end = new Date(date2);
-        var today= new Date();
         var lastdate = new Date(date1);
         var dates=[]
         var currentsprint=0;
@@ -118,7 +117,7 @@ const BurnDownChart = (props) => {
         expectedpoints[0]=totalpoints;
         for(var j=1; j<=sprints; j=j+1){
             for(var i=0; i<tasks.length ; i=i+1){
-                if(tasks[i].sprint==j){
+                if(tasks[i].sprint===j){
                     totalpoints=totalpoints-tasks[i].storyPoints
                 }
             }
@@ -163,7 +162,6 @@ const BurnDownChart = (props) => {
 
         var start = new Date(date1);
         var end = new Date(date2);
-        var today= new Date();
         var lastdate = new Date(date1);
         var dates=[]
         dates[0]=start
@@ -174,7 +172,7 @@ const BurnDownChart = (props) => {
 
         for(var j=0; j<currentsprint; j=j+1){
           for(var i=0; i<tasks.length ; i=i+1){
-              if(tasks[i].status == 'APPROVED' && new Date(tasks[i].lastUpdated) < dates[j+1] && new Date(tasks[i].lastUpdated) > dates[j]){
+              if(tasks[i].status === 'APPROVED' && new Date(tasks[i].lastUpdated) < dates[j+1] && new Date(tasks[i].lastUpdated) > dates[j]){
                   totalpoints=totalpoints-tasks[i].storyPoints
               }
           }

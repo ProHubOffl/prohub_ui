@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled,{css} from 'styled-components';
 import {Link} from "react-router-dom";
-import { dashboardData } from '../../data/Dashboarddata';
-import { projectData } from '../../data/Projectdata';
 import Bars from "../../assets/bars.svg";
 import logo from "../../images/prohub.png"
 import CreateProject from "../Pages/CreateProject";
@@ -170,9 +168,9 @@ function Navbar(props) {
 
                         <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
                         <div className="notification_option">
-                            <a href='#'>
+                            <a href='/videoChat'>
                                 Meet
-                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9} id="num_notification">
+                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" style={{marginLeft:'5px'}}>
                                     <VideocamIcon />
                                 </Badge>
                             </a>

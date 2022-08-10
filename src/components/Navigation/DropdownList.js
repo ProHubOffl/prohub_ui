@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { dashboardData } from '../../data/Dashboarddata';
 import {Link} from 'react-router-dom'
 import "../../Style/DropdownList.css"
 import {FaTimes} from 'react-icons/fa'
@@ -155,10 +154,12 @@ function DropdownList(props){
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">
-                            Meet
-                            <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" badgeContent={5} max={9}>
-                                <VideocamIcon />
-                            </Badge>
+                            <Link to = "/videoChat">
+                                Meet
+                                <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" style={{marginLeft:'5px'}}>
+                                    <VideocamIcon />
+                                </Badge>
+                            </Link>
                         </div>
                     </div>
                     <div className="section5" >

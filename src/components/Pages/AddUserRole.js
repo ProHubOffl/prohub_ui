@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import "../../Style/Project.css";
 import ProjectUserService from "../../service/user/ProjectUserService"
 import { toast, ToastContainer } from 'react-toastify';
+import AuthService from '../../service/authentication/AuthService';
 
 function AddUserRole() {
-    const projectName = "Project One";
+    const projectName = AuthService.getCurrentProject().projectName;
 
     const[email, setEmail] = useState('')
     const[role, setRole] = useState('Product Owner')
