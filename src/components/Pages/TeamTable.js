@@ -88,8 +88,3 @@ function TeamTable(props) {
 }
 
 export default TeamTable;
-
-// sampleuser@email.com
-// ssivanujan1998@gmail.com
-// userfour@email.com
-// userone@email.com

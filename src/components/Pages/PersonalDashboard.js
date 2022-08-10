@@ -2,16 +2,13 @@ import React,{useState,useEffect} from 'react';
 import AuthService from '../../service/authentication/AuthService';
 import "../../Style/PersonalDashboard.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import ProjectService from '../../service/project/ProjectService';
 import BacklogService from '../../service/backlog/BacklogService';
 import ProjectUserService from '../../service/user/ProjectUserService';
 
 const PersonalDashboard = () => {
-    const selectedproject = AuthService.getCurrentProject()
     const email = AuthService.getCurrentUser().email
-
     const[projects, setProject] = useState([])
-    const[userError, setUserError] = useState('');
+    const[projectError, setProjectError] = useState('');
     const[backlogs, setBacklogs] = useState([]);
     const[backlogError, setBacklogError] = useState('');
     
@@ -20,30 +17,83 @@ const PersonalDashboard = () => {
         .then(response => {
             setProject(response.data)
         })
-        .catch(err => {console.log(err)})
-    },[])
+        .catch(err => {
+            setProjectError('Unable to fetch backlog list at the moment')
+        })
 
-    const getBacklogdata = (projectname) => {
-        BacklogService.getBacklogByProjectAndEmail(projectname,email)
+        debugger
+        BacklogService.getBacklogbyEmail(email)
         .then(response => {
           setBacklogs(response.data)
         })
         .catch(err => {
           setBacklogError('Unable to fetch backlog list at the moment')
         });
-        return backlogs;
+    },[])
+    
+    const GetAlloctatedTasks =  (projectname,bool) => {
+        var totaltask = 0;
+        var approved = 0
+        for(let b in backlogs){
+            if (backlogs[b].projectName == projectname)
+                {
+                    if(bool)
+                    {totaltask=totaltask+1}
+                    if (backlogs[b].status == "APPROVED" && !bool)
+                        {approved = approved + 1}
+                }
+            
+        }
+        return bool ? totaltask : approved
     }
 
-    const getTeamName = (projectname) => {
-        var team='undefined'
-        ProjectService.getProjectByProjectName(projectname)
-        .then(response => {
-            var team=(response.data.teamName)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        return team;
+    const Getprogress = (projectname) => {
+        var totalstorypoint = 0;
+        var storypoints = 0;
+        for(let b in backlogs){
+            if (backlogs[b].projectName == projectname)
+                {
+                    totalstorypoint = totalstorypoint + backlogs[b].storyPoints
+                    if (backlogs[b].status == "APPROVED")
+                        {storypoints = storypoints + backlogs[b].storyPoints}
+                }
+        }
+        return storypoints+"/"+totalstorypoint;
+    }
+
+    const GetTicketDetails = (projectname,boolean) => {
+        var totalbug = 0;
+        var bug = 0
+        var totalimprove = 0
+        var improve = 0
+        var totalstory = 0
+        var story = 0
+        for(let b in backlogs){
+            if (backlogs[b].projectName == projectname){
+                if (backlogs[b].type == "BUG")
+                    {
+                        if(boolean)
+                            {totalbug = totalbug + 1}
+                        if (backlogs[b].status == "APPROVED" && !boolean)
+                            {bug = bug + 1}
+                    }
+                if (backlogs[b].type == "IMPROVEMENT")
+                    {
+                        if(boolean)
+                            {totalimprove = totalimprove + 1}
+                        if (backlogs[b].status == "APPROVED" && !boolean)
+                            {improve = improve + 1}
+                    }
+                if (backlogs[b].type == "STORY")
+                    {
+                        if(boolean)
+                        {totalstory = totalstory + 1}
+                        if (backlogs[b].status == "APPROVED" && !boolean)
+                            {story = story + 1}
+                    } 
+            }
+        }
+        return (boolean) ? ("Bug-"+totalbug+" | Improvement-"+totalimprove+" | Story-"+totalstory) : ("Bug-"+bug+" | Improvement-"+improve+" | Story-"+story)
     }
 
     return (
@@ -59,22 +109,22 @@ const PersonalDashboard = () => {
                         <div className="col-6 col-md-3 cell1">
                             <span className="boxtitle">Project Name</span><br/>
                             <span className="boxdata dashboardprojectname">{project.projectName.length>11 ? (project.projectName.slice(0,11)+".."):project.projectName}</span><br/>
-                            <span className="dataunit teamname">Team {getTeamName(project.projectName)}</span>
+                            <span className="dataunit teamname">Role : {project.role}</span>
                         </div>
                         <div className="col-6 col-md-3 cell2">
                             <span className="boxtitle">Assigned Tasks</span><br/>
-                            <span className="boxdata">18</span><br/>
-                            <span className="dataunit">Bug-3 | Improvement-5 | Story-10</span>
+                            <span className="boxdata">{GetAlloctatedTasks(project.projectName,true)}</span><br/>
+                            <span className="dataunit">{GetTicketDetails(project.projectName,true)}</span>
                         </div>
                         <div className="col-6 col-md-3 cell3">
                             <span className="boxtitle">Completed Tasks</span><br/>
-                            <span className="boxdata">10</span><br/>
-                            <span className="dataunit">Bug-3 | Improvement-4 | Story-3</span>
+                            <span className="boxdata">{GetAlloctatedTasks(project.projectName,false)}</span><br/>
+                            <span className="dataunit">{GetTicketDetails(project.projectName,false)}</span>
                         </div>
                         <div className="col-6 col-md-3 cell8">
                             <span className="boxtitle">Progress</span>
-                            <ProgressBar className='progressbar' variant="success" now={50} label={`${(50.0)}%`} />
-                            <span className="data">50/100</span>
+                            <ProgressBar className='progressbar' variant="success" now={(Getprogress(project.projectName).split('/')[0]/Getprogress(project.projectName).split('/')[1])*100} label={`${(((Getprogress(project.projectName).split('/')[0]/Getprogress(project.projectName).split('/')[1])*100).toFixed(1))}%`} />
+                            <span className="data">{Getprogress(project.projectName)}</span>
                         </div>
                         <hr/>
                     </div>

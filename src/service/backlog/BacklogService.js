@@ -54,8 +54,8 @@ const deleteBacklogItem = (backlogId) => {
     })
 }
 
-const getBacklogByProjectAndEmail = (projectName,email) => {
-    const URL = API_URL + projectName + "/backlog/" + email;
+const getBacklogbyEmail = (email) => {
+    const URL = API_URL + "backlogs/" + email;
     return axios.get(URL, {
         headers: {
             "Content-Type": "application/json",
@@ -65,5 +65,5 @@ const getBacklogByProjectAndEmail = (projectName,email) => {
 }
 
 export default {
-    getBacklogByProject, getBacklogByBacklogId, deleteBacklogItem, addBacklogItem, updateBacklogItem,getBacklogByProjectAndEmail
+    getBacklogByProject, getBacklogByBacklogId, deleteBacklogItem, addBacklogItem, updateBacklogItem, getBacklogbyEmail
 };
