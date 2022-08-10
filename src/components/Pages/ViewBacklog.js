@@ -175,7 +175,7 @@ function ViewBacklog(props) {
                                                         <h5 class="card-title">{comment.commentOwner}</h5>
                                                         <span>{comment.timeStamp}</span>
                                                         <p class="card-text">{comment.comment}</p>
-                                                        <button className="btn btn-danger fw-bolder" onClick={() => deleteComment(comment.commentId)}>Delete</button>
+                                                        <button className="btn btn-danger fw-bolder" hidden={!(comment.commentOwner === user.email)} onClick={() => deleteComment(comment.commentId)}>Delete</button>
                                                     </div>
                                                     </div>
                                                 </div>
