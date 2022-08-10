@@ -127,7 +127,7 @@ const ProjectDashboard = () => {
                 count=count+1
             }
         }
-        return count?(improve+"/"+improvetotal):"No Improve Ticket";
+        return count?(improve+"/"+improvetotal):"Improvements Empty";
     }
 
     const CalculateStoryProgress = (tasks) => {
@@ -143,7 +143,7 @@ const ProjectDashboard = () => {
                 count=count+1
             }
         }
-        return count?(story+"/"+storytotal):"No Story Tickets";
+        return count?(story+"/"+storytotal):"Stories Empty";
     }
 
     const CalculateBugProgress = (tasks) => {
@@ -159,7 +159,7 @@ const ProjectDashboard = () => {
                 count=count+1
             }
         }
-        return count?(bug+"/"+bugtotal):"No Bug Tickets";
+        return count?(bug+"/"+bugtotal):"Bugs Empty";
     }
 
     const CalculateProjectProgress = (tasks) => {
@@ -239,17 +239,17 @@ const ProjectDashboard = () => {
                     <span className="data">{CalculateProjectProgress(backlogs)}/{project.storyPoints}</span>
                 </div>
                 <div className="col-6 col-md-3 cell6">
-                    <span className="boxtitle">Bug Tasks Progress</span>
+                    <span className="boxtitle">Bugs Progress</span>
                     <ProgressBar className='progressbar' variant="danger" now={CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100} label={`${(CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
                     <span className="data">{CalculateBugProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell7">
-                    <span className="boxtitle">Improve Tasks Progress</span>
+                    <span className="boxtitle">Improvements Progress</span>
                     <ProgressBar className='progressbar' variant="warning" now={CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100} label={`${(CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
                     <span className="data">{CalculateImprovementProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell8">
-                    <span className="boxtitle">Story Tasks Progress</span>
+                    <span className="boxtitle">Stories Progress</span>
                     <ProgressBar className='progressbar' variant="info" now={CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100} label={`${(CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
                     <span className="data">{CalculateStoryProgress(backlogs)}</span>
                 </div>

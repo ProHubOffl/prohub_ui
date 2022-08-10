@@ -3,6 +3,7 @@ import AuthService from '../../service/authentication/AuthService'
 import BacklogService from "../../service/backlog/BacklogService";
 import "../../Style/Backlog.css";
 import { toast, ToastContainer } from 'react-toastify';
+import ProjectUserService from "../../service/user/ProjectUserService";
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -17,7 +18,8 @@ const Backlog = () => {
   const[type, setType] = useState('');
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
-
+  const[projectUsers, setProjectUsers] = useState([]);
+  const[userError,setUserError] = useState('')
   useEffect(() => {
     BacklogService.getBacklogByProject(currentProject)
     .then(response => {
@@ -27,6 +29,13 @@ const Backlog = () => {
       setBacklogError('Unable to fetch backlog list at the moment')
     });
 
+    ProjectUserService.getProjectUserRoles(currentProject)
+    .then(response => {
+      setProjectUsers(response.data)
+    })
+    .catch(err => {
+      setUserError('Unable to fetch project user roles at the moment')
+    })
 
   },[])
 
@@ -120,7 +129,16 @@ const Backlog = () => {
                 <div className="row"> 
                   <div className="col-md-4">
                       <label for="assignee" className="form-label">Assignee </label>
-                      <input type="text" className="form-control" id="assignee" placeholder="Enter assignee name" onChange={(e) => setAssignee(e.target.value)}/>
+                      <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} required>
+                            <option value="" selected hidden>Select Assignee</option>
+                            {
+                              projectUsers.map(user => {
+                                return(
+                                  <option value={user.email}>{user.email}</option>
+                                )
+                              })
+                            }
+                        </select>
                   </div>
                   <div className="col-md-4">
                       <label for="sprint" className="form-label">Sprint *</label>
