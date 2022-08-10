@@ -56,6 +56,13 @@
     display: flex;
     justify-content: flex-end;
 }
+#btn-viewBacklog-delete {
+    background-color: red;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 5px;
+}
 
 
 @media (min-width: 576px) {

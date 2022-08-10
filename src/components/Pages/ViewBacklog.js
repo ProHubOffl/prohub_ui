@@ -5,12 +5,24 @@ import BacklogService from '../../service/backlog/BacklogService';
 import BacklogCommentService from '../../service/backlog/BacklogCommentService';
 import AuthService from '../../service/authentication/AuthService';
 import { toast, ToastContainer } from 'react-toastify';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Slide from '@mui/material/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function ViewBacklog(props) {
 
     const[backlog, setBacklog] = useState({})
     const[comments, setComments] = useState([])
     const[newComment, setNewComment] = useState('')
+    const[open,setOpen] = useState(false)
 
     const user = AuthService.getCurrentUser();
     const currentProject = AuthService.getCurrentProject().projectName
@@ -55,6 +67,42 @@ function ViewBacklog(props) {
         .then(response => {
             window.location.reload()
             toast.success('Comment Deleted Successfully', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+        .catch(err => {
+            toast.error('Unable to proceed your request', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        })
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const deleteBacklog = (e) => {
+        e.preventDefault()
+        BacklogService.deleteBacklogItem(props.match.params.backlogId)
+        .then(response => {
+            window.location.replace("/board")
+            toast.success('Backlog Item Deleted Successfully', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -145,6 +193,25 @@ function ViewBacklog(props) {
                             <div className='header'>
                                 <h4>{backlog.status}</h4>
                                 <button type='button' className="btn btn-primary fw-bolder" id="btn-viewBacklog-edit"  data-bs-toggle="modal" data-bs-target="#EditBacklog">Edit</button>
+                                <button type='button' className="btn btn-danger fw-bolder" id="btn-viewBacklog-delete" onClick={handleClickOpen}>Delete</button>
+                                <Dialog
+                                    open={open}
+                                    TransitionComponent={Transition}
+                                    keepMounted
+                                    onClose={handleClose}
+                                    aria-describedby="alert-dialog-slide-description"
+                                    >
+                                    <DialogTitle>{"Delete Backlog Item"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-slide-description">
+                                            Are You Sure Want to Delete the Backlog Item?
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>No</Button>
+                                        <Button onClick={deleteBacklog}>Yes</Button>
+                                    </DialogActions>
+                                </Dialog>
                             </div>
                             <table className="table table-striped">
                                 <tbody>
