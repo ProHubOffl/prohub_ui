@@ -65,7 +65,7 @@ const ProjectDashboard = () => {
         const minutesms = ms % (60*1000);
         const sec = Math.floor(minutesms / 1000);
         if(days>0 || hours>0 || minutes>0 || sec>0)
-            return days + "Days " + hours + "Hours " + minutes + "Min " + sec + "Sec ";
+            return "Remaining "+days + "Days " + hours + "Hours " + minutes + "Min ";
         else
             return "Project Allocation Time Finished"
     };

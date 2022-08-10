@@ -146,7 +146,7 @@ function DropdownList(props){
                         </button>
                     </DropdownButton>
                     <button id="bg-nested-dropdown-sn"  onClick={props.toggle} href="#">
-                        <Link to="personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
+                        <Link to="/personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
                     </button>
 
                     <div class="section3">

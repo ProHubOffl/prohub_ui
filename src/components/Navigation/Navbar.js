@@ -162,7 +162,7 @@ function Navbar(props) {
                                 </button>
                             </DropdownButton>
                             <button id="bg-nested-dropdown"  onClick={()=>{}} href="#">
-                                <Link to="personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
+                                <Link to="/personaldashboard" id='personaldashboard'>Personal&nbsp;Dashboard</Link>
                             </button>
                         </NavMenu>
 

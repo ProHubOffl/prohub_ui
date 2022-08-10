@@ -41,7 +41,6 @@ function TeamTable(props) {
     }
 
     useEffect(() => {
-        debugger;
         ProjectUserService.getProjectUserRoles(selectedproject.projectName)
         .then(response => {
             setUsers(response.data)
@@ -89,8 +88,3 @@ function TeamTable(props) {
 }
 
 export default TeamTable;
-
-// sampleuser@email.com
-// ssivanujan1998@gmail.com
-// userfour@email.com
-// userone@email.com
