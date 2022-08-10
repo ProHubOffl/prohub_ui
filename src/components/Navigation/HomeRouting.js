@@ -9,6 +9,8 @@ import Chat from '../Pages/Chat';
 import UpdateProject from '../Pages/UpdateProject';
 import PersonalDashboard from '../Pages/PersonalDashboard';
 import ProjectDashboard from '../Pages/ProjectDashboard';
+import VideoHome from '../Pages/VideoConference/VideoHome';
+import Room from '../Pages/VideoConference/Room';
 
 import {
     Route,
@@ -29,6 +31,8 @@ function Routing() {
                 <Route exact path="/project" component={UpdateProject} />
                 <Route exact path="/dashboard" component={ProjectDashboard} />
                 <Route exact path="/personaldashboard" component={PersonalDashboard} />
+                <Route exact path="/videoChat" component={VideoHome} />
+                <Route exact path="/room/:roomId" component={Room} />
                 <Route exact path="*" component={Board} />
             </Switch>        
     )

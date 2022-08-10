@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 import AuthService from "../../service/authentication/AuthService";
 import BacklogService from '../../service/backlog/BacklogService';
 import ProjectService from '../../service/project/ProjectService';
-import ProjectUserService from '../../service/user/ProjectUserService';
 import "../../Style/ProjectDashboard.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import BurnDownChart from './BurnDownChart';
@@ -13,7 +12,6 @@ import Chart from "../../assets/chart.svg";
 import Team from "../../assets/team.svg";
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
