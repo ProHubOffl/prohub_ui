@@ -108,7 +108,6 @@ function CreateProject() {
     const MinimumDate = () => {
         var Date_value = new Date(startDate)
         Date_value.setDate(Date_value.getDate()+30)
-        debugger
         var str = (Date_value.getFullYear()+"-"+(((Date_value.getMonth()+1)>9)?(Date_value.getMonth()+1):("0"+(Date_value.getMonth()+1)))+"-"+((Date_value.getDate()>9)?Date_value.getDate():("0"+Date_value.getDate()))).toString()
         return str
     }
