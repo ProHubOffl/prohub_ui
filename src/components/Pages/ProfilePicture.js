@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import "../../Style/UploadProfile.css"
 import Unknown_image from "../../images/Unknown.png"
-import $ from "jquery";
 import UserImageService from '../../service/userimage/UserImageService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,7 +30,7 @@ function ProfilePicture() {
     setdisable(true)
     await UserImageService.uploadImage(data)
     .then(response => {
-      if(response.data == 200){
+      if(response.status == 200){
         toast.success('Profile picture Successfully Uploaded!', {
           position: "bottom-right",
           autoClose: 2500,
@@ -58,7 +57,7 @@ function ProfilePicture() {
     })
     .catch(err => {
         setdisable(false)
-        toast.error('Unable to upload at the moment plz login again', {
+        toast.error('Unable to upload at the moment plz try again', {
           position: "bottom-right",
           autoClose: 2500,
           hideProgressBar: false,

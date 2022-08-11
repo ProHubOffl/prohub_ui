@@ -21,12 +21,24 @@ const getImageByEmail = (email) => {
     });
 }
 
-const uploadImage = (data)  => {
+const updateImage = (data)  => {
     const URL = API_URL+"userImage/"+ currentUser.email+"/update";
-    return axios.put(URL, 
-        data
-    ,{
+    return axios.put(URL, data,
+    {
         headers: {
+            'Content-Type':'multipart/form-data',
+            'Authorization':'Bearer ' + currentUser.jwtToken
+        }
+    });
+
+};
+
+const uploadImage = (data)  => {
+    const URL = API_URL+"userImage/"+ currentUser.email;
+    return axios.post(URL, data,
+    {
+        headers: {
+            'Content-Type':'multipart/form-data',
             'Authorization':'Bearer ' + currentUser.jwtToken
         }
     });
@@ -47,5 +59,6 @@ export default {
     getImage,
     uploadImage,
     RemoveImage,
-    getImageByEmail
+    getImageByEmail,
+    updateImage
 };
