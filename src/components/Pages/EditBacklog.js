@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../../Style/Backlog.css";
 import AuthService from '../../service/authentication/AuthService'
 import BacklogService from "../../service/backlog/BacklogService";
 import { toast, ToastContainer } from 'react-toastify';
+import ProjectService from '../../service/project/ProjectService';
 
 function EditBacklog(props) {
 
@@ -24,6 +25,7 @@ function EditBacklog(props) {
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
     const[status, setStatus] = useState('');
+    const[project, setProject] = useState([]);
 
     const updateBacklogItem = (e) => {
         e.preventDefault()
@@ -75,10 +77,21 @@ function EditBacklog(props) {
         })
     }
 
+    useEffect(() => {
+        ProjectService.getProjectByProjectName(currentProject)
+        .then(response => {
+            setProject(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    
+      },[])
+
     return (
         <div className="project-form">
             <div className="modal-dialog modal-dialog modal-lg">
-                <form>
+                <form onSubmit={updateBacklogItem}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title fw-bolder" id="CreateUser">Edit Backlog</h3>
@@ -107,7 +120,7 @@ function EditBacklog(props) {
                                 </div>
                               </div>
                               <div className="col-md-4">
-                                <label for="mail" className="form-label">Type *</label>
+                                <label for="mail" className="form-label">Backlog Type *</label>
                                 <div className="input-group">
                                     <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
                                         <option value="" selected hidden>{props.backlog.type}</option>
@@ -126,11 +139,11 @@ function EditBacklog(props) {
                               </div>
                               <div className="col-md-4">
                                   <label for="sprint" className="form-label">Sprint *</label>
-                                  <input type="text" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} required/>
+                                  <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} min={1} max={project.totalSprints} required/>
                               </div>
                               <div className="col-md-4">
                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} required/>
+                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} required/>
                               </div>
                             </div>
                             {/* 3rd row */}
@@ -145,7 +158,7 @@ function EditBacklog(props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateBacklogItem}>Update</button>
+                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={()=>{}}>Update</button>
                         </div>
                     </div>
                 </form>

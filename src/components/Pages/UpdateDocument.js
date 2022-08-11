@@ -65,17 +65,17 @@ function UpdateDocument(props) {
                                 <div className="row">
                                     <div className="col-md-7">
                                         <label for="title" className="form-label">Title of the Document *</label>
-                                        <input type="text" className="form-control" id="title" placeholder={title} onChange={(e) => setNewTitle(e.target.value)}  required/>
+                                        <input type="text" className="form-control" id="title" defaultValue={title} onChange={(e) => setNewTitle(e.target.value)}  required/>
                                     </div>
                                     <div className="col-md-5">
                                         <label for="projectName" className="form-label">Project Name</label>
-                                        <input type="text" className="form-control" id="projectName" value={project_name} readOnly/>
+                                        <input type="text" className="form-control" id="projectName" defaultValue={project_name} readOnly/>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-12">
                                         <label for="description" className="form-label">Description *</label>
-                                        <textarea className="form-control border-secondary" id="description" placeholder={description} onChange={(e) => setNewDescription(e.target.value)}  required></textarea>
+                                        <textarea className="form-control border-secondary" id="description" defaultValue={description} onChange={(e) => setNewDescription(e.target.value)}  required></textarea>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -85,7 +85,7 @@ function UpdateDocument(props) {
                                     </div>
                                     <div className="col-md-6">
                                         <label for="author" className="form-label">Author</label>
-                                        <input type="text" className="form-control" id="author" value={author} readOnly/>
+                                        <input type="text" className="form-control" id="author" defaultValue={author} readOnly/>
                                     </div>
                                 </div>
                             </div>
