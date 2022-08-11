@@ -12,16 +12,18 @@ import { TiArrowBack } from "react-icons/ti";
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
 import VideocamIcon from '@mui/icons-material/Videocam';
+import Select from 'react-select';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import AuthService from '../../service/authentication/AuthService';
 import ProjectUserService from '../../service/user/ProjectUserService';
+import BacklogService from '../../service/backlog/BacklogService';
 
 const Nav = styled.nav`
     display:flex;
-    height: 50px;
+    height: 55px;
     position:fixed;
     width:100%;
     z-index: 999;
@@ -96,6 +98,7 @@ function Navbar(props) {
       });
       const currentUser = AuthService.getCurrentUser();
       const [projectData, setProjectData] = useState([]);
+      const [projectBacklogs,setProjectBacklogs] = useState([]);
     
       const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -118,12 +121,36 @@ function Navbar(props) {
         </Box>
       );
 
+      const customSearchStyles = {
+        control: (base, state) => ({
+          ...base,
+          borderColor: state.isFocused ? "green" : "blue",
+          boxShadow: state.isFocused ? null : null,
+          "&:hover": {
+            borderColor: state.isFocused ? "blue" : "green"
+          }
+        })
+      };
+
       useEffect(() => {
         ProjectUserService.getProjectsByUser(currentUser.email)
         .then(response => {
             setProjectData(response.data)
         })
         .catch(err => {console.log(err)})
+
+        BacklogService.getBacklogbyEmail(currentUser.email)
+        .then(response => {
+            let backlogs = []
+            response.data.map(backlog => {
+                let backlogItem = {label:backlog.title,value:backlog.backlogId}
+                backlogs.push(backlogItem)
+            })
+            setProjectBacklogs(backlogs)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     },[])
 
     const setcurrentProject = (project) => {
@@ -166,7 +193,13 @@ function Navbar(props) {
                             </button>
                         </NavMenu>
 
-                        <input className="form-control-search" type="text" placeholder="Search.." aria-label="Search"></input>
+                        <Select 
+                            className="search-select-nav" 
+                            placeholder="Search Backlogs" 
+                            options={projectBacklogs}
+                            onChange={opt => window.location.replace("/backlog/"+opt.value)}
+                            styles={customSearchStyles} 
+                        />
                         <div className="notification_option">
                             <a href='/videoChat'>
                                 Meet

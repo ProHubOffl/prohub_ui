@@ -17,6 +17,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import ProjectUserService from '../../service/user/ProjectUserService';
+import Select from 'react-select';
+import BacklogService from '../../service/backlog/BacklogService'
 
 const Dropdowncontainer=styled.div`
     position: fixed;
@@ -89,6 +91,7 @@ function DropdownList(props){
     const currentUser = AuthService.getCurrentUser();
     const [open, setOpen] = useState(false);
     const [projectData, setProjectData] = useState([])
+    const [projectBacklogs,setProjectBacklogs] = useState([]);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -109,6 +112,17 @@ function DropdownList(props){
             setProjectData(response.data)
         })
         .catch(err => {console.log(err)})
+
+        BacklogService.getBacklogbyEmail(currentUser.email)
+        .then(response => {
+            let backlogs = []
+            response.data.map(backlog => {
+                let backlogItem = {label:backlog.title,value:backlog.backlogId}
+                backlogs.push(backlogItem)
+            })
+            setProjectBacklogs(backlogs)
+        })
+        .catch(err =>  console.log(err))
     },[])
 
     const setcurrentProject = (project) => {
@@ -150,11 +164,16 @@ function DropdownList(props){
                     </button>
 
                     <div class="section3">
-                        <input class="form-control" type="text" placeholder="Search.." aria-label="Search"></input>
+                        <Select 
+                            className="search-select" 
+                            placeholder="Search Backlogs" 
+                            options={projectBacklogs}
+                            onChange={opt => window.location.replace("/backlog/"+opt.value)}
+                        />
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">
-                            <Link to = "/videoChat">
+                            <Link to = "/videoChat" style={{color:'black',textDecoration:'none'}}>
                                 Meet
                                 <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" style={{marginLeft:'5px'}}>
                                     <VideocamIcon />

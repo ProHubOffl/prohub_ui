@@ -25,7 +25,6 @@ function ViewBacklog(props) {
     const[open,setOpen] = useState(false)
 
     const user = AuthService.getCurrentUser();
-    const currentProject = AuthService.getCurrentProject().projectName
 
     const addNewComment = (e) => {
         e.preventDefault()
@@ -143,7 +142,7 @@ function ViewBacklog(props) {
         <div className="ViewBacklog">
             <div className="sub_header px-4">
                 <h3>{backlog.title}</h3>
-                <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
+                <p className="fw-bold">Project / <span className="fw-bolder">{backlog.projectName}</span></p>
             </div>
             <div className="container">
                 <div className="row">
