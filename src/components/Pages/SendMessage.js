@@ -105,24 +105,32 @@ function SendMessage({ scroll }) {
     }
     return (
         <div>
-            <form onSubmit={sendTextMessage}>
-                <div className="sendMsg">
-                    <Input style={{ width: '78%', fontSize: '15px', fontWeight: '550', marginLeft: '5px', marginBottom: '-3px' }} placeholder='Message...' type="text" value={msg} onChange={e => setMsg(e.target.value)} />
-                    <div class="image-upload">
-                        <label for="image-chat-input">
-                            <i class="fa fa-camera" aria-hidden="true"></i>
-                        </label>
-                        <input id="image-chat-input" type="file" onChange={uploadImage} />
+            <div className='chat-container'>
+                <form onSubmit={sendTextMessage}>
+                    <div className="sendMsg row">
+                        <div className='col-lg-9 col-md-9 col-sm-8 col-xs-6'>
+                            <Input style={{ width: '100%', fontSize: '15px', fontWeight: '550', marginLeft: '5px', marginBottom: '-3px' }} placeholder='Message...' type="text" value={msg} onChange={e => setMsg(e.target.value)} />
+                        </div>
+                        <div className='col-lg-3 col-md-3 col-sm-4 col-xs-6 msg-col-2'>
+                            <div class="image-upload">
+                                <label for="image-chat-input">
+                                    <div className='btn-msg'><i class="fa fa-camera" aria-hidden="true"></i></div>
+                                </label>
+                                <input id="image-chat-input" type="file" onChange={uploadImage} />
+                            </div>
+                            <div class="document-upload">
+                                <label for="document-chat-input">
+                                    <div className='btn-msg'><i class="fa fa-paperclip" aria-hidden="true"></i></div>
+                                </label>
+                                <input id="document-chat-input" type="file" onChange={uploadDocument} />
+                            </div>
+                            <div>
+                                <button type='submit' className='btn-msg'>Send</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="document-upload" style={{marginLeft:'40px', marginRight:'40px'}}>
-                        <label for="document-chat-input">
-                            <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        </label>
-                        <input id="document-chat-input" type="file" onChange={uploadDocument} />
-                    </div>
-                    <Button style={{ width: '18%', fontSize: '15px', fontWeight: '550', margin: '5px 0 -13px 0', maxWidth: '70px'}} type="submit">Send</Button>
-                </div>
-            </form>
+                </form>
+            </div>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
