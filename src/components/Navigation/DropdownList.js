@@ -106,6 +106,21 @@ function DropdownList(props){
       setOpen(false);
     };
 
+    const searchStyle = {
+        control: (base,state) => ({
+            ...base,
+            borderColor: state.isFocused ? "green" : "blue",
+            boxShadow: state.isFocused ? null : null,
+            height:50,
+            minHeight:50,
+            borderRadius: 20,
+            border:'2px solid blue',
+            "&:hover": {
+                borderColor: state.isFocused ? "blue" : "green"
+            }
+        })
+    }
+
     useEffect(() => {
         ProjectUserService.getProjectsByUser(currentUser.email)
         .then(response => {
@@ -169,6 +184,8 @@ function DropdownList(props){
                             placeholder="Search Backlogs" 
                             options={projectBacklogs}
                             onChange={opt => window.location.replace("/backlog/"+opt.value)}
+                            style={searchStyle}
+                            components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         />
                     </div>
                     <div className="section4">

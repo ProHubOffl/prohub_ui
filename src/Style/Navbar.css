@@ -12,7 +12,7 @@
     border: 1px solid black;
     opacity: 1;
     border-radius: 20px 20px  20px 20px;
-    height: 40px;
+    height: 36px;
     display: flex;
     margin-bottom: auto;
     margin-top: auto;
@@ -40,7 +40,6 @@ width: 60%;
 }
 .search-select-nav{
     width: 36%;
-    height: 50px;
 }
 .chat_btn {
     margin-left: auto;

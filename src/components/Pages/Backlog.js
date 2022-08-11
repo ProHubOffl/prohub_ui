@@ -10,7 +10,6 @@ const Backlog = () => {
   const currentProject = AuthService.getCurrentProject().projectName
 
   const[title, setTitle] = useState('');
-  const[projectName, setProjectName] = useState('');
   const[assignee, setAssignee] = useState('');
   const[sprint, setSprint] = useState('');
   const[storyPoints, setStoryPoints] = useState('');
@@ -191,7 +190,7 @@ const Backlog = () => {
                         <div className="backlog-card fw-bold">
                           <div className="row">
                             <div className="col-md-9">
-                              <p>{backlog.title}</p>
+                              <p className="m-1">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right'}}>Sprint {backlog.sprint}</span></p>
                             </div>
                             <div className="col-md-2" id={backlog_color_id}>
                               <p>{backlog_state}</p>

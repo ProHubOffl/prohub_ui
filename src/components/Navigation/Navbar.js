@@ -23,7 +23,7 @@ import BacklogService from '../../service/backlog/BacklogService';
 
 const Nav = styled.nav`
     display:flex;
-    height: 55px;
+    height: 50px;
     position:fixed;
     width:100%;
     z-index: 999;
@@ -122,10 +122,15 @@ function Navbar(props) {
       );
 
       const customSearchStyles = {
-        control: (base, state) => ({
+        control: (base,state) => ({
           ...base,
           borderColor: state.isFocused ? "green" : "blue",
           boxShadow: state.isFocused ? null : null,
+          height:30,
+          minHeight:30,
+          borderRadius: 20,
+          marginTop:2,
+          border:'2px solid blue',
           "&:hover": {
             borderColor: state.isFocused ? "blue" : "green"
           }
@@ -199,6 +204,7 @@ function Navbar(props) {
                             options={projectBacklogs}
                             onChange={opt => window.location.replace("/backlog/"+opt.value)}
                             styles={customSearchStyles} 
+                            components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                         />
                         <div className="notification_option">
                             <a href='/videoChat'>
