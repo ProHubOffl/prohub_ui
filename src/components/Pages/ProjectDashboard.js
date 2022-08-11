@@ -173,6 +173,13 @@ const ProjectDashboard = () => {
         }
         return approved;
     }
+    const Allocatedstorypoints = () =>{
+        var usingpoints = 0;
+        for(let b in backlogs){
+            usingpoints=(usingpoints + backlogs[b].storyPoints)
+        }
+        return usingpoints;
+    }
 
     useEffect(() => {
         ProjectService.getProjectByProjectName(selectedproject.projectName)
@@ -228,7 +235,7 @@ const ProjectDashboard = () => {
                 <div className="col-6 col-md-3 cell4">
                     <span className="boxtitle">Allocated Tasks</span><br/>
                     <span className="boxdata">{backlogs.length}</span><br/>
-                    <span className="dataunit">Total StoryPoints {project.storyPoints}</span>
+                    <span className="dataunit">Allocated StoryPoints : {Allocatedstorypoints()}/{project.storyPoints}</span>
                 </div>
             </div>
 

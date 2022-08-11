@@ -21,11 +21,13 @@ function EditBacklog(props) {
     const[title, setTitle] = useState('');
     const[assignee, setAssignee] = useState('');
     const[sprint, setSprint] = useState('');
-    const[storyPoints, setStoryPoints] = useState('');
+    const[storyPoints, setStoryPoints] = useState();
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
     const[status, setStatus] = useState('');
     const[project, setProject] = useState([]);
+    const[backlogs, setBacklogs] = useState([]);
+    const[backlogError, setBacklogError] = useState('');
 
     const updateBacklogItem = (e) => {
         e.preventDefault()
@@ -85,8 +87,34 @@ function EditBacklog(props) {
         .catch(err => {
             console.log(err)
         })
+
+        BacklogService.getBacklogByProject(currentProject)
+        .then(response => {
+          setBacklogs(response.data)
+        })
+        .catch(err => {
+          setBacklogError('Unable to fetch backlog list at the moment')
+        });
     
       },[])
+
+const CalculatePoints = () => {
+    var usingpoints = 0;
+    var totalpoints = project.storyPoints
+    var displaycount
+
+    for(let b in backlogs){
+        usingpoints=(usingpoints + backlogs[b].storyPoints)
+      }
+      displaycount = totalpoints-usingpoints;
+      return (displaycount)+" Storypoints Remaining"
+}
+
+const GetMaximum = () => {
+    debugger
+    var max =(parseInt(CalculatePoints().split(' ')[0])+oldStoryPoints)
+    return max
+}
 
     return (
         <div className="project-form">
@@ -143,7 +171,8 @@ function EditBacklog(props) {
                               </div>
                               <div className="col-md-4">
                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} required/>
+                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} max={GetMaximum()} required/>
+                                <span className="validation_message">{CalculatePoints()}</span>
                               </div>
                             </div>
                             {/* 3rd row */}
