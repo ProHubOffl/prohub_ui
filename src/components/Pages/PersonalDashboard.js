@@ -21,7 +21,6 @@ const PersonalDashboard = () => {
             setProjectError('Unable to fetch backlog list at the moment')
         })
 
-        debugger
         BacklogService.getBacklogbyEmail(email)
         .then(response => {
           setBacklogs(response.data)

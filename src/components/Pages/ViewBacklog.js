@@ -161,7 +161,7 @@ function ViewBacklog(props) {
                     <div className="col-lg-8 col-md-7 col-sm-12">
                         <div className="ViewBacklog-left">
                             <h4></h4>
-                            <form className="ViewBacklog_left" action='#'>
+                            <form className="ViewBacklog_left" action='#' onSubmit={addNewComment}>
                                 <div >
                                     <div className="row">
                                     <div className="col-md-12">
@@ -171,7 +171,7 @@ function ViewBacklog(props) {
                                     </div>
                                 </div>
                                 <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2">
-                                    <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" onClick={addNewComment}>Comment</button>
+                                    <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" onClick={()=>{}}>Comment</button>
                                 </div>
                             </form>
                             <div>

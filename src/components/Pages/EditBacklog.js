@@ -111,7 +111,6 @@ const CalculatePoints = () => {
 }
 
 const GetMaximum = () => {
-    debugger
     var max =(parseInt(CalculatePoints().split(' ')[0])+oldStoryPoints)
     return max
 }

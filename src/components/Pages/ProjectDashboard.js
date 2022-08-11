@@ -132,7 +132,6 @@ const ProjectDashboard = () => {
     }
 
     const CalculateImprovementProgressBar = (tasks) => {
-        debugger
         var improve = 0;
         var improvetotal = 0;
         for(let b in tasks){
@@ -168,7 +167,6 @@ const ProjectDashboard = () => {
     }
 
     const CalculateStoryProgressBar = (tasks) => {
-        debugger
         var story = 0;
         var storytotal = 0;
         for(let b in tasks){
@@ -204,7 +202,6 @@ const ProjectDashboard = () => {
     }
 
     const CalculateBugProgressBar = (tasks) => {
-        debugger
         var bug = 0;
         var bugtotal = 0;
         for(let b in tasks){

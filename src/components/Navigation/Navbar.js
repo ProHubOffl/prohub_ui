@@ -210,7 +210,7 @@ function Navbar(props) {
                             <a href='/videoChat'>
                                 Meet
                                 <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" style={{marginLeft:'5px'}}>
-                                    <VideocamIcon />
+                                    <VideocamIcon id='videoicon'/>
                                 </Badge>
                             </a>
                         </div>
