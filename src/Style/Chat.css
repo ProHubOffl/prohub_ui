@@ -1,12 +1,16 @@
 .chat_img {
     border-radius: 50%;
     height: 30px;
+    width: 30px;
     border: 2px solid #3C6873;
   }
 
   .msg_img{
-    height: 305px;
+    height: 100%;
     width: 305px;
+    cursor: pointer;
+    box-shadow: 0 8px 10px 0px rgb(164, 164, 164);
+    border-radius: 5px;
   }
 
   .image-upload > input {
@@ -152,12 +156,6 @@
   .received .chat-body {
     background-color: #3C6873;
     color: #ffffff;
-    box-shadow: 0 8px 10px 0px rgb(164, 164, 164);
-    border-radius: 5px;
-  }
-  
-  .msg_img {
-    cursor: pointer;
     box-shadow: 0 8px 10px 0px rgb(164, 164, 164);
     border-radius: 5px;
   }
