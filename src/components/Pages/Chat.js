@@ -18,27 +18,35 @@ function Chat() {
         })
     }, [])
     return (
-        <div>
+        <div className='container'>
             <div className="msgs">
                 {messages.map(({ id, text, imageMessage, document, documentName, displayName, email, photoUrl }) => {
                     if(imageMessage === '') {
                         if(document === '') {
                             return (
-                                <div>
+                                <div className='chat-content'>
                                     <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
-                                        <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
-                                        <p className='chat'>{displayName}</p><br/><br/>
-                                        <p className='chat'>{text}</p>
+                                        <div className='chat-header'>
+                                            <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                            <p className='chat'>{displayName}</p>
+                                        </div>
+                                        <div className='chat-body'>
+                                            <p className='chat'>{text}</p>
+                                        </div>
                                     </div>
                                 </div>
                             )
                         } else {
                             return (
-                                <div>
+                                <div className='chat-content'>
                                     <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
-                                        <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
-                                        <p className='chat'>{displayName}</p><br/><br/>
-                                        <a style={{color:'black'}} className='chat_document' href={document} target="_blank">{documentName}</a>
+                                        <div className='chat-header'>
+                                            <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                            <p className='chat'>{displayName}</p>
+                                        </div>
+                                        <div className='chat-body'>
+                                            <a className='chat_document' href={document} target="_blank">{documentName}</a>
+                                        </div>
                                     </div>
                                 </div>
                             )
@@ -46,11 +54,17 @@ function Chat() {
                         
                     } else {
                         return (
-                            <div>
+                            <div className='chat-content'>
                                 <div key={id} className={`msg ${email === currentUsr.email ? 'sent' : 'received'}`}>
-                                    <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
-                                    <p className='chat'>{displayName}</p><br/><br/>
-                                    <img className='msg_img' src={imageMessage} alt="Image Message" />
+                                    <div className='chat-header'>
+                                        <img className='chat_img' src={photoUrl === '' ? Unknown_image : photoUrl} alt='' /><br/>
+                                        <p className='chat'>{displayName}</p>
+                                    </div>
+                                    <div className=''>
+                                        <a target="_blank" href={imageMessage}>
+                                            <img className='msg_img' src={imageMessage} alt="Image Message" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         )
