@@ -30,35 +30,62 @@ function CreateProject() {
             totalSprints
         }
         ProjectService.createProject(project)
-        const projectUserRole = {
-            projectName,
-            email,
-            role
-        }
-        ProjectUserService.addProjectUserRole(projectUserRole)
         .then(response => {
-            toast.success('Project Created Successfully', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            setTimeout(() => {window.location.reload()}, 2000);
-            SetEndDate('')
-            SetStartDate('')
-            SetProjectName('')
-            SetProjectType('')
-            SetProjectDescription('')
-            SetTotalSprints('')
-            SetStoryPoints('')
-            SetTeamName('')
+            if(response.status === 200){
+                const projectUserRole = {
+                    projectName,
+                    email,
+                    role
+                }
+                ProjectUserService.addProjectUserRole(projectUserRole)
+                .then(res => {
+                    toast.success('Project Created Successfully', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    setTimeout(() => {window.location.reload()}, 2000);
+                    SetEndDate('')
+                    SetStartDate('')
+                    SetProjectName('')
+                    SetProjectType('')
+                    SetProjectDescription('')
+                    SetTotalSprints('')
+                    SetStoryPoints('')
+                    SetTeamName('')
+                })
+                .catch(error => {
+                    console.log(error)
+                    toast.error('Unable to Create New Project. Please Check Project Name', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+            }
+            else {
+                toast.error('Unable to Create New Project. Please Check Project Name', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         })
         .catch(err => {
             console.log(err)
-            toast.error('Unable to proceed your request', {
+            toast.error('Unable to Create New Project. Please Check Project Name', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
