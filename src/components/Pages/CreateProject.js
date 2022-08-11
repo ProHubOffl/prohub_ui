@@ -167,7 +167,7 @@ function CreateProject() {
                                     </div>
                                     <div className="col-md-4">
                                         <label for="totalPoints" className="form-label">Total Sprints *</label>
-                                        <input type="number" className="form-control" id="totalPoints" placeholder="Enter total points" onChange={(e) => SetTotalSprints(e.target.value)} value={totalSprints} max={MinimumSprint(startDate,endDate)} required/>
+                                        <input type="number" className="form-control" id="totalPoints" placeholder="Enter total points" onChange={(e) => SetTotalSprints(e.target.value)} value={totalSprints} min={1} max={MinimumSprint(startDate,endDate)} required/>
                                     </div>
                                 </div>
                             </div>

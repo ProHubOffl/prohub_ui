@@ -198,7 +198,7 @@ function UpdateProject({location}) {
                                             </div>
                                             <div className="col-md-4">
                                                 <label for="totalSprint" className="form-label">Total Sprint</label>
-                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" defaultValue={project.totalSprints} onChange={(e) => setSprints(e.target.value)} max={MinimumSprint()} required/>
+                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" defaultValue={project.totalSprints} onChange={(e) => setSprints(e.target.value)} min={1} max={MinimumSprint()} required/>
                                             </div>
                                         </div>
                                     </div>
