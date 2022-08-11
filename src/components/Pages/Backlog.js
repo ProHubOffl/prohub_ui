@@ -113,7 +113,7 @@ const Backlog = () => {
                     </div>
                   </div>
                   <div className="col-md-4">
-                    <label for="mail" className="form-label">Project Type *</label>
+                    <label for="mail" className="form-label">Backlog Type *</label>
                     <div className="input-group">
                         <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} required>
                             <option value="" selected hidden>Select Type</option>
