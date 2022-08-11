@@ -132,13 +132,13 @@ const GetMaximum = () => {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)} required/>
+                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)}/>
                                   </div>
                               </div>
                               <div className="col-md-4">
                                 <label for="status" className="form-label">Status *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.status} onChange={(e) => setStatus(e.target.value)} required>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.status} onChange={(e) => setStatus(e.target.value)}>
                                         <option value="" selected hidden>{props.backlog.status}</option>
                                         <option value="TO_DO">TO DO</option>
                                         <option value="IN_PROGRESS">IN PROGRESS</option>
@@ -150,7 +150,7 @@ const GetMaximum = () => {
                               <div className="col-md-4">
                                 <label for="mail" className="form-label">Backlog Type *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)}>
                                         <option value="" selected hidden>{props.backlog.type}</option>
                                         <option value="BUG">Bug</option>
                                         <option value="STORY">Story</option>
@@ -167,11 +167,11 @@ const GetMaximum = () => {
                               </div>
                               <div className="col-md-4">
                                   <label for="sprint" className="form-label">Sprint *</label>
-                                  <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} min={1} max={project.totalSprints} required/>
+                                  <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} min={1} max={project.totalSprints}/>
                               </div>
                               <div className="col-md-4">
                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} max={GetMaximum()} required/>
+                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} max={GetMaximum()}/>
                                 <span className="validation_message">{CalculatePoints()}</span>
                               </div>
                             </div>
@@ -179,7 +179,7 @@ const GetMaximum = () => {
                             <div className="row">
                             <div className="col-md-12">
                                 <label for="description" className="form-label">Description *</label> <br></br>
-                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" defaultValue={props.backlog.description} onChange={(e) => setDescription(e.target.value)} required>
+                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" defaultValue={props.backlog.description} onChange={(e) => setDescription(e.target.value)}>
                                 </textarea>
                             </div>
                             </div>
