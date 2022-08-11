@@ -109,8 +109,10 @@ const CalculatePoints = (boolean) => {
     var str = "Invalid Value"
     return boolean ? str : remain_Points ;
   }else{
+    debugger
     var points = remain_Points-storyPoints
-    return boolean ? ((points)+" Storypoints Remaining") : points
+    var str = boolean ? ((points)+" Storypoints Remaining") : remain_Points
+    return str
   }
 }
 
@@ -131,7 +133,7 @@ const CalculatePoints = (boolean) => {
                   <div className="col-md-4">
                       <label for="mail" className="form-label">Title *</label>
                       <div className="input-group">
-                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} required/>
+                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
                       </div>
                   </div>
                   <div className="col-md-4">
@@ -143,7 +145,7 @@ const CalculatePoints = (boolean) => {
                   <div className="col-md-4">
                     <label for="mail" className="form-label">Backlog Type *</label>
                     <div className="input-group">
-                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} required>
+                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} disabled={!CalculatePoints(false)} required>
                             <option value="" selected hidden>Select Type</option>
                             <option value="BUG">Bug</option>
                             <option value="STORY">Story</option>
@@ -156,7 +158,7 @@ const CalculatePoints = (boolean) => {
                 <div className="row"> 
                   <div className="col-md-4">
                       <label for="assignee" className="form-label">Assignee </label>
-                      <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} required>
+                      <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} disabled={!CalculatePoints(false)} required>
                             <option value="" selected hidden>Select Assignee</option>
                             {
                               projectUsers.map(user => {
@@ -169,11 +171,11 @@ const CalculatePoints = (boolean) => {
                   </div>
                   <div className="col-md-4">
                       <label for="sprint" className="form-label">Sprint *</label>
-                      <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" onChange={(e) => setSprint(e.target.value)} min={1} max={project.totalSprints} required/>
+                      <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" onChange={(e) => setSprint(e.target.value)} min={1} max={project.totalSprints} disabled={!CalculatePoints(false)} required/>
                   </div>
                   <div className="col-md-4">
                     <label for="storyPoints" className="form-label">Story Points</label>
-                    <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => setStoryPoints(e.target.value)} min={1} max={CalculatePoints(false)} required/>
+                    <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => setStoryPoints(e.target.value)} min={1} max={CalculatePoints(false)} disabled={!CalculatePoints(false)} required/>
                     <span className="validation_message">{CalculatePoints(true)}</span>
                   </div>
                 </div>
@@ -181,13 +183,13 @@ const CalculatePoints = (boolean) => {
                 <div className="row">
                 <div className="col-md-12">
                     <label for="description" className="form-label">Description *</label> <br></br>
-                    <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} required>
+                    <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} disabled={!CalculatePoints(false)} required>
                     </textarea>
                 </div>
                 </div>
               </div>
               <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2">
-                <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create">Create</button>
+                <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" disabled={!CalculatePoints(false)}>Create</button>
               </div>
             </form>
           </div>
