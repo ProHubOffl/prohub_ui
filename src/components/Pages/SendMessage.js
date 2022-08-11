@@ -118,7 +118,7 @@ function SendMessage({ scroll }) {
                                 <label for="image-chat-input">
                                     <div className='btn-msg'><i class="fa fa-camera" aria-hidden="true"></i></div>
                                 </label>
-                                <input id="image-chat-input" type="file" onChange={uploadImage} />
+                                <input id="image-chat-input" type="file" onChange={uploadImage} accept="image/*"/>
                             </div>
                             <div class="document-upload">
                                 <label for="document-chat-input">
