@@ -12,6 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
+import ProjectUserService from '../../service/user/ProjectUserService';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -25,7 +26,7 @@ function ViewBacklog(props) {
     const[open,setOpen] = useState(false)
 
     const user = AuthService.getCurrentUser();
-    const currentProject = AuthService.getCurrentProject().projectName
+    const projectName = AuthService.getCurrentProject().projectName;
 
     const addNewComment = (e) => {
         e.preventDefault()
@@ -126,6 +127,16 @@ function ViewBacklog(props) {
     }
 
     useEffect(() => {   
+        ProjectUserService.getProjectUserRoles(projectName)
+        .then(response => {
+            let users = []
+            response.data.map(projectUser => users.push(projectUser.email))
+            if(!users.includes(user.email)){
+                window.location.replace("/board")
+            }
+        })
+        .catch(err => console.log(err))
+
         BacklogService.getBacklogByBacklogId(props.match.params.backlogId)
         .then(response => {
             setBacklog(response.data)
@@ -143,7 +154,7 @@ function ViewBacklog(props) {
         <div className="ViewBacklog">
             <div className="sub_header px-4">
                 <h3>{backlog.title}</h3>
-                <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
+                <p className="fw-bold">Project / <span className="fw-bolder">{backlog.projectName}</span></p>
             </div>
             <div className="container">
                 <div className="row">

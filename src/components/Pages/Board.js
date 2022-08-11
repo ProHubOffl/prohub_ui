@@ -61,6 +61,7 @@ const Board = () => {
                     return (
                       <div className="board-card" id="todo">
                         <div id="card-heading">
+                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
                           <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">
@@ -88,6 +89,7 @@ const Board = () => {
                       return (
                         <div className="board-card" id="in-progress">
                           <div id="card-heading">
+                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
                             <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
@@ -115,6 +117,7 @@ const Board = () => {
                       return (
                         <div className="board-card" id="done">
                           <div id="card-heading">
+                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
                             <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
@@ -142,6 +145,7 @@ const Board = () => {
                     return (
                       <div className="board-card" id="approved">
                         <div id="card-heading">
+                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
                           <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">

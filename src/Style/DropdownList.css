@@ -19,6 +19,12 @@
 #bg-nested-dropdown-sn:hover{
     background-color: rgb(187, 187, 187);
 }
+.search-select{
+    width: 70%;
+    margin: 0 auto 0 auto;
+    color: black;
+    font-weight: 500;
+}
 .logo_pic_sn{
     background-color: white;
     height: 100px;

@@ -68,7 +68,9 @@ function SendMessage({ scroll }) {
 
     function sendTextMessage(e) {
         e.preventDefault();
-        sendMessage(msg,'','','')
+        if(msg !== ''){
+            sendMessage(msg,'','','')
+        }
     }
 
     function sendMessage(text, imageMessage, document, documentName) {
