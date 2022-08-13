@@ -109,7 +109,6 @@ const CalculatePoints = (boolean) => {
     var str = "Invalid Value"
     return boolean ? str : remain_Points ;
   }else{
-    debugger
     var points = remain_Points-storyPoints
     var str = boolean ? ((points)+" Storypoints Remaining") : remain_Points
     return str
@@ -221,10 +220,10 @@ const CalculatePoints = (boolean) => {
                         <div className="backlog-card fw-bold">
                           <div className="row">
                             <div className="col-md-9">
-                              <p className="m-1">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right'}}>Sprint {backlog.sprint}</span></p>
+                              <p className="m-1 title_text">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right',color:'gray'}}>Sprint {backlog.sprint}</span></p>
                             </div>
                             <div className="col-md-2" id={backlog_color_id}>
-                              <p>{backlog_state}</p>
+                              <p className="status_text">{backlog_state}</p>
                             </div>
                             <div className="col-md-1" id="backlog-icon">
                               <button className="btn" ><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>

@@ -184,3 +184,6 @@
 .validation_message{
     color: red;
 }
+.status_text{
+    margin: auto auto auto auto;
+}

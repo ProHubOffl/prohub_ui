@@ -71,7 +71,7 @@ const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 25%;
-  hieght: 100%;
+  height: 100%;
   background-color: white;
   transition: all 0.5s ease;
   overflow: hidden;
