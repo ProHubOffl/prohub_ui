@@ -3,6 +3,7 @@ import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
 import AuthService from "../../service/authentication/AuthService";
 import ProjectUserService from "../../service/user/ProjectUserService";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Board = () => {
   const currentProject = localStorage.getItem("project") === null ? "" : AuthService.getCurrentProject().projectName
@@ -10,8 +11,22 @@ const Board = () => {
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
   const email = AuthService.getCurrentUser().email
+  const token = AuthService.getCurrentUser().jwtToken
+  const decode = JSON.parse(atob(token.split('.')[1]));
 
   useEffect(() => {
+    if (decode.exp * 1000 < new Date().getTime()) {
+      toast.error('Your Session Expired. Please Login Again to Continue', {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });  
+      setTimeout(() => { AuthService.logout()  }, 2500);
+    }
     if(localStorage.getItem("project") === null)
       {    
         ProjectUserService.getProjectsByUser(email)
@@ -160,6 +175,17 @@ const Board = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
     );
 };
