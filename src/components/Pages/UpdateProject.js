@@ -25,7 +25,7 @@ function UpdateProject({location}) {
         window.location.replace("/Board")
     }
 
-    const updateProject = (e) => {
+    const updateProjecthandler = (e) => {
         e.preventDefault();
         const modifiedProject = {
             teamName: teamName === '' ? project.teamName : teamName,
@@ -125,11 +125,34 @@ function UpdateProject({location}) {
         })
     },[])
 
+    const AllocatedDays = () => {
+        var start = new Date(project.startDate);
+        var end = new Date(endDate);
+        var ms = end.getTime() - start.getTime();
+        const days = Math.floor(ms / (24*60*60*1000));
+        return days;
+    }
+
+    const MinimumDate = () => {
+        var Date_value = new Date(project.startDate)
+        Date_value.setDate(Date_value.getDate()+30)
+        var str = (Date_value.getFullYear()+"-"+(((Date_value.getMonth()+1)>9)?(Date_value.getMonth()+1):("0"+(Date_value.getMonth()+1)))+"-"+((Date_value.getDate()>9)?Date_value.getDate():("0"+Date_value.getDate()))).toString()
+        return str
+    }
+
+    const MinimumSprint = () => {
+        var start = new Date(project.startDate);
+        var end = new Date(endDate);
+        var ms = end.getTime() - start.getTime();
+        const days = Math.floor(ms / (24*60*60*1000));
+        return (days/2).toFixed(0);
+    }
+
     return (
         <>
             <div className="project-form" id="update-form">
                 <div className="modal-xl modal-box">                   
-                    <form>
+                    <form onSubmit={updateProjecthandler}>
                         <div className="modal-content" id="modal-content-box">
                             <div className="modal-header">
                                 <h3 className="modal-title fw-bolder" id="staticBackdropLabel">Update Project</h3>
@@ -161,7 +184,7 @@ function UpdateProject({location}) {
                                             </div>
                                             <div className="col-md-6">
                                                 <label for="endDate" className="form-label">End Date *</label>
-                                                <input type="date" className="form-control" id="endDate" defaultValue={project.endDate} onChange={(e) => setEndDate(e.target.value)} required/>
+                                                <input type="date" className="form-control" id="endDate" onChange={(e) => setEndDate(e.target.value)} min={MinimumDate()}required/>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -171,11 +194,11 @@ function UpdateProject({location}) {
                                             </div>
                                             <div className="col-md-4">
                                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={project.storyPoints} onChange={(e) => setStoryPoints(e.target.value)}/>
+                                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={project.storyPoints} onChange={(e) => setStoryPoints(e.target.value)}  min={AllocatedDays()} required/>
                                             </div>
                                             <div className="col-md-4">
                                                 <label for="totalSprint" className="form-label">Total Sprint</label>
-                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" defaultValue={project.totalSprints} onChange={(e) => setSprints(e.target.value)}/>
+                                                <input type="number" className="form-control" id="totalSprint" placeholder="Enter total sprint" defaultValue={project.totalSprints} onChange={(e) => setSprints(e.target.value)} min={1} max={MinimumSprint()} required/>
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +241,7 @@ function UpdateProject({location}) {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" onClick={handleClose}>Cancel</button>
-                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateProject}>Update</button>
+                                <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={()=>{}}>Update</button>
                             </div>
                         </div>
                     </form>

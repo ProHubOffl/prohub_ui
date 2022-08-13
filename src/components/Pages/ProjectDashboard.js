@@ -82,6 +82,9 @@ const ProjectDashboard = () => {
         if(today > new Date(end)){
             return "-,"+"Project Expired"
         }
+        if(today < new Date(start)){
+            return "-,"+"Your Project is behind the Schedule"
+        }
         for(var i=1; i<sprints ; i=i+1){
             dates[i] = new Date(lastdate.setDate(lastdate.getDate() + days));
         }
@@ -91,8 +94,6 @@ const ProjectDashboard = () => {
                 var firstdate=dates[i-1]
                 var lastdate=dates[i]
                 break;
-            }else{
-                return "-,"+"Your Project is behind the Schedule"
             }
         }
         return currentsprint+","+new Date(firstdate).getDate()+"/"+(new Date(firstdate).getMonth()+1)+"/"+new Date(firstdate).getFullYear()+" - "+new Date(lastdate).getDate()+"/"+(new Date(lastdate).getMonth()+1)+"/"+new Date(lastdate).getFullYear();
@@ -130,6 +131,25 @@ const ProjectDashboard = () => {
         return count?(improve+"/"+improvetotal):"Improvements Empty";
     }
 
+    const CalculateImprovementProgressBar = (tasks) => {
+        var improve = 0;
+        var improvetotal = 0;
+        for(let b in tasks){
+            if(tasks[b].type == 'IMPROVEMENT'){
+                improvetotal =improvetotal+tasks[b].storyPoints
+                if(tasks[b].status == 'APPROVED'){
+                    improve =improve+tasks[b].storyPoints
+                }
+            }
+        }
+        if(improve==0 && improvetotal==0){
+            var answer = 0;
+        }else{
+            var answer=improve/improvetotal
+        }
+        return answer
+    }
+
     const CalculateStoryProgress = (tasks) => {
         var story = 0;
         var storytotal = 0;
@@ -144,6 +164,25 @@ const ProjectDashboard = () => {
             }
         }
         return count?(story+"/"+storytotal):"Stories Empty";
+    }
+
+    const CalculateStoryProgressBar = (tasks) => {
+        var story = 0;
+        var storytotal = 0;
+        for(let b in tasks){
+            if(tasks[b].type == 'STORY'){
+                storytotal =storytotal+tasks[b].storyPoints
+                if(tasks[b].status == 'APPROVED'){
+                    story =story+tasks[b].storyPoints
+                }
+            }
+        }
+        if(story==0 && storytotal==0){
+            var answer = 0;
+        }else{
+            var answer=story/storytotal
+        }
+        return answer
     }
 
     const CalculateBugProgress = (tasks) => {
@@ -162,6 +201,25 @@ const ProjectDashboard = () => {
         return count?(bug+"/"+bugtotal):"Bugs Empty";
     }
 
+    const CalculateBugProgressBar = (tasks) => {
+        var bug = 0;
+        var bugtotal = 0;
+        for(let b in tasks){
+            if(tasks[b].type == 'BUG'){
+                bugtotal =bugtotal+tasks[b].storyPoints
+                if(tasks[b].status == 'APPROVED'){
+                    bug =bug+tasks[b].storyPoints
+                }
+            }
+        }
+        if(bug==0 && bugtotal==0){
+            var answer = 0;
+        }else{
+            var answer=bug/bugtotal
+        }
+        return answer
+    }
+    
     const CalculateProjectProgress = (tasks) => {
         var approved = 0;
         var count=0
@@ -172,6 +230,13 @@ const ProjectDashboard = () => {
             count=count+1
         }
         return approved;
+    }
+    const Allocatedstorypoints = () =>{
+        var usingpoints = 0;
+        for(let b in backlogs){
+            usingpoints=(usingpoints + backlogs[b].storyPoints)
+        }
+        return usingpoints;
     }
 
     useEffect(() => {
@@ -228,7 +293,7 @@ const ProjectDashboard = () => {
                 <div className="col-6 col-md-3 cell4">
                     <span className="boxtitle">Allocated Tasks</span><br/>
                     <span className="boxdata">{backlogs.length}</span><br/>
-                    <span className="dataunit">Total StoryPoints {project.storyPoints}</span>
+                    <span className="dataunit">Allocated StoryPoints : {Allocatedstorypoints()}/{project.storyPoints}</span>
                 </div>
             </div>
 
@@ -240,17 +305,17 @@ const ProjectDashboard = () => {
                 </div>
                 <div className="col-6 col-md-3 cell6">
                     <span className="boxtitle">Bugs Progress</span>
-                    <ProgressBar className='progressbar' variant="danger" now={CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100} label={`${(CalculateBugProgress(backlogs).split('/')[0]/CalculateBugProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <ProgressBar className='progressbar' variant="danger" now={CalculateBugProgressBar(backlogs)*100} label={`${(CalculateBugProgressBar(backlogs)*100).toFixed(1)}%`} />
                     <span className="data">{CalculateBugProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell7">
                     <span className="boxtitle">Improvements Progress</span>
-                    <ProgressBar className='progressbar' variant="warning" now={CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100} label={`${(CalculateImprovementProgress(backlogs).split('/')[0]/CalculateImprovementProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <ProgressBar className='progressbar' variant="warning" now={CalculateImprovementProgressBar(backlogs)*100} label={`${(CalculateImprovementProgressBar(backlogs)*100).toFixed(1)}%`} />
                     <span className="data">{CalculateImprovementProgress(backlogs)}</span>
                 </div>
                 <div className="col-6 col-md-3 cell8">
                     <span className="boxtitle">Stories Progress</span>
-                    <ProgressBar className='progressbar' variant="info" now={CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100} label={`${(CalculateStoryProgress(backlogs).split('/')[0]/CalculateStoryProgress(backlogs).split('/')[1]*100).toFixed(1)}%`} />
+                    <ProgressBar className='progressbar' variant="info" now={CalculateStoryProgressBar(backlogs)*100} label={`${(CalculateStoryProgressBar(backlogs)*100).toFixed(1)}%`} />
                     <span className="data">{CalculateStoryProgress(backlogs)}</span>
                 </div>
             </div>

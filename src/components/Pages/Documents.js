@@ -236,8 +236,8 @@ const Documents= () => {
                       Author : {document.author}<br/>
                       File Name : {document.name}<br/>
                       File Type : {document.type}<br/>
-                      Created Date : {document.createdDate}<br/>
-                      Last Update : {document.updatedDate == null ? "No update" : document.updatedDate}
+                      Created Date : {new Date(document.createdDate).toLocaleString()}<br/>
+                      Last Update : {document.updatedDate == null ? "No update" : new Date(document.updatedDate).toLocaleString()}
                     </React.Fragment>
                   }
                 >

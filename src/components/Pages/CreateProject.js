@@ -97,6 +97,29 @@ function CreateProject() {
         })
     }
 
+    const AllocatedDays = (date1,date2) => {
+        var start = new Date(date1);
+        var end = new Date(date2);
+        var ms = end.getTime() - start.getTime();
+        const days = Math.floor(ms / (24*60*60*1000));
+        return days;
+    }
+
+    const MinimumDate = () => {
+        var Date_value = new Date(startDate)
+        Date_value.setDate(Date_value.getDate()+30)
+        var str = (Date_value.getFullYear()+"-"+(((Date_value.getMonth()+1)>9)?(Date_value.getMonth()+1):("0"+(Date_value.getMonth()+1)))+"-"+((Date_value.getDate()>9)?Date_value.getDate():("0"+Date_value.getDate()))).toString()
+        return str
+    }
+
+    const MinimumSprint = (date1,date2) => {
+        var start = new Date(date1);
+        var end = new Date(date2);
+        var ms = end.getTime() - start.getTime();
+        const days = Math.floor(ms / (24*60*60*1000));
+        return (days/2).toFixed(0);
+    }
+
     return (
         <div className="project-form">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -130,7 +153,7 @@ function CreateProject() {
                                     </div>
                                     <div className="col-md-6">
                                         <label for="endDate" className="form-label">End Date *</label>
-                                        <input type="date" className="form-control" id="endDate" onChange={(e) => SetEndDate(e.target.value)} value={endDate} required/>
+                                        <input type="date" className="form-control" id="endDate" onChange={(e) => SetEndDate(e.target.value)} value={endDate} min={MinimumDate()} required/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -140,11 +163,11 @@ function CreateProject() {
                                     </div>
                                     <div className="col-md-4">
                                         <label for="storyPoints" className="form-label">Story Points *</label>
-                                        <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => SetStoryPoints(e.target.value)} value={storyPoints} required/>
+                                        <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => SetStoryPoints(e.target.value)} value={storyPoints} min={AllocatedDays(startDate,endDate)} required/>
                                     </div>
                                     <div className="col-md-4">
                                         <label for="totalPoints" className="form-label">Total Sprints *</label>
-                                        <input type="number" className="form-control" id="totalPoints" placeholder="Enter total points" onChange={(e) => SetTotalSprints(e.target.value)} value={totalSprints} required/>
+                                        <input type="number" className="form-control" id="totalPoints" placeholder="Enter total points" onChange={(e) => SetTotalSprints(e.target.value)} value={totalSprints} min={1} max={MinimumSprint(startDate,endDate)} required/>
                                     </div>
                                 </div>
                             </div>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../../Style/Backlog.css";
 import AuthService from '../../service/authentication/AuthService'
 import BacklogService from "../../service/backlog/BacklogService";
 import { toast, ToastContainer } from 'react-toastify';
+import ProjectService from '../../service/project/ProjectService';
 
 function EditBacklog(props) {
 
@@ -20,10 +21,13 @@ function EditBacklog(props) {
     const[title, setTitle] = useState('');
     const[assignee, setAssignee] = useState('');
     const[sprint, setSprint] = useState('');
-    const[storyPoints, setStoryPoints] = useState('');
+    const[storyPoints, setStoryPoints] = useState();
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
     const[status, setStatus] = useState('');
+    const[project, setProject] = useState([]);
+    const[backlogs, setBacklogs] = useState([]);
+    const[backlogError, setBacklogError] = useState('');
 
     const updateBacklogItem = (e) => {
         e.preventDefault()
@@ -75,10 +79,46 @@ function EditBacklog(props) {
         })
     }
 
+    useEffect(() => {
+        ProjectService.getProjectByProjectName(currentProject)
+        .then(response => {
+            setProject(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+        BacklogService.getBacklogByProject(currentProject)
+        .then(response => {
+          setBacklogs(response.data)
+        })
+        .catch(err => {
+          setBacklogError('Unable to fetch backlog list at the moment')
+        });
+    
+      },[])
+
+const CalculatePoints = () => {
+    var usingpoints = 0;
+    var totalpoints = project.storyPoints
+    var displaycount
+
+    for(let b in backlogs){
+        usingpoints=(usingpoints + backlogs[b].storyPoints)
+      }
+      displaycount = totalpoints-usingpoints;
+      return (displaycount)+" Storypoints Remaining"
+}
+
+const GetMaximum = () => {
+    var max =(parseInt(CalculatePoints().split(' ')[0])+oldStoryPoints)
+    return max
+}
+
     return (
         <div className="project-form">
             <div className="modal-dialog modal-dialog modal-lg">
-                <form>
+                <form onSubmit={updateBacklogItem}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title fw-bolder" id="CreateUser">Edit Backlog</h3>
@@ -91,13 +131,13 @@ function EditBacklog(props) {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)} required/>
+                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)}/>
                                   </div>
                               </div>
                               <div className="col-md-4">
                                 <label for="status" className="form-label">Status *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.status} onChange={(e) => setStatus(e.target.value)} required>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.status} onChange={(e) => setStatus(e.target.value)}>
                                         <option value="" selected hidden>{props.backlog.status}</option>
                                         <option value="TO_DO">TO DO</option>
                                         <option value="IN_PROGRESS">IN PROGRESS</option>
@@ -107,9 +147,9 @@ function EditBacklog(props) {
                                 </div>
                               </div>
                               <div className="col-md-4">
-                                <label for="mail" className="form-label">Type *</label>
+                                <label for="mail" className="form-label">Backlog Type *</label>
                                 <div className="input-group">
-                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)} required>
+                                    <select className="form-select border-secondary" id="inputGroupSelect02" defaultValue={props.backlog.type} onChange={(e) => setType(e.target.value)}>
                                         <option value="" selected hidden>{props.backlog.type}</option>
                                         <option value="BUG">Bug</option>
                                         <option value="STORY">Story</option>
@@ -126,18 +166,19 @@ function EditBacklog(props) {
                               </div>
                               <div className="col-md-4">
                                   <label for="sprint" className="form-label">Sprint *</label>
-                                  <input type="text" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} required/>
+                                  <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} min={1} max={project.totalSprints}/>
                               </div>
                               <div className="col-md-4">
                                 <label for="storyPoints" className="form-label">Story Points</label>
-                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} required/>
+                                <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" defaultValue={props.backlog.storyPoints} onChange={(e) => setStoryPoints(e.target.value)} min={1} max={GetMaximum()}/>
+                                <span className="validation_message">{CalculatePoints()}</span>
                               </div>
                             </div>
                             {/* 3rd row */}
                             <div className="row">
                             <div className="col-md-12">
                                 <label for="description" className="form-label">Description *</label> <br></br>
-                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" defaultValue={props.backlog.description} onChange={(e) => setDescription(e.target.value)} required>
+                                <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" defaultValue={props.backlog.description} onChange={(e) => setDescription(e.target.value)}>
                                 </textarea>
                             </div>
                             </div>
@@ -145,7 +186,7 @@ function EditBacklog(props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={updateBacklogItem}>Update</button>
+                            <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={()=>{}}>Update</button>
                         </div>
                     </div>
                 </form>

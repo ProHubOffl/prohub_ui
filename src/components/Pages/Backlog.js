@@ -4,6 +4,7 @@ import BacklogService from "../../service/backlog/BacklogService";
 import "../../Style/Backlog.css";
 import { toast, ToastContainer } from 'react-toastify';
 import ProjectUserService from "../../service/user/ProjectUserService";
+import ProjectService from "../../service/project/ProjectService";
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -18,7 +19,10 @@ const Backlog = () => {
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
   const[projectUsers, setProjectUsers] = useState([]);
+  const[project, setProject] = useState([]);
+  const[remainingpoints, setRemainingpoints] = useState();
   const[userError,setUserError] = useState('')
+
   useEffect(() => {
     BacklogService.getBacklogByProject(currentProject)
     .then(response => {
@@ -34,6 +38,15 @@ const Backlog = () => {
     })
     .catch(err => {
       setUserError('Unable to fetch project user roles at the moment')
+    })
+
+    ProjectService.getProjectByProjectName(currentProject)
+    .then(response => {
+        setProject(response.data)
+        setRemainingpoints(response.data.storyPoints)
+    })
+    .catch(err => {
+        console.log(err)
     })
 
   },[])
@@ -68,7 +81,7 @@ const Backlog = () => {
       setTitle('')
       setAssignee('')
       setSprint('')
-      setStoryPoints('')
+      // setStoryPoints('')
       setDescription('')
       setType('')
     })
@@ -85,6 +98,23 @@ const Backlog = () => {
     });
     })
   }
+
+const CalculatePoints = (boolean) => {
+  var remain_Points=remainingpoints
+  for(let b in backlogs){
+    remain_Points=(remain_Points - backlogs[b].storyPoints)
+  }
+
+  if(storyPoints > remain_Points || storyPoints < 0){
+    var str = "Invalid Value"
+    return boolean ? str : remain_Points ;
+  }else{
+    debugger
+    var points = remain_Points-storyPoints
+    var str = boolean ? ((points)+" Storypoints Remaining") : remain_Points
+    return str
+  }
+}
 
   return(
     <div className="backlog">
@@ -103,7 +133,7 @@ const Backlog = () => {
                   <div className="col-md-4">
                       <label for="mail" className="form-label">Title *</label>
                       <div className="input-group">
-                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} required/>
+                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
                       </div>
                   </div>
                   <div className="col-md-4">
@@ -115,7 +145,7 @@ const Backlog = () => {
                   <div className="col-md-4">
                     <label for="mail" className="form-label">Backlog Type *</label>
                     <div className="input-group">
-                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} required>
+                        <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setType(e.target.value)} disabled={!CalculatePoints(false)} required>
                             <option value="" selected hidden>Select Type</option>
                             <option value="BUG">Bug</option>
                             <option value="STORY">Story</option>
@@ -128,7 +158,7 @@ const Backlog = () => {
                 <div className="row"> 
                   <div className="col-md-4">
                       <label for="assignee" className="form-label">Assignee </label>
-                      <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} required>
+                      <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} disabled={!CalculatePoints(false)} required>
                             <option value="" selected hidden>Select Assignee</option>
                             {
                               projectUsers.map(user => {
@@ -141,24 +171,25 @@ const Backlog = () => {
                   </div>
                   <div className="col-md-4">
                       <label for="sprint" className="form-label">Sprint *</label>
-                      <input type="text" className="form-control" id="sprint" placeholder="Enter sprint" onChange={(e) => setSprint(e.target.value)} required/>
+                      <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" onChange={(e) => setSprint(e.target.value)} min={1} max={project.totalSprints} disabled={!CalculatePoints(false)} required/>
                   </div>
                   <div className="col-md-4">
                     <label for="storyPoints" className="form-label">Story Points</label>
-                    <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => setStoryPoints(e.target.value)} required/>
+                    <input type="number" className="form-control" id="storyPoints" placeholder="Enter story points" onChange={(e) => setStoryPoints(e.target.value)} min={1} max={CalculatePoints(false)} disabled={!CalculatePoints(false)} required/>
+                    <span className="validation_message">{CalculatePoints(true)}</span>
                   </div>
                 </div>
                 {/* 3rd row */}
                 <div className="row">
                 <div className="col-md-12">
                     <label for="description" className="form-label">Description *</label> <br></br>
-                    <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} required>
+                    <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} disabled={!CalculatePoints(false)} required>
                     </textarea>
                 </div>
                 </div>
               </div>
               <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2">
-                <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create">Create</button>
+                <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" disabled={!CalculatePoints(false)}>Create</button>
               </div>
             </form>
           </div>
