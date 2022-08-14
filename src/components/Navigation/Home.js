@@ -30,9 +30,7 @@ function Home(props) {
     useEffect(()=>{
       ProjectUserService.getProjectsByUser(currentUser)
       .then(res => {
-        console.log(res)
         if((res.data.length > 0)){
-          console.log("Projects Empty")
           setHasProjects(true)
         } else {
           document.getElementsByClassName('navbar_display').style.display = "none"
