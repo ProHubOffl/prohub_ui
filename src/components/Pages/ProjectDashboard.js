@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import AuthService from "../../service/authentication/AuthService";
 import BacklogService from '../../service/backlog/BacklogService';
 import ProjectService from '../../service/project/ProjectService';
+import ProjectUserService from '../../service/user/ProjectUserService';
 import "../../Style/ProjectDashboard.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import BurnDownChart from './BurnDownChart';
@@ -39,7 +40,9 @@ const style2 = {
   };
 
 const ProjectDashboard = () => {
-    const selectedproject = AuthService.getCurrentProject()
+    const currentProject = localStorage.getItem("project") === null ? "" : AuthService.getCurrentProject().projectName
+    const currentUser = AuthService.getCurrentUser().email;
+
     const[documentcount, setDocumentCount] = useState(0);
     const[announcecount, setAnnounceCount] = useState(0);
     const[project, setProject] = useState({})
@@ -238,8 +241,8 @@ const ProjectDashboard = () => {
         return usingpoints;
     }
 
-    useEffect(() => {
-        ProjectService.getProjectByProjectName(selectedproject.projectName)
+    const loadPageData = (projectName) => {
+        ProjectService.getProjectByProjectName(projectName)
         .then(response => {
             setProject(response.data)
         })
@@ -247,7 +250,7 @@ const ProjectDashboard = () => {
             console.log(err)
         })
         
-        BacklogService.getBacklogByProject(selectedproject.projectName)
+        BacklogService.getBacklogByProject(projectName)
         .then(response => {
           setBacklogs(response.data)
         })
@@ -255,14 +258,27 @@ const ProjectDashboard = () => {
           setBacklogError('Unable to fetch backlog list at the moment')
         });
 
-        DocumentService.getDocumentCountByProject(selectedproject.projectName)
+        DocumentService.getDocumentCountByProject(projectName)
         .then(response => {
             setDocumentCount(response.data)
         })
         .catch(err => {
             console.log(err)
         })
+    }
 
+    useEffect(() => {
+        if(localStorage.getItem("project") === null){
+            ProjectUserService.getProjectsByUser(currentUser)
+            .then(res => {
+                console.lg(res)
+                localStorage.setItem("project", JSON.stringify(res.data[0]));
+                loadPageData(res.data[0].projectName)
+            })
+            .catch(err => console.log(err))
+        } else {
+            loadPageData(currentProject)
+        }
     },[])
     //new Date()
 
@@ -270,7 +286,7 @@ const ProjectDashboard = () => {
         <div>
             <div className="sub_header px-4">
                 <h3>Project&nbsp;Dashboard</h3><span className='pendingtime'>{CalculateDays(project.endDate)}</span>
-                <p className="fw-bold">Project / <span className="fw-bolder">{selectedproject.projectName}</span></p>
+                <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
             </div>
 
             <div className="row numdata">

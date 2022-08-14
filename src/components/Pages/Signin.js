@@ -16,7 +16,7 @@ function Signin() {
         authService.login(email,password)
         .then(response => {
             console.log(response)
-            window.location.replace('/Board')
+            window.location.replace('/dashboard')
             setEmail('')
             setPassword('')     
         })

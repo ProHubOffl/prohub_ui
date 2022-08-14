@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CreateProject from "../Pages/CreateProject";
 import AuthService from '../../service/authentication/AuthService';
 import logo from '../../images/prohub.png'
@@ -10,6 +10,8 @@ export default function EmptyProject() {
         e.preventDefault()
         AuthService.logout()
     }
+
+    useEffect(() => {},[3000])
     return (
         <div style={{marginTop:"30px",alignContent:'center',alignItems:'center',textAlign:'center'}}>
             <img src={logo} alt='logo' height='200' width='200'/>
