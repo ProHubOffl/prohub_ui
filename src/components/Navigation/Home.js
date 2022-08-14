@@ -8,7 +8,9 @@ import ClipLoader from "react-spinners/ClipLoader"
 import "../../Style/Home.css"
 import logo from "../../images/prohub.png"
 import { css } from "@emotion/react";
-import UpdateProject from "../Pages/UpdateProject";
+import ProjectUserService from '../../service/user/ProjectUserService';
+import AuthService from '../../service/authentication/AuthService';
+import EmptyProject from '../Pages/EmptyProject';
 
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -20,9 +22,24 @@ function Home(props) {
     const toggle=()=>{
       set_open(!is_this_open)
     }
+    const[hasProjects,setHasProjects] = useState(false)
+    const currentUser = AuthService.getCurrentUser().email;
 
     const [loading,Set_loading]=useState(false);
+
     useEffect(()=>{
+      ProjectUserService.getProjectsByUser(currentUser)
+      .then(res => {
+        console.log(res)
+        if((res.data.length > 0)){
+          console.log("Projects Empty")
+          setHasProjects(true)
+        } else {
+          document.getElementsByClassName('navbar_display').style.display = "none"
+        }
+      })
+      .catch(err => console.log(err))
+
       Set_loading(true)
       setTimeout(()=>{
         Set_loading(false)
@@ -46,10 +63,23 @@ function Home(props) {
             )
             :
             (<>
-            <Navbar toggle={toggle} />
-            <DropdownList is_open={is_this_open} toggle={toggle} />
-            <Sidebar/> 
-            <HomeRouting/>
+              {
+                hasProjects ? 
+                (
+                  <>
+                    <Navbar toggle={toggle}/>
+                    <DropdownList is_open={is_this_open} toggle={toggle} />
+                    <Sidebar/> 
+                    <HomeRouting/>
+                  </>
+                )  : 
+                (
+                  <>
+                    <EmptyProject />
+                  </>
+                )
+              }
+              
             </>
             )
           }
