@@ -110,7 +110,7 @@ const Documents= () => {
     DocumentService.getDocumentByProject(currentProject)
     .then(response => {
       setDocuments(response.data)
-      if(response.data.length==0){
+      if(response.data.length===0){
         setDocumentError('Document List is Empty')
       }
     })
@@ -206,7 +206,7 @@ const Documents= () => {
         </Grid>
         <Grid item xs={6}>
           {
-          document.author == user
+          document.author === user
           ? 
           <Typography sx={{ cursor: 'pointer',marginTop:'-16px'}} variant="body2"><button type="button" className="btn btn-info" id="update-btn" aria-label="Add" data-bs-toggle="modal" onClick={()=>{selectDocument(document)}} data-bs-target="#staticdocupdatedrop">Update</button></Typography>
           :
@@ -215,7 +215,7 @@ const Documents= () => {
         </Grid>
         <Grid item xs={2}>
         {
-          document.author == user
+          document.author === user
           ? 
               <Typography sx={{ cursor: 'pointer',marginTop:'-20px', textAlign:'center' }} variant="body2"><IconButton id="del-btn" aria-label="delete" onClick={()=>handleClickOpen(document)}><DeleteTwoToneIcon /></IconButton></Typography>
               :

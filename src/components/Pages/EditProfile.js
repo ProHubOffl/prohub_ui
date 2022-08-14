@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import "../../Style/EditProfile.css"
 import AuthService from "../../service/authentication/AuthService";
 import ProfilePicture from "./ProfilePicture";
@@ -19,8 +19,8 @@ function EditProfile(){
     const[designation,setdesignation] = useState(AuthService.getCurrentUser().designation)
     const[disable,setdisable] = useState(false)
     const email = AuthService.getCurrentUser().email
-    const isUpdatePassword = (password == '' && currentpassword == '' && confirmPassword=='');
-    const isUpdatePersonalInfo = (firstName == AuthService.getCurrentUser().firstName && lastName == AuthService.getCurrentUser().lastName  && designation == AuthService.getCurrentUser().designation) ;
+    const isUpdatePassword = (password === '' && currentpassword === '' && confirmPassword==='');
+    const isUpdatePersonalInfo = (firstName === AuthService.getCurrentUser().firstName && lastName === AuthService.getCurrentUser().lastName  && designation === AuthService.getCurrentUser().designation) ;
 
     const handle_InfoUpdateSubmit = async (e) => {
       e.preventDefault()
@@ -62,23 +62,23 @@ function EditProfile(){
         if(password.length<8){
             setpasswordErrorMsg("Password Length is Very Short");
         }
-        else if(testResult.score == 0){
+        else if(testResult.score === 0){
             setpasswordErrorMsg("Your Password is very Weak");
         }
-        else if(testResult.score == 1){
+        else if(testResult.score === 1){
             setpasswordErrorMsg("Your Password is Weak");
         }
-        else if(password == currentpassword) {
+        else if(password === currentpassword) {
           setpasswordErrorMsg("New password can't be same as Current password");
         }
-        else if(password != confirmPassword) {
+        else if(password !== confirmPassword) {
             setpasswordErrorMsg("New Passwords Not Matching");
         } else {
         setdisable(true)
          await UserService.updatePassword(password,currentpassword)
           .then(response => {
               console.log(response)
-              if(response.data==200){
+              if(response.data===200){
                 toast.success('Password Reset Successfully!', {
                   position: "bottom-left",
                   autoClose: 1500,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { db, storage } from '../../Firebase'
 import firebase from 'firebase'
-import { Input, Button } from '@material-ui/core'
+import { Input } from '@material-ui/core'
 import "../../Style/Chat.css"
 import AuthService from "../../service/authentication/AuthService";
 import UserImageService from '../../service/userimage/UserImageService'

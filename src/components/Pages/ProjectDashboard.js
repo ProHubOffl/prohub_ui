@@ -43,7 +43,6 @@ const ProjectDashboard = () => {
     const[documentcount, setDocumentCount] = useState(0);
     const[announcecount, setAnnounceCount] = useState(0);
     const[project, setProject] = useState({})
-    const[userError, setUserError] = useState('');
     const[backlogs, setBacklogs] = useState([]);
     const[backlogError, setBacklogError] = useState('');
     const [open1, setOpen1] = React.useState(false);
@@ -120,9 +119,9 @@ const ProjectDashboard = () => {
         var improvetotal = 0;
         var count=0
         for(let b in tasks){
-            if(tasks[b].type == 'IMPROVEMENT'){
+            if(tasks[b].type === 'IMPROVEMENT'){
                 improvetotal =improvetotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     improve =improve+tasks[b].storyPoints
                 }
                 count=count+1
@@ -135,14 +134,14 @@ const ProjectDashboard = () => {
         var improve = 0;
         var improvetotal = 0;
         for(let b in tasks){
-            if(tasks[b].type == 'IMPROVEMENT'){
+            if(tasks[b].type === 'IMPROVEMENT'){
                 improvetotal =improvetotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     improve =improve+tasks[b].storyPoints
                 }
             }
         }
-        if(improve==0 && improvetotal==0){
+        if(improve===0 && improvetotal===0){
             var answer = 0;
         }else{
             var answer=improve/improvetotal
@@ -155,9 +154,9 @@ const ProjectDashboard = () => {
         var storytotal = 0;
         var count=0
         for(let b in tasks){
-            if(tasks[b].type == 'STORY'){
+            if(tasks[b].type === 'STORY'){
                 storytotal =storytotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     story =story+tasks[b].storyPoints
                 }
                 count=count+1
@@ -170,14 +169,14 @@ const ProjectDashboard = () => {
         var story = 0;
         var storytotal = 0;
         for(let b in tasks){
-            if(tasks[b].type == 'STORY'){
+            if(tasks[b].type === 'STORY'){
                 storytotal =storytotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     story =story+tasks[b].storyPoints
                 }
             }
         }
-        if(story==0 && storytotal==0){
+        if(story===0 && storytotal===0){
             var answer = 0;
         }else{
             var answer=story/storytotal
@@ -190,9 +189,9 @@ const ProjectDashboard = () => {
         var bugtotal = 0;
         var count=0
         for(let b in tasks){
-            if(tasks[b].type == 'BUG'){
+            if(tasks[b].type === 'BUG'){
                 bugtotal =bugtotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     bug =bug+tasks[b].storyPoints
                 }
                 count=count+1
@@ -205,14 +204,14 @@ const ProjectDashboard = () => {
         var bug = 0;
         var bugtotal = 0;
         for(let b in tasks){
-            if(tasks[b].type == 'BUG'){
+            if(tasks[b].type === 'BUG'){
                 bugtotal =bugtotal+tasks[b].storyPoints
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     bug =bug+tasks[b].storyPoints
                 }
             }
         }
-        if(bug==0 && bugtotal==0){
+        if(bug===0 && bugtotal===0){
             var answer = 0;
         }else{
             var answer=bug/bugtotal
@@ -224,7 +223,7 @@ const ProjectDashboard = () => {
         var approved = 0;
         var count=0
         for(let b in tasks){
-            if(tasks[b].status == 'APPROVED'){
+            if(tasks[b].status === 'APPROVED'){
                 approved =approved+tasks[b].storyPoints
             }
             count=count+1

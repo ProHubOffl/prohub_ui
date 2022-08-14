@@ -30,7 +30,7 @@ function ProfilePicture() {
     setdisable(true)
     await UserImageService.uploadImage(data)
     .then(response => {
-      if(response.status == 200){
+      if(response.status === 200){
         toast.success('Profile picture Successfully Uploaded!', {
           position: "bottom-right",
           autoClose: 2500,

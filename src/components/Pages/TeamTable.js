@@ -2,22 +2,20 @@ import React,{useState,useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
 import AuthService from '../../service/authentication/AuthService';
 import ProjectUserService from '../../service/user/ProjectUserService';
-import UserService from '../../service/user/UserService';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function TeamTable(props) {
     const selectedproject = AuthService.getCurrentProject()
     const[users, setUsers] = useState([]);
     const[userError, setUserError] = useState('');
-    const[usernameError, setUserNameError] = useState('');
 
     const Assignedtasks = (email,tasks) => {
         var count_task = 0
         var approved = 0
         for(let b in tasks){
-            if(tasks[b].assignee == email){
+            if(tasks[b].assignee === email){
                 count_task = count_task + 1
-                if(tasks[b].status == 'APPROVED'){
+                if(tasks[b].status === 'APPROVED'){
                     approved=approved+1
                 }
             }
@@ -29,10 +27,10 @@ function TeamTable(props) {
         var approved = 0;
         var total=0
         for(let b in tasks){
-            if(tasks[b].status == 'APPROVED' && tasks[b].assignee == email){
+            if(tasks[b].status === 'APPROVED' && tasks[b].assignee === email){
                 approved =approved+tasks[b].storyPoints
             }
-            if(tasks[b].assignee == email){
+            if(tasks[b].assignee === email){
                 total = total + tasks[b].storyPoints
             }
             
