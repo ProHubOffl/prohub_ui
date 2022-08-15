@@ -4,6 +4,46 @@ import socket from '../../../Socket';
 import "../../../Style/VideoChat.css"
 import AuthService from '../../../service/authentication/AuthService';
 
+const MainContainer = styled.div`
+  
+`;
+
+const Row = styled.div`
+`;
+
+const Label = styled.label`
+  font-size: 1.10rem;
+`;
+
+const Answer = styled.div`
+  font-size: 1.10rem;
+`;
+
+const Error = styled.div`
+  margin-top: 10px;
+  font-size: 20px;
+  color: #e85a71;
+`;
+
+const JoinButton = styled.button`
+  height: 40px;
+  /* margin-top: 35px; */
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  background-color: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
+  background: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
+  font-size: 25px;
+  font-weight: 500;
+  width:200px;
+  /* margin-left:500px; */
+
+  :hover {
+    background-color: #7bb1d1;
+    cursor: pointer;
+  }
+`;
 const VideoHome = (props) => {
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState('');
@@ -37,72 +77,38 @@ const VideoHome = (props) => {
   }
 
   return (
+    <>
+    <div className="sub_header px-4">
+      <h3>Start Conference Call</h3>
+      <p className="fw-bold">Project / <span className="fw-bolder">{ AuthService.getCurrentProject().projectName}</span></p>
+    </div>
+    <div className="video_content">
     <MainContainer>
+      <table align="center">
       <Row>
-        <Label htmlFor="roomName">Room Name: </Label>
-        <Input type="text" id="roomName" value={AuthService.getCurrentProject().projectName.replace(/\s/g, "")} readOnly/>
+        <tr>
+          <td className='video_text'><Label htmlFor="roomName">Room Name : </Label></td>
+          <td className='video_text'><Answer id="roomName">{AuthService.getCurrentProject().projectName.replace(/\s/g, "")}</Answer></td>
+        </tr>
       </Row>
       <Row>
-        <Label htmlFor="userName">User Name: </Label>
-        <Input type="text" id="userName" value={AuthService.getCurrentUser().email} readOnly/>
+        <tr>
+          <td className='video_text'><Label htmlFor="userName">User Name : </Label></td>
+          <td className='video_text'><Answer id="userName">{AuthService.getCurrentUser().email}</Answer></td>
+        </tr>
       </Row>
-      <JoinButton onClick={clickJoin}> Join </JoinButton>
-      {err ? <Error>{errMsg}</Error> : null}
+        <tr>
+          <td colSpan={2} align="center" className='video_text'>
+            <JoinButton onClick={clickJoin}> Join </JoinButton>
+            {err ? <Error>{errMsg}</Error> : null}
+          </td>
+        </tr>
+      </table>
     </MainContainer>
+    </div>
+    <img className='connecting' src="https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/talking_stick.gif"/>
+    </>
   );
 };
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  margin-right:720px
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 15px;
-  line-height: 35px;
-`;
-
-const Label = styled.label``;
-
-const Input = styled.input`
-  width: 200px;
-  height: 35px;
-  margin-left: 15px;
-  padding-left: 10px;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-`;
-
-const Error = styled.div`
-  margin-top: 10px;
-  font-size: 20px;
-  color: #e85a71;
-`;
-
-const JoinButton = styled.button`
-  height: 40px;
-  margin-top: 35px;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  color: white;
-  background-color: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
-  background: linear-gradient(rgb(0, 56, 71) 0%, rgba(0, 56, 71, 0.75) 100%);
-  font-size: 25px;
-  font-weight: 500;
-  width:300px;
-  margin-left:500px;
-
-  :hover {
-    background-color: #7bb1d1;
-    cursor: pointer;
-  }
-`;
 
 export default VideoHome;
