@@ -22,21 +22,28 @@ function Home(props) {
     const toggle=()=>{
       set_open(!is_this_open)
     }
-    const[hasProjects,setHasProjects] = useState(false)
+    const[hasProjects,setHasProjects] = useState(true)
     const currentUser = AuthService.getCurrentUser().email;
 
     const [loading,Set_loading]=useState(false);
 
+    const token = AuthService.getCurrentUser().jwtToken
+    const decode = JSON.parse(atob(token.split('.')[1]));
+
     useEffect(()=>{
-      ProjectUserService.getProjectsByUser(currentUser)
-      .then(res => {
-        if((res.data.length > 0)){
-          setHasProjects(true)
-        } else {
-          document.getElementsByClassName('navbar_display').style.display = "none"
-        }
-      })
-      .catch(err => console.log(err))
+      if (decode.exp * 1000 < new Date().getTime()) {
+          setTimeout(() => { AuthService.logout()  }, 2500);
+      } else {
+        ProjectUserService.getProjectsByUser(currentUser)
+        .then(res => {
+          if(!(res.data.length > 0)){
+            setHasProjects(false)
+          } else {
+            document.getElementsByClassName('navbar_display').style.display = "none"
+          }
+        })
+        .catch(err => console.log(err))
+      }
 
       Set_loading(true)
       setTimeout(()=>{

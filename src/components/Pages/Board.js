@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
 import AuthService from "../../service/authentication/AuthService";
-import { ToastContainer, toast } from 'react-toastify';
 
 const Board = () => {
   const currentProject = AuthService.getCurrentProject().projectName
@@ -13,15 +12,6 @@ const Board = () => {
 
   useEffect(() => {
     if (decode.exp * 1000 < new Date().getTime()) {
-      toast.error('Your Session Expired. Please Login Again to Continue', {
-        position: "top-center",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });  
       setTimeout(() => { AuthService.logout()  }, 2500);
     }
     BacklogService.getBacklogByProject(currentProject)
@@ -154,17 +144,6 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
     );
 };
