@@ -132,7 +132,7 @@ const CalculatePoints = (boolean) => {
                   <div className="col-md-4">
                       <label for="mail" className="form-label">Title *</label>
                       <div className="input-group">
-                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
+                      <input type="text" className="form-control" id="title" maxlength="25" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
                       </div>
                   </div>
                   <div className="col-md-4">

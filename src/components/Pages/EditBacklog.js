@@ -141,7 +141,7 @@ const GetMaximum = () => {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onChange={(e) => setTitle(e.target.value)}/>
+                                  <input type="text" className="form-control" maxlength="25" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onChange={(e) => setTitle(e.target.value)}/>
                                   </div>
                               </div>
                               <div className="col-md-4">
