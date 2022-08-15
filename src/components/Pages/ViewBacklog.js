@@ -12,6 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
+import ReactTimeAgo from 'react-time-ago';
 import ProjectUserService from '../../service/user/ProjectUserService';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,7 +35,7 @@ function ViewBacklog(props) {
             backlogId:props.match.params.backlogId,
             comment:newComment,
             commentOwner:user.email,
-            timeStamp: new Date().toISOString().slice(0, 10)
+            timeStamp: new Date()
         }
         BacklogCommentService.addBacklogComment(backlogComment)
         .then(response => {
@@ -184,8 +185,8 @@ function ViewBacklog(props) {
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{comment.commentOwner}</h5>
-                                                        <span>{comment.timeStamp}</span>
                                                         <p class="card-text">{comment.comment}</p>
+                                                        <span className='comment_time'><i><ReactTimeAgo date={comment.timeStamp} locale="en-US"/></i></span>
                                                         <button className="btn btn-danger fw-bolder" hidden={!(comment.commentOwner === user.email)} onClick={() => deleteComment(comment.commentId)}>Delete</button>
                                                     </div>
                                                     </div>

@@ -83,3 +83,7 @@
     }
 }
 
+.comment_time{
+    float: right;
+    font-size: 15px;
+}
