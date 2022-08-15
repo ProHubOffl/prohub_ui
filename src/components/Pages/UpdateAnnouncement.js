@@ -16,7 +16,7 @@ function UpdateAnnouncement(props) {
             description:newDescription === '' ? props.announcement.description : newDescription,
             author:props.announcement.author,
             createdDate:props.announcement.createdDate,
-            updatedDate:new Date().toUTCString()
+            updatedDate:new Date().toLocaleString()
         }
         AnnouncementService.updateAnnouncement(updatedAnnouncement,props.announcement.announcementId)
         .then(response => {

@@ -54,6 +54,16 @@ const deleteAnnouncement = (announcementId) => {
     })
 }
 
+const getAnnouncementCountByProject = (projectName) => {
+    const URL = API_URL + "announcement/count/" + projectName;
+    return axios.get(URL, {
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization':'Bearer ' + user.jwtToken
+        }
+    });
+}
+
 export default {
-    getAnnouncementsByProject, getAnnouncementByAnnouncementId, addAnnouncement, updateAnnouncement, deleteAnnouncement
+    getAnnouncementsByProject, getAnnouncementByAnnouncementId, addAnnouncement, updateAnnouncement, deleteAnnouncement, getAnnouncementCountByProject
 }

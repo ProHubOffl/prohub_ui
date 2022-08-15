@@ -18,7 +18,7 @@ function AddAnnouncement() {
             title,
             description,
             author:currentUser.email,
-            createdDate:new Date().toUTCString()
+            createdDate:new Date().toLocaleString()
         }
         AnnouncementService.addAnnouncement(newAnnouncement)
         .then(response => {
