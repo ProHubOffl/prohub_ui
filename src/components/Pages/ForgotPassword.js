@@ -12,7 +12,7 @@ export default function ForgotPassword() {
         AuthService.forgotPassword(email)
         .then(response => {
             document.getElementById("btn-signin").disabled = false;
-            if(response.data == 200) {
+            if(response.data === 200) {
                 toast.success('You will receive your temporary password to the given email', {
                     position: "top-center",
                     autoClose: 2500,

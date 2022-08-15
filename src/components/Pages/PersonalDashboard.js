@@ -34,11 +34,11 @@ const PersonalDashboard = () => {
         var totaltask = 0;
         var approved = 0
         for(let b in backlogs){
-            if (backlogs[b].projectName == projectname)
+            if (backlogs[b].projectName === projectname)
                 {
                     if(bool)
                     {totaltask=totaltask+1}
-                    if (backlogs[b].status == "APPROVED" && !bool)
+                    if (backlogs[b].status === "APPROVED" && !bool)
                         {approved = approved + 1}
                 }
             
@@ -50,10 +50,10 @@ const PersonalDashboard = () => {
         var totalstorypoint = 0;
         var storypoints = 0;
         for(let b in backlogs){
-            if (backlogs[b].projectName == projectname)
+            if (backlogs[b].projectName === projectname)
                 {
                     totalstorypoint = totalstorypoint + backlogs[b].storyPoints
-                    if (backlogs[b].status == "APPROVED")
+                    if (backlogs[b].status === "APPROVED")
                         {storypoints = storypoints + backlogs[b].storyPoints}
                 }
         }
@@ -68,26 +68,26 @@ const PersonalDashboard = () => {
         var totalstory = 0
         var story = 0
         for(let b in backlogs){
-            if (backlogs[b].projectName == projectname){
-                if (backlogs[b].type == "BUG")
+            if (backlogs[b].projectName === projectname){
+                if (backlogs[b].type === "BUG")
                     {
                         if(boolean)
                             {totalbug = totalbug + 1}
-                        if (backlogs[b].status == "APPROVED" && !boolean)
+                        if (backlogs[b].status === "APPROVED" && !boolean)
                             {bug = bug + 1}
                     }
-                if (backlogs[b].type == "IMPROVEMENT")
+                if (backlogs[b].type === "IMPROVEMENT")
                     {
                         if(boolean)
                             {totalimprove = totalimprove + 1}
-                        if (backlogs[b].status == "APPROVED" && !boolean)
+                        if (backlogs[b].status === "APPROVED" && !boolean)
                             {improve = improve + 1}
                     }
-                if (backlogs[b].type == "STORY")
+                if (backlogs[b].type === "STORY")
                     {
                         if(boolean)
                         {totalstory = totalstory + 1}
-                        if (backlogs[b].status == "APPROVED" && !boolean)
+                        if (backlogs[b].status === "APPROVED" && !boolean)
                             {story = story + 1}
                     } 
             }

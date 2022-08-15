@@ -21,7 +21,6 @@ import UserImageService from "../../service/userimage/UserImageService";
 import Unknown_image from "../../images/Unknown.png"
 import Tooltip from '@mui/material/Tooltip';
 import $ from 'jquery';
-import ProjectDashboard from "../Pages/ProjectDashboard";
 
 const Container = styled.div`
     position: fixed;

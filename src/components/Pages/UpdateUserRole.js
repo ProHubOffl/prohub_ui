@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import "../../Style/Project.css";
 import ProjectUserService from "../../service/user/ProjectUserService"
 import { toast, ToastContainer } from 'react-toastify';
@@ -7,7 +7,6 @@ function UpdateUserRole(props) {
 
     const projectName = props.user.projectName;
     const email = props.user.email;
-    const role = props.user.role;
 
     const[newRole, setNewRole] = useState('');
 

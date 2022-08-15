@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import socket from '../../../Socket';
 import "../../../Style/VideoChat.css"
 import AuthService from '../../../service/authentication/AuthService';
 
 const VideoHome = (props) => {
-  const roomRef = useRef();
-  const userRef = useRef();
   const [err, setErr] = useState(false);
   const [errMsg, setErrMsg] = useState('');
 

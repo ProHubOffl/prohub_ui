@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import AuthService from '../../service/authentication/AuthService';
 import DocumentService from '../../service/document/DocumentService';
 import "../../Style/Documents.css";
@@ -103,6 +103,17 @@ function CreateDocument() {
                         </div>
                     </form>
                 </div>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    />
         </div>
     );
 }

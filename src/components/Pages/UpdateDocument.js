@@ -1,5 +1,4 @@
-import React,{useState,useEffect} from "react";
-import AuthService from '../../service/authentication/AuthService';
+import React,{useState} from "react";
 import DocumentService from '../../service/document/DocumentService';
 import "../../Style/Documents.css";
 import { ToastContainer, toast } from 'react-toastify';
@@ -96,6 +95,17 @@ function UpdateDocument(props) {
                         </div>
                     </form>
                 </div>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    />
         </div>
     );
 }

@@ -2,41 +2,35 @@ import React, {useState, useEffect} from "react";
 import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
 import AuthService from "../../service/authentication/AuthService";
-import ProjectUserService from "../../service/user/ProjectUserService";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Board = () => {
-  const currentProject = localStorage.getItem("project") === null ? "" : AuthService.getCurrentProject().projectName
-  // console.log(AuthService.getCurrentProject().projectName)
+  const currentProject = AuthService.getCurrentProject().projectName
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
-  const email = AuthService.getCurrentUser().email
+  const token = AuthService.getCurrentUser().jwtToken
+  const decode = JSON.parse(atob(token.split('.')[1]));
 
   useEffect(() => {
-    if(localStorage.getItem("project") === null)
-      {    
-        ProjectUserService.getProjectsByUser(email)
-        .then(res => {
-            console.log(res.data[0])
-            localStorage.setItem("project", JSON.stringify(res.data[0]));
-            // setCurrentProject(res.data[0].projectName)
-            BacklogService.getBacklogByProject(res.data[0].projectName)
-            .then(response => {
-              setBacklogs(response.data)
-            })
-            .catch(err => {
-              setBacklogError('Unable to fetch the backlog board at the moment')
-            })
-        })
-        .catch(err => {console.log(err)})
-       } else {
-        BacklogService.getBacklogByProject(currentProject)
-        .then(response => {
-          setBacklogs(response.data)
-        })
-        .catch(err => {
-          setBacklogError('Unable to fetch the backlog board at the moment')
-        })
-       }
+    if (decode.exp * 1000 < new Date().getTime()) {
+      toast.error('Your Session Expired. Please Login Again to Continue', {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });  
+      setTimeout(() => { AuthService.logout()  }, 2500);
+    }
+    BacklogService.getBacklogByProject(currentProject)
+    .then(response => {
+      setBacklogs(response.data)
+    })
+    .catch(err => {
+      setBacklogError('Unable to fetch the backlog board at the moment')
+    })
   },[])
 
   return (
@@ -160,6 +154,17 @@ const Board = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
     );
 };
