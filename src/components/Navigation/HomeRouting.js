@@ -33,7 +33,7 @@ function Routing() {
                 <Route exact path="/personaldashboard" component={PersonalDashboard} />
                 <Route exact path="/videoChat" component={VideoHome} />
                 <Route exact path="/room/:roomId" component={Room} />
-                <Route exact path="*" component={Board} />
+                <Route exact path="*" component={ProjectDashboard} />
             </Switch>        
     )
 }

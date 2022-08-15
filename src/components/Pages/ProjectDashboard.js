@@ -15,6 +15,7 @@ import Team from "../../assets/team.svg";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { ToastContainer, toast } from 'react-toastify';
 
 const style1 = {
   position: 'absolute',
@@ -54,6 +55,9 @@ const ProjectDashboard = () => {
     const handleClose1 = () => setOpen1(false);
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => setOpen2(false);
+
+    const token = AuthService.getCurrentUser().jwtToken
+    const decode = JSON.parse(atob(token.split('.')[1]));
 
     const CalculateDays = (date1) => {
         var end = new Date(date1);
@@ -268,10 +272,21 @@ const ProjectDashboard = () => {
     }
 
     useEffect(() => {
+        if (decode.exp * 1000 < new Date().getTime()) {
+            toast.error('Your Session Expired. Please Login Again to Continue', {
+              position: "top-center",
+              autoClose: 2500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });  
+            setTimeout(() => { AuthService.logout()  }, 2500);
+        } 
         if(localStorage.getItem("project") === null){
             ProjectUserService.getProjectsByUser(currentUser)
             .then(res => {
-                console.lg(res)
                 localStorage.setItem("project", JSON.stringify(res.data[0]));
                 loadPageData(res.data[0].projectName)
             })
@@ -382,6 +397,17 @@ const ProjectDashboard = () => {
                     </Typography>
                 </Box>
             </Modal>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 };
