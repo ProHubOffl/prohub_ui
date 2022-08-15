@@ -16,6 +16,7 @@
     background: #eef0f0;
     padding: 15px;
     padding-top: 5px;
+    padding-bottom: 1px;
     border-radius: 10px;
 }
 
@@ -186,4 +187,8 @@
 }
 .status_text{
     margin: auto auto auto auto;
+}
+.bottom_content{
+    top: -20px;
+    position: relative;
 }

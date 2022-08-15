@@ -265,7 +265,7 @@ function ViewBacklog(props) {
                                     <tr>
                                         <th>Story Points</th>
                                         <td>{backlog.storyPoints}</td>
-                                    </tr><br></br>
+                                    </tr>
                                     <tr>
                                         <th colspan="2">Description</th>
                                     </tr>

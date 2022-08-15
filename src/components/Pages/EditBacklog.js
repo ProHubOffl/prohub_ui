@@ -22,7 +22,7 @@ function EditBacklog(props) {
     const[title, setTitle] = useState('');
     const[assignee, setAssignee] = useState('');
     const[sprint, setSprint] = useState('');
-    const[storyPoints, setStoryPoints] = useState();
+    const[storyPoints, setStoryPoints] = useState('');
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
     const[status, setStatus] = useState('');
@@ -33,6 +33,7 @@ function EditBacklog(props) {
     const[userError,setUserError] = useState('')
 
     const updateBacklogItem = (e) => {
+        debugger
         e.preventDefault()
         const modifiedBacklog = {
             title: title === '' ? oldTitle : title,
@@ -140,7 +141,7 @@ const GetMaximum = () => {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)}/>
+                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onChange={(e) => setTitle(e.target.value)}/>
                                   </div>
                               </div>
                               <div className="col-md-4">

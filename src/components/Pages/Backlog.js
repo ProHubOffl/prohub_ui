@@ -179,7 +179,7 @@ const CalculatePoints = (boolean) => {
                   </div>
                 </div>
                 {/* 3rd row */}
-                <div className="row">
+                <div className="row bottom_content">
                 <div className="col-md-12">
                     <label for="description" className="form-label">Description *</label> <br></br>
                     <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} disabled={!CalculatePoints(false)} required>
@@ -187,7 +187,7 @@ const CalculatePoints = (boolean) => {
                 </div>
                 </div>
               </div>
-              <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2">
+              <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2 bottom_content">
                 <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" disabled={!CalculatePoints(false)}>Create</button>
               </div>
             </form>
