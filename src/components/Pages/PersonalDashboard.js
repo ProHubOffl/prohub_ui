@@ -60,6 +60,25 @@ const PersonalDashboard = () => {
         return storypoints+"/"+totalstorypoint;
     }
 
+    const GetprogressBar = (projectname) => {
+        var totalstorypoint = 0;
+        var storypoints = 0;
+        for(let b in backlogs){
+            if (backlogs[b].projectName === projectname)
+                {
+                    totalstorypoint = totalstorypoint + backlogs[b].storyPoints
+                    if (backlogs[b].status === "APPROVED")
+                        {storypoints = storypoints + backlogs[b].storyPoints}
+                }
+        }
+        if(totalstorypoint==0 && storypoints==0){
+            var answer = 0;
+        }else{
+            var answer = storypoints/totalstorypoint
+        }
+        return answer
+    }
+
     const GetTicketDetails = (projectname,boolean) => {
         var totalbug = 0;
         var bug = 0
@@ -122,7 +141,7 @@ const PersonalDashboard = () => {
                         </div>
                         <div className="col-6 col-md-3 cell8">
                             <span className="boxtitle">Progress</span>
-                            <ProgressBar className='progressbar' variant="success" now={(Getprogress(project.projectName).split('/')[0]/Getprogress(project.projectName).split('/')[1])*100} label={`${(((Getprogress(project.projectName).split('/')[0]/Getprogress(project.projectName).split('/')[1])*100).toFixed(1))}%`} />
+                            <ProgressBar className='progressbar' variant="success" now={GetprogressBar(project.projectName)*100} label={`${((GetprogressBar(project.projectName)*100).toFixed(1))}%`} />
                             <span className="data">{Getprogress(project.projectName)}</span>
                         </div>
                         <hr/>
