@@ -441,6 +441,7 @@ const VideoBox = styled.div`
 const UserName = styled.div`
   position: absolute;
   font-size: calc(20px + 5vmin);
+  color: white;
   z-index: 1;
 `;
 

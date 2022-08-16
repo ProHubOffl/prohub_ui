@@ -5,6 +5,8 @@ import "../../Style/Backlog.css";
 import { toast, ToastContainer } from 'react-toastify';
 import ProjectUserService from "../../service/user/ProjectUserService";
 import ProjectService from "../../service/project/ProjectService";
+import Unknown_image from "../../images/Unknown.png"
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -220,7 +222,18 @@ const CalculatePoints = (boolean) => {
                         <div className="backlog-card fw-bold">
                           <div className="row">
                             <div className="col-md-9">
-                              <p className="m-1 title_text">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right',color:'gray'}}>Sprint {backlog.sprint}</span></p>
+                              <p className="m-1 title_text">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right',color:'gray'}}>Sprint {backlog.sprint}</span>
+                              {
+                                backlog.assignee == currentUser.email
+                                ?
+                              <span className="mytasks">
+                                <Tooltip title="My Task" placement="right" arrow="true">
+                                  <img width="5%" src={Unknown_image} alt="Profile"/>
+                                </Tooltip>
+                              </span>
+                                :
+                                ""
+                              }</p>
                             </div>
                             <div className="col-md-2" id={backlog_color_id}>
                               <p className="status_text">{backlog_state}</p>

@@ -2,9 +2,12 @@ import React, {useState, useEffect} from "react";
 import "../../Style/Board.css";
 import BacklogService from "../../service/backlog/BacklogService";
 import AuthService from "../../service/authentication/AuthService";
+import Unknown_image from "../../images/Unknown.png"
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 const Board = () => {
   const currentProject = AuthService.getCurrentProject().projectName
+  const currentUser = AuthService.getCurrentUser().email;
   const[backlogs, setBacklogs] = useState([]);
   const[backlogError, setBacklogError] = useState('');
   const token = AuthService.getCurrentUser().jwtToken
@@ -45,7 +48,19 @@ const Board = () => {
                     return (
                       <div className="board-card" id="todo">
                         <div id="card-heading">
-                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
+                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
+                          {
+                            backlog.assignee == currentUser
+                            ?
+                          <span className="mytask">
+                            <Tooltip title="My Task" placement="right" arrow="true">
+                              <img width="8%" src={Unknown_image} alt="Profile"/>
+                            </Tooltip>
+                          </span>
+                            :
+                            ""
+                          }
+                          </span>
                           <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">
@@ -73,7 +88,19 @@ const Board = () => {
                       return (
                         <div className="board-card" id="in-progress">
                           <div id="card-heading">
-                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
+                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
+                              {
+                              backlog.assignee == currentUser
+                              ?
+                            <span className="mytask">
+                              <Tooltip title="My Task" placement="right" arrow="true">
+                                <img width="8%" src={Unknown_image} alt="Profile"/>
+                              </Tooltip>
+                            </span>
+                              :
+                              ""
+                              }
+                            </span>
                             <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
@@ -101,7 +128,19 @@ const Board = () => {
                       return (
                         <div className="board-card" id="done">
                           <div id="card-heading">
-                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
+                            <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
+                              {
+                              backlog.assignee == currentUser
+                              ?
+                            <span className="mytask">
+                              <Tooltip title="My Task" placement="right" arrow="true">
+                                <img width="8%" src={Unknown_image} alt="Profile"/>
+                              </Tooltip>
+                            </span>
+                              :
+                              ""
+                              }
+                            </span>
                             <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                           </div>
                           <div id="card-body">
@@ -129,7 +168,19 @@ const Board = () => {
                     return (
                       <div className="board-card" id="approved">
                         <div id="card-heading">
-                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}</span>
+                          <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
+                          {
+                            backlog.assignee == currentUser
+                            ?
+                          <span className="mytask">
+                            <Tooltip title="My Task" placement="right" arrow="true">
+                              <img width="8%" src={Unknown_image} alt="Profile"/>
+                            </Tooltip>
+                          </span>
+                            :
+                            ""
+                          }
+                          </span>
                           <button className="btn"><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>
                         </div>
                         <div id="card-body">
