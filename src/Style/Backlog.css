@@ -192,3 +192,8 @@
     top: -20px;
     position: relative;
 }
+.mytasks{
+    padding: 0px 1px 1px 5px;
+    position: relative;
+    margin-left: auto;
+}
