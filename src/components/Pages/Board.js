@@ -54,7 +54,7 @@ const Board = () => {
                             ?
                           <span className="mytask">
                             <Tooltip title="My Task" placement="right" arrow="true">
-                              <img width="8%" src={Unknown_image} alt="Profile"/>
+                              <img width="6%" heigh="6%" src={Unknown_image} alt="Profile"/>
                             </Tooltip>
                           </span>
                             :
@@ -94,7 +94,7 @@ const Board = () => {
                               ?
                             <span className="mytask">
                               <Tooltip title="My Task" placement="right" arrow="true">
-                                <img width="8%" src={Unknown_image} alt="Profile"/>
+                                <img width="6%" src={Unknown_image} alt="Profile"/>
                               </Tooltip>
                             </span>
                               :
@@ -134,7 +134,7 @@ const Board = () => {
                               ?
                             <span className="mytask">
                               <Tooltip title="My Task" placement="right" arrow="true">
-                                <img width="8%" src={Unknown_image} alt="Profile"/>
+                                <img width="6%" src={Unknown_image} alt="Profile"/>
                               </Tooltip>
                             </span>
                               :
@@ -174,7 +174,7 @@ const Board = () => {
                             ?
                           <span className="mytask">
                             <Tooltip title="My Task" placement="right" arrow="true">
-                              <img width="8%" src={Unknown_image} alt="Profile"/>
+                              <img width="6%" src={Unknown_image} alt="Profile"/>
                             </Tooltip>
                           </span>
                             :
