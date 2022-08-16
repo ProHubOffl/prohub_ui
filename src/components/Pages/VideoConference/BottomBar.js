@@ -32,8 +32,7 @@ const BottomBar = ({
             )}
           </div>
           Camera
-        </CameraButton>
-        {showVideoDevices && (
+          {showVideoDevices && (
           <SwitchList>
             {videoDevices.length > 0 &&
               videoDevices.map((device) => {
@@ -42,6 +41,7 @@ const BottomBar = ({
             <div>Switch Camera</div>
           </SwitchList>
         )}
+        </CameraButton>
         <SwitchMenu onClick={handleToggle}>
           <i className='fas fa-angle-up'></i>
         </SwitchMenu>
@@ -69,11 +69,11 @@ const BottomBar = ({
               className={`fas fa-desktop ${screenShare ? 'sharing' : ''}`}
             ></FaIcon>
           </div>
-          Share Screen
+          Share&nbsp;Screen
         </ScreenButton>
       </Center>
       <Right>
-        <StopButton onClick={goToBack}><span style={{marginLeft:20}}>Stop</span></StopButton>
+        <StopButton onClick={goToBack}><span style={{marginLeft:20}}>Stop&nbsp;Meeting</span></StopButton>
       </Right>
     </Bar>
   );
@@ -114,6 +114,7 @@ const ChatButton = styled.div`
   border: none;
   font-size: 0.9375rem;
   padding: 5px;
+  text-align: center;
 
   :hover {
     background-color: #77b7dd;
@@ -131,6 +132,7 @@ const ScreenButton = styled.div`
   border: none;
   font-size: 0.9375rem;
   padding: 5px;
+  text-align: center;
 
   :hover {
     background-color: #77b7dd;
@@ -149,13 +151,13 @@ const FaIcon = styled.i`
 `;
 
 const StopButton = styled.div`
-  width: 100px;
+  width: 130px;
   height: 30px;
   border: none;
   font-size: 0.9375rem;
   line-height: 30px;
   margin-right: 15px;
-  background-color: #ee2560;
+  background-color: red;
   border-radius: 15px;
 
   :hover {
@@ -166,10 +168,12 @@ const StopButton = styled.div`
 
 const CameraButton = styled.div`
   position: relative;
-  width: 75px;
+  width: 85px;
   border: none;
   font-size: 0.9375rem;
   padding: 5px;
+  text-align: center;
+  z-index: 1;
 
   :hover {
     background-color: #77b7dd;
@@ -194,9 +198,14 @@ const SwitchMenu = styled.div`
   display: flex;
   position: absolute;
   width: 20px;
-  top: 7px;
-  left: 80px;
-  z-index: 1;
+  top: 5%;
+  left: 72px;
+  z-index: 999;
+  text-align: center;
+
+  @media screen and (max-width:500px){
+    left: 35px;
+    }
 
   :hover {
     background-color: #476d84;
