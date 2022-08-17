@@ -48,7 +48,7 @@ function CreateProject() {
                         draggable: true,
                         progress: undefined,
                     });
-                    setTimeout(() => {window.location.reload()}, 2000);
+                    setTimeout(() => {window.location.replace("/dashboard")}, 2000);
                     SetEndDate('')
                     SetStartDate('')
                     SetProjectName('')

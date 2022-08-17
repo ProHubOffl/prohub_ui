@@ -41,7 +41,6 @@ const style2 = {
   };
 
 const ProjectDashboard = () => {
-    const currentProject = localStorage.getItem("project") === null ? "" : AuthService.getCurrentProject().projectName
     const currentUser = AuthService.getCurrentUser().email;
 
     const[documentcount, setDocumentCount] = useState(0);
@@ -55,6 +54,7 @@ const ProjectDashboard = () => {
     const handleClose1 = () => setOpen1(false);
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => setOpen2(false);
+    const[projectName,setProjectName] = useState('')
 
     const token = AuthService.getCurrentUser().jwtToken
     const decode = JSON.parse(atob(token.split('.')[1]));
@@ -288,11 +288,17 @@ const ProjectDashboard = () => {
             ProjectUserService.getProjectsByUser(currentUser)
             .then(res => {
                 localStorage.setItem("project", JSON.stringify(res.data[0]));
-                loadPageData(res.data[0].projectName)
+                loadPageData(JSON.stringify(res.data[0]).projectName)
+                setProjectName(JSON.stringify(res.data[0]).projectName)
             })
             .catch(err => console.log(err))
         } else {
-            loadPageData(currentProject)
+            try{
+                loadPageData(JSON.parse(localStorage.getItem("project")).projectName)
+                setProjectName(JSON.parse(localStorage.getItem("project")).projectName)
+            } catch (err){
+                console.log(err)
+            }
         }
     },[])
     //new Date()
@@ -301,7 +307,7 @@ const ProjectDashboard = () => {
         <div>
             <div className="sub_header px-4">
                 <h3>Project&nbsp;Dashboard</h3><span className='pendingtime'>{CalculateDays(project.endDate)}</span>
-                <p className="fw-bold">Project / <span className="fw-bolder">{currentProject}</span></p>
+                <p className="fw-bold">Project / <span className="fw-bolder">{projectName}</span></p>
             </div>
 
             <div className="row numdata">

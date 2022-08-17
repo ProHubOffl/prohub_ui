@@ -127,19 +127,18 @@ function ViewBacklog(props) {
         })
     }
 
-    useEffect(() => {   
-        ProjectUserService.getProjectUserRoles(projectName)
-        .then(response => {
-            let users = []
-            response.data.map(projectUser => users.push(projectUser.email))
-            if(!users.includes(user.email)){
-                window.location.replace("/board")
-            }
-        })
-        .catch(err => console.log(err))
-
+    useEffect(() => {  
         BacklogService.getBacklogByBacklogId(props.match.params.backlogId)
         .then(response => {
+            ProjectUserService.getProjectUserRoles(response.data.projectName)
+            .then(response => {
+                let users = []
+                response.data.map(projectUser => users.push(projectUser.email))
+                if(!users.includes(user.email)){
+                    window.location.replace("/board")
+                }
+            })
+            .catch(err => console.log(err))
             setBacklog(response.data)
         })
         .catch(err => console.log(err));
