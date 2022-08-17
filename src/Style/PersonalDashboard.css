@@ -3,5 +3,6 @@
     top: 2px;
 }
 .teamname{
-    top: 0.52em;
+    position: relative;
+    top: -2em;
 }

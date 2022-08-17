@@ -332,17 +332,7 @@ function Sidebar (){
                 </Details>
               </Profile>   
             <SlickBar clicked={click}>
-            <Tooltip title={click ? "" : "Dashboard"} placement="right" arrow="true">
-                <Item
-                  onClick={() => setClick(false)}
-                  activeClassName="active"
-                  to="/dashboard"
-                >
-                  <img src={Board} alt="dashboard" />
-                  <Text clicked={click}>Dashboard</Text>
-                </Item>
-              </Tooltip>
-              <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
+            <Tooltip title={click ? "" : "Board"} placement="right" arrow="true">
                 <Item
                   onClick={() => setClick(false)}
                   exact
@@ -351,6 +341,16 @@ function Sidebar (){
                 >
                   <img src={Backlog} alt="Board" />
                   <Text clicked={click}>Board</Text>
+                </Item>
+              </Tooltip>
+            <Tooltip title={click ? "" : "Dashboard"} placement="right" arrow="true">
+                <Item
+                  onClick={() => setClick(false)}
+                  activeClassName="active"
+                  to="/dashboard"
+                >
+                  <img src={Board} alt="dashboard" />
+                  <Text clicked={click}>Dashboard</Text>
                 </Item>
               </Tooltip>
               <Tooltip title={click ? "" : "Backlog"} placement="right" arrow="true">

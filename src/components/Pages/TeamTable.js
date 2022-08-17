@@ -32,10 +32,28 @@ function TeamTable(props) {
             }
             if(tasks[b].assignee === email){
                 total = total + tasks[b].storyPoints
-            }
-            
+            }  
         }
         return approved+"/"+total;
+    }
+
+    const CalculateUserProgressBar = (email,tasks) => {
+        var approved = 0;
+        var total = 0;
+        for(let b in tasks){
+            if(tasks[b].status === 'APPROVED' && tasks[b].assignee === email){
+                approved =approved+tasks[b].storyPoints
+            }
+            if(tasks[b].assignee === email){
+                total = total + tasks[b].storyPoints
+            }  
+        }
+        if(approved===0 && total===0){
+            var answer = 0;
+        }else{
+            var answer=approved/total
+        }
+        return answer
     }
 
     useEffect(() => {
@@ -73,7 +91,7 @@ function TeamTable(props) {
                 <td className="tablecell email">{user.email}</td>
                 <td className="tablecell Assigned">{Assignedtasks(user.email,props.backlogs).split('/')[1]}</td>
                 <td className="tablecell Completed">{Assignedtasks(user.email,props.backlogs).split('/')[0]}</td>
-                <td><ProgressBar className='tablebar' variant="success" now={((CalculateUserProgress(user.email,props.backlogs).split('/')[0]/CalculateUserProgress(user.email,props.backlogs).split('/')[1])*100)} label={`${((CalculateUserProgress(user.email,props.backlogs).split('/')[0]/CalculateUserProgress(user.email,props.backlogs).split('/')[1]*100).toFixed(1))}%`} /></td>
+                <td><ProgressBar className='tablebar' variant="success" now={(CalculateUserProgressBar(user.email,props.backlogs)*100)} label={`${((CalculateUserProgressBar(user.email,props.backlogs)*100).toFixed(1))}%`} /></td>
                 <td className="tablecell score">{CalculateUserProgress(user.email,props.backlogs)}</td>
                 </tr>
                 ))

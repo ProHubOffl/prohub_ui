@@ -389,12 +389,16 @@ const Room = (props) => {
 const RoomContainer = styled.div`
   display: flex;
   width: 100%;
-  max-height: 100vh;
+  max-height: 100%;
   flex-direction: row;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
 `;
 
 const VideoContainer = styled.div`
   max-width: 100%;
+  max-height: 100%;
   height: 92%;
   display: flex;
   flex-direction: row;
@@ -410,6 +414,7 @@ const VideoAndBarContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
+  max-height: 100%;
 `;
 
 const MyVideo = styled.video``;
@@ -436,6 +441,7 @@ const VideoBox = styled.div`
 const UserName = styled.div`
   position: absolute;
   font-size: calc(20px + 5vmin);
+  color: white;
   z-index: 1;
 `;
 

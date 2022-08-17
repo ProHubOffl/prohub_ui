@@ -5,6 +5,8 @@ import "../../Style/Backlog.css";
 import { toast, ToastContainer } from 'react-toastify';
 import ProjectUserService from "../../service/user/ProjectUserService";
 import ProjectService from "../../service/project/ProjectService";
+import Unknown_image from "../../images/Unknown.png"
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 const Backlog = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -109,7 +111,6 @@ const CalculatePoints = (boolean) => {
     var str = "Invalid Value"
     return boolean ? str : remain_Points ;
   }else{
-    debugger
     var points = remain_Points-storyPoints
     var str = boolean ? ((points)+" Storypoints Remaining") : remain_Points
     return str
@@ -133,7 +134,7 @@ const CalculatePoints = (boolean) => {
                   <div className="col-md-4">
                       <label for="mail" className="form-label">Title *</label>
                       <div className="input-group">
-                      <input type="text" className="form-control" id="title" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
+                      <input type="text" className="form-control" id="title" maxlength="25" placeholder="Enter the Title" onChange={(e) => setTitle(e.target.value)} disabled={!CalculatePoints(false)} required/>
                       </div>
                   </div>
                   <div className="col-md-4">
@@ -180,7 +181,7 @@ const CalculatePoints = (boolean) => {
                   </div>
                 </div>
                 {/* 3rd row */}
-                <div className="row">
+                <div className="row bottom_content">
                 <div className="col-md-12">
                     <label for="description" className="form-label">Description *</label> <br></br>
                     <textarea width="100%" rows="9" className="form-control border-secondary" id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)} disabled={!CalculatePoints(false)} required>
@@ -188,7 +189,7 @@ const CalculatePoints = (boolean) => {
                 </div>
                 </div>
               </div>
-              <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2">
+              <div className="d-grid gap-2 d-md-flex justify-content-md-end pt-2 bottom_content">
                 <button type="submit" className="btn btn-primary fw-bolder" id="btn-backlog-create" disabled={!CalculatePoints(false)}>Create</button>
               </div>
             </form>
@@ -221,10 +222,21 @@ const CalculatePoints = (boolean) => {
                         <div className="backlog-card fw-bold">
                           <div className="row">
                             <div className="col-md-9">
-                              <p className="m-1">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right'}}>Sprint {backlog.sprint}</span></p>
+                              <p className="m-1 title_text">{backlog.title}<span style={{fontStyle:'bold',fontWeight:'500',float:'right',color:'gray'}}>Sprint {backlog.sprint}</span>
+                              {
+                                backlog.assignee == currentUser.email
+                                ?
+                              <span className="mytasks">
+                                <Tooltip title="My Task" placement="right" arrow="true">
+                                  <img width="5%" src={Unknown_image} alt="Profile"/>
+                                </Tooltip>
+                              </span>
+                                :
+                                ""
+                              }</p>
                             </div>
                             <div className="col-md-2" id={backlog_color_id}>
-                              <p>{backlog_state}</p>
+                              <p className="status_text">{backlog_state}</p>
                             </div>
                             <div className="col-md-1" id="backlog-icon">
                               <button className="btn" ><a href={`Backlog/${backlog.backlogId}`}><i className="bi bi-pencil-square"></i></a></button>

@@ -190,7 +190,7 @@ function DropdownList(props){
                     </div>
                     <div className="section4">
                         <div className="notification_option_sn">
-                            <Link to = "/videoChat" style={{color:'black',textDecoration:'none'}}>
+                            <Link to = "/videoChat" onClick={props.toggle}  style={{color:'black',textDecoration:'none'}}>
                                 Meet
                                 <Badge anchorOrigin={{ horizontal:'right', vertical:'top' }} color="error" style={{marginLeft:'5px'}}>
                                     <VideocamIcon />

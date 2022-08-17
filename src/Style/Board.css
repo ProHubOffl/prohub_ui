@@ -68,3 +68,8 @@
 #backlog-error{
     text-align: center;
 }
+.mytask{
+    padding: 0px 1px 1px 10px;
+    top: -3px;
+    position: relative;
+}

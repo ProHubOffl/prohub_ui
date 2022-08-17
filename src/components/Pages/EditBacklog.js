@@ -4,6 +4,7 @@ import AuthService from '../../service/authentication/AuthService'
 import BacklogService from "../../service/backlog/BacklogService";
 import { toast, ToastContainer } from 'react-toastify';
 import ProjectService from '../../service/project/ProjectService';
+import ProjectUserService from '../../service/user/ProjectUserService';
 
 function EditBacklog(props) {
 
@@ -21,15 +22,18 @@ function EditBacklog(props) {
     const[title, setTitle] = useState('');
     const[assignee, setAssignee] = useState('');
     const[sprint, setSprint] = useState('');
-    const[storyPoints, setStoryPoints] = useState();
+    const[storyPoints, setStoryPoints] = useState('');
     const[description, setDescription] = useState('');
     const[type, setType] = useState('');
     const[status, setStatus] = useState('');
     const[project, setProject] = useState([]);
     const[backlogs, setBacklogs] = useState([]);
     const[backlogError, setBacklogError] = useState('');
+    const[projectUsers, setProjectUsers] = useState([]);
+    const[userError,setUserError] = useState('')
 
     const updateBacklogItem = (e) => {
+        debugger
         e.preventDefault()
         const modifiedBacklog = {
             title: title === '' ? oldTitle : title,
@@ -95,7 +99,13 @@ function EditBacklog(props) {
         .catch(err => {
           setBacklogError('Unable to fetch backlog list at the moment')
         });
-    
+        ProjectUserService.getProjectUserRoles(currentProject)
+        .then(response => {
+        setProjectUsers(response.data)
+        })
+        .catch(err => {
+        setUserError('Unable to fetch project user roles at the moment')
+        })
       },[])
 
 const CalculatePoints = () => {
@@ -131,7 +141,7 @@ const GetMaximum = () => {
                               <div className="col-md-4">
                                   <label for="mail" className="form-label">Title *</label>
                                   <div className="input-group">
-                                  <input type="text" className="form-control" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onchange={(e) => setTitle(e.target.value)}/>
+                                  <input type="text" className="form-control" maxlength="25" id="title" placeholder="Enter the Title" defaultValue={props.backlog.title} onChange={(e) => setTitle(e.target.value)}/>
                                   </div>
                               </div>
                               <div className="col-md-4">
@@ -160,10 +170,19 @@ const GetMaximum = () => {
                             </div>
                             {/* 2nd row */}
                             <div className="row"> 
-                              <div className="col-md-4">
-                                  <label for="assignee" className="form-label">Assignee </label>
-                                  <input type="text" className="form-control" id="assignee" placeholder="Enter assignee name" defaultValue={props.backlog.assignee} onChange={(e) => setAssignee(e.target.value)}/>
-                              </div>
+                            <div className="col-md-4">
+                                <label for="assignee" className="form-label">Assignee </label>
+                                <select className="form-select border-secondary" id="inputGroupSelect02" onChange={(e) => setAssignee(e.target.value)} defaultValue={props.backlog.assignee} >
+                                        <option value="" selected hidden>{props.backlog.assignee}</option>
+                                        {
+                                        projectUsers.map(user => {
+                                            return(
+                                            <option value={user.email}>{user.email}</option>
+                                            )
+                                        })
+                                        }
+                                    </select>
+                            </div>
                               <div className="col-md-4">
                                   <label for="sprint" className="form-label">Sprint *</label>
                                   <input type="number" className="form-control" id="sprint" placeholder="Enter sprint" defaultValue={props.backlog.sprint} onChange={(e)=>setSprint(e.target.value)} min={1} max={project.totalSprints}/>
