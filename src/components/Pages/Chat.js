@@ -8,7 +8,7 @@ import Unknown_image from "../../images/Unknown.png"
 function Chat() {
     const currentProject = AuthService.getCurrentProject().projectName
 
-    const scroll = useRef()
+    const scroll = useRef(null)
     const [messages, setMessages] = useState([])
 
     const currentUsr = AuthService.getCurrentUser()
@@ -17,6 +17,10 @@ function Chat() {
             setMessages(snapshot.docs.map(doc => doc.data()))
         })
     }, [])
+
+    useEffect(() => {
+        scroll.current.scrollIntoView({behavior: 'smooth'});
+    },[messages])
     return (
         <div className='container'>
             <div className="msgs">
