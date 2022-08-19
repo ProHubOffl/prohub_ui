@@ -186,7 +186,7 @@ function Navbar(props) {
                                     projectData.map((project,index1)=>(           
                                         <Dropdown.Item id="Nav_option" key={index1} href="#" >
                                              <div className="Edit_option"><Link to={{pathname:"/project", state:{project:project}}}><span id="Edit_option"><i className="bi bi-pencil-square"></i></span></Link></div>
-                                             <div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName}</div>
+                                             <div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName.slice(0,8)}{project.projectName.length>8?"..":""}</div>
                                         </Dropdown.Item>
                                         
                                     ))
