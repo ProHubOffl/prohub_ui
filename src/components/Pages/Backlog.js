@@ -63,7 +63,7 @@ const Backlog = () => {
       createdBy: currentUser.email,
       assignee,
       status: 'TO_DO',
-      createdAt: new Date().toUTCString(),
+      createdAt: new Date().toLocaleString(),
       storyPoints: parseInt(storyPoints),
       type
     }

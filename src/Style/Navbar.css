@@ -106,10 +106,21 @@ padding: 0rem 0.5rem 1rem 0.5rem;
     background-color: rgb(255, 213, 134);
 }
 
-#Nav_option:active{
-background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
+#Nav_option:hover{
+/* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+    background: none;
 }
+#Nav_option:link{
+    /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+        background: none;
+    }
 
+#Nav_option:active{
+    /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+    background: none;
+    color: black;
+}
+    
 #btn-CreateProject{
     position: relative;
     margin-top: 4px;
@@ -144,4 +155,28 @@ background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%);
 
 #btn-CreateProject{
     position: relative;
+}
+.Edit_option{
+    float: right;
+    border-left: 0.1px solid rgba(0, 56, 71, 0.25);
+    padding-left: 10px;
+}
+#Edit_option:hover{
+    color: rgba(121, 155, 255, 0.432);
+}
+#Edit_option:active{
+    color: blue
+}
+.Text_option{
+    width: 75%;
+}
+.Text_option:active{
+    /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+    font-weight: bold;
+    color: rgba(0, 56, 71, 0.75);
+}
+.Text_option:hover{
+    /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+    font-weight: bold;
+    background: rgba(255, 166, 0, 0.521);
 }
