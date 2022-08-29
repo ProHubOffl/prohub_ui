@@ -45,7 +45,7 @@ function EditBacklog(props) {
             status: status === '' ? oldStatus :  status,
             createdAt: props.backlog.createdAt,
             storyPoints: storyPoints === '' ? parseInt(oldStoryPoints) : parseInt(storyPoints),
-            lastUpdated: new Date().toUTCString(),
+            lastUpdated: new Date().toLocaleString(),
             lastUpdatedUser: currentUser.email,
             type: type === '' ? oldType : type
         }

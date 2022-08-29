@@ -40,10 +40,20 @@
 #Nav_option_sn{
     width: inherit !important
 }
-#Nav_option_sn:active{
-    background: rgb(247, 167, 18);
+#Nav_option_sn:hover{
+    /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+        background: none;
 }
-
+#Nav_option_sn:link{
+        /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+            background: none;
+}
+#Nav_option_sn:active{
+        /* background: linear-gradient(180deg, #003847 0%, rgba(0, 56, 71, 0.75) 100%); */
+        background: none;
+        color: black;
+}
+       
 
 #notification_sn{
     height: 30px;

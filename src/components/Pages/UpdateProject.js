@@ -5,6 +5,7 @@ import UpdateUser from "./UpdateUserRole";
 import ProjectUserService from "../../service/user/ProjectUserService"
 import ProjectService from '../../service/project/ProjectService';
 import { toast, ToastContainer } from 'react-toastify';
+import {Link} from "react-router-dom";
 
 function UpdateProject({location}) {
 
@@ -150,13 +151,13 @@ function UpdateProject({location}) {
 
     return (
         <>
-            <div className="project-form" id="update-form">
+            <div className="project-form update-project-form" id="update-form">
                 <div className="modal-xl modal-box">                   
                     <form onSubmit={updateProjecthandler}>
                         <div className="modal-content" id="modal-content-box">
                             <div className="modal-header">
                                 <h3 className="modal-title fw-bolder" id="staticBackdropLabel">Update Project</h3>
-                                <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
+                                <Link to="/dashboard"><button type="button" className="btn-close" aria-label="Close" onClick={()=>{}}></button></Link>
                             </div>
                             <div className="modal-body">
                                 <div className="row">
@@ -240,7 +241,7 @@ function UpdateProject({location}) {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" onClick={handleClose}>Cancel</button>
+                            <Link to="/dashboard"><button type="button" className="btn btn-secondary fw-bolder" id="btn-project-close" onClick={()=>{}}>Cancel</button></Link>
                                 <button type="submit" className="btn btn-primary fw-bolder" id="btn-project-create" onClick={()=>{}}>Update</button>
                             </div>
                         </div>

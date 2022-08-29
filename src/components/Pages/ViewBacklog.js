@@ -35,7 +35,7 @@ function ViewBacklog(props) {
             backlogId:props.match.params.backlogId,
             comment:newComment,
             commentOwner:user.email,
-            timeStamp: new Date()
+            timeStamp: new Date().toLocaleString()
         }
         BacklogCommentService.addBacklogComment(backlogComment)
         .then(response => {

@@ -40,6 +40,10 @@
     font-weight: bold;
 }
 
+.ViewBacklog-right{
+    width: fit-content;
+}
+
 .ViewBacklog-right .header {
     display: flex;
     margin-bottom: 0.5em;
