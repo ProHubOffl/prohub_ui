@@ -46,7 +46,7 @@ const Board = () => {
                   :
                   backlogs.filter(backlog => backlog.status === 'TO_DO').map(backlog => {
                     return (
-                      <div className="board-card" id="todo">
+                      <div className="board-card" id="todo" key={backlog.backlogId}>
                         <div id="card-heading">
                           <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
                           {
@@ -86,7 +86,7 @@ const Board = () => {
                     :
                     backlogs.filter(backlog => backlog.status === 'IN_PROGRESS').map(backlog => {
                       return (
-                        <div className="board-card" id="in-progress">
+                        <div className="board-card" id="in-progress" key={backlog.backlogId}>
                           <div id="card-heading">
                             <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
                               {
@@ -126,7 +126,7 @@ const Board = () => {
                     :
                     backlogs.filter(backlog => backlog.status === 'FINISHED').map(backlog => {
                       return (
-                        <div className="board-card" id="done">
+                        <div className="board-card" id="done" key={backlog.backlogId}>
                           <div id="card-heading">
                             <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
                               {
@@ -166,7 +166,7 @@ const Board = () => {
                   :
                   backlogs.filter(backlog => backlog.status === 'APPROVED').map(backlog => {
                     return (
-                      <div className="board-card" id="approved">
+                      <div className="board-card" id="approved" key={backlog.backlogId}>
                         <div id="card-heading">
                           <span style={{color:'white',fontStyle:'bold',fontWeight:'500'}}>Sprint - {backlog.sprint}
                           {
