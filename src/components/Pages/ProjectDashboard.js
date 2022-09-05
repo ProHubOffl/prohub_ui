@@ -3,6 +3,7 @@ import AuthService from "../../service/authentication/AuthService";
 import BacklogService from '../../service/backlog/BacklogService';
 import ProjectService from '../../service/project/ProjectService';
 import ProjectUserService from '../../service/user/ProjectUserService';
+import AnnouncementService from '../../service/announcement/AnnouncementService';
 import "../../Style/ProjectDashboard.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import BurnDownChart from './BurnDownChart';
@@ -265,6 +266,14 @@ const ProjectDashboard = () => {
         DocumentService.getDocumentCountByProject(projectName)
         .then(response => {
             setDocumentCount(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+        AnnouncementService.getAnnouncementCountByProject(projectName)
+        .then(response => {
+            setAnnounceCount(response.data)
         })
         .catch(err => {
             console.log(err)
