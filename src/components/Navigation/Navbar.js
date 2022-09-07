@@ -20,6 +20,7 @@ import List from '@mui/material/List';
 import AuthService from '../../service/authentication/AuthService';
 import ProjectUserService from '../../service/user/ProjectUserService';
 import BacklogService from '../../service/backlog/BacklogService';
+import Tooltip from '@mui/material/Tooltip';
 
 const Nav = styled.nav`
     display:flex;
@@ -186,7 +187,7 @@ function Navbar(props) {
                                     projectData.map((project,index1)=>(           
                                         <Dropdown.Item id="Nav_option" key={index1} href="#" >
                                              <div className="Edit_option"><Link to={{pathname:"/project", state:{project:project}}}><span id="Edit_option"><i className="bi bi-pencil-square"></i></span></Link></div>
-                                             <div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName.slice(0,8)}{project.projectName.length>8?"..":""}</div>
+                                             <Tooltip title={project.projectName} placement="left" arrow="true"><div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName.slice(0,8)}{project.projectName.length>8?"..":""}</div></Tooltip>
                                         </Dropdown.Item>
                                         
                                     ))
