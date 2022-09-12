@@ -19,6 +19,8 @@ import Slide from '@mui/material/Slide';
 import ProjectUserService from '../../service/user/ProjectUserService';
 import Select from 'react-select';
 import BacklogService from '../../service/backlog/BacklogService'
+import Tooltip from '@mui/material/Tooltip';
+
 
 const Dropdowncontainer=styled.div`
     position: fixed;
@@ -167,7 +169,7 @@ function DropdownList(props){
                             projectData.map((project,index1)=>(           
                                 <Dropdown.Item id="Nav_option_sn"  href="#" key={index1}>
                                     <div className="Edit_option"><Link to={{pathname:"/project", state:{project:project}}}><span id="Edit_option"><i className="bi bi-pencil-square"></i></span></Link></div>
-                                    <div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName.slice(0,8)}{project.projectName.length>8?"..":""}</div>
+                                    <Tooltip title={project.projectName} placement="left" arrow="true"><div className='Text_option' onClick={()=>{setcurrentProject(project)}}>{project.projectName.slice(0,8)}{project.projectName.length>8?"..":""}</div></Tooltip>
                                 </Dropdown.Item>
                             ))
                         }
